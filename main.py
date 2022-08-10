@@ -3,7 +3,7 @@ from datetime import datetime
 import datetime as dt
 from datetime import date
 
-#import pyodbc
+import pyodbc
 import streamlit as st
 from PIL import Image
 
