@@ -121,7 +121,7 @@ array=initialize_array()
 finish = False
 
 # setting up the form page
-st.title('Dear Employee, you have been late for today"'"s attendance')
+st.title('Dear Employee, you have been late for today\'s attendance')
 options = (
     '----', 'Customer visit', 'Hospital visit', 'Vendor visit', 'Business trip', 'Personal excuse', 'Reporting late')
 selection = st.selectbox("Please choose a reason",
