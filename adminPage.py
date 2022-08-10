@@ -75,7 +75,7 @@ def set_bg_hack(main_bg):
 
 image = Image.open("OIP.jpg")
 st.image(image)
-st.title('Welcome to the admin page ')
+st.header('Welcome to the admin page ')
 radio_selection = st.sidebar.selectbox('Choose an option:', ('---','Print Reports', 'Give Exception', 'Grant Privilege'))
 if radio_selection == 'Print Reports':
     st.title('Print Reports ')
