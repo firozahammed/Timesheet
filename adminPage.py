@@ -54,8 +54,8 @@ if radio_selection == 'Print Reports':
         clm1, clm2 = st.columns(2)
         date_from = clm1.date_input('From')
         date_to = clm2.date_input('To')
-    
-        
+
+
         # Create a connection object.
         credentials = service_account.Credentials.from_service_account_info(
             st.secrets["gcp_service_account"],
@@ -75,11 +75,11 @@ if radio_selection == 'Print Reports':
 
 
         sheet_url = st.secrets["private_gsheets_url"]
-        rows = run_query(f'SELECT * FROM "{sheet_url}"')
+        rows = run_query(f'SELECT * FROM "{sheet_url}" WHERE date>?',date_from)
 
         # Print results.
         for row in rows:
-            st.write(f"{row.name} has a :{row.ID}:")
+            st.write(rows)
 
         output = BytesIO()
 
