@@ -1,4 +1,9 @@
 import csv
+import pandas as pd
+import base64
+import io
+import xlsxwriter
+from io import BytesIO
 import pyodbc
 from PIL import Image
 import streamlit as st
@@ -71,7 +76,7 @@ def set_bg_hack(main_bg):
 image = Image.open("OIP.jpg")
 st.image(image)
 st.title('Welcome to the admin page ')
-radio_selection = st.sidebar.selectbox('choose an option:', ('print reports', 'give permission', 'give privilege'))
+radio_selection = st.sidebar.selectbox('Choose an option:', ('Print Reports', 'Give Exception', 'Grant Privilege'))
 if radio_selection == 'print reports':
     select_box_choice = st.selectbox('who to print for:', ('all', 'certain employee'))
     headers = ('ID', 'name', 'date', 'customer1_visit',' customer1_name', 'customer1_country', 'customer1_location',
@@ -81,14 +86,10 @@ if radio_selection == 'print reports':
                'date_of_trip','date_of_return','personal_excuse','reporting_late')
     if select_box_choice == 'all':
         clm1, clm2 = st.columns(2)
-        date_from = clm1.date_input('from')
-        date_to = clm2.date_input('to')
+        date_from = clm1.date_input('From')
+        date_to = clm2.date_input('To')
         sheet_url = st.secrets["private_gsheets_url"]
-        import pandas as pd
-        import base64
-        import io
-        import xlsxwriter
-        from io import BytesIO
+
 
         output = BytesIO()
 
@@ -96,13 +97,8 @@ if radio_selection == 'print reports':
         # See: https://xlsxwriter.readthedocs.io/workbook.html?highlight=BytesIO#constructor
         workbook = xlsxwriter.Workbook(output, {'in_memory': True})
         worksheet = workbook.add_worksheet()
-
         worksheet.write('A1', 'Hello')
         workbook.close()
 if date_to:
-    download_button=st.download_button(
-        label="Download Excel workbook",
-        data=output.getvalue(),
-        file_name="workbook.xlsx",
-        mime="application/vnd.ms-excel"
-    )
+      download_button=st.download_button(label="Download Excel workbook",data=output.getvalue(),file_name="workbook.xlsx",mime="application/vnd.ms-excel")
+
