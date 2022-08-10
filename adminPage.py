@@ -76,15 +76,15 @@ def set_bg_hack(main_bg):
 image = Image.open("OIP.jpg")
 st.image(image)
 st.title('Welcome to the admin page ')
-radio_selection = st.sidebar.selectbox('Choose an option:', ('Print Reports', 'Give Exception', 'Grant Privilege'))
+radio_selection = st.sidebar.selectbox('Choose an option:', ('---','Print Reports', 'Give Exception', 'Grant Privilege'))
 if radio_selection == 'Print Reports':
-    select_box_choice = st.selectbox('who to print for:', ('all', 'certain employee'))
+    select_box_choice = st.selectbox('Print for:', ('--','All', 'Specific Employee'))
     headers = ('ID', 'name', 'date', 'customer1_visit',' customer1_name', 'customer1_country', 'customer1_location',
                'customer2_visit','customer2_name','customer2_country','customer2_location','customer3_visit',
                'customer3_name','customer3_country','customer3_location','hospital_visit','hospital_location',
                'vendor1_visit','vendor1_name','vendor2_visit','vendor2_name','business_trip_country','trip_location',
                'date_of_trip','date_of_return','personal_excuse','reporting_late')
-    if select_box_choice == 'all':
+    if select_box_choice == 'All':
         clm1, clm2 = st.columns(2)
         date_from = clm1.date_input('From')
         date_to = clm2.date_input('To')
