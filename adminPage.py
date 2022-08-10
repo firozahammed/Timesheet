@@ -87,15 +87,37 @@ if radio_selection == 'print reports':
         import pandas as pd
         import base64
         import io
+        import xlsxwriter
+        from io import BytesIO
+
         download_button=clm1.button('download report')
         if download_button:
-            df = pd.DataFrame(vals, columns=["ID",'name','date','total hours','total office hours','customer1_visit','customer1_name','customer1_country','customer1_location','customer2_visit','customer2_name','customer2_country','customer2_location','customer3_visit','customer3_name','customer3_country','customer3_location','hospital_visit','hospital_location','vendor1_visit','vendor1_name','vendor2_visit','vendor2_name','business_trip_country','trip_location','date_of_trip','date_of_return','personal_excuse',"reporting_late"])
-            towrite = io.BytesIO()
-            downloaded_file = df.to_excel(towrite, encoding='utf-8', index=False, header=True)
-            towrite.seek(0)  # reset pointer
-            b64 = base64.b64encode(towrite.read()).decode()  # some strings
-            linko = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="myfilename.xlsx">Download excel file</a>'
-            st.markdown(linko, unsafe_allow_html=True)
+
+
+            output = BytesIO()
+
+            # Write files to in-memory strings using BytesIO
+            # See: https://xlsxwriter.readthedocs.io/workbook.html?highlight=BytesIO#constructor
+            workbook = xlsxwriter.Workbook(output, {'in_memory': True})
+            worksheet = workbook.add_worksheet()
+
+            worksheet.write('A1', 'Hello')
+            workbook.close()
+
+            st.download_button(
+                label="Download Excel workbook",
+                data=output.getvalue(),
+                file_name="workbook.xlsx",
+                mime="application/vnd.ms-excel"
+            )
+
+          #  df = pd.DataFrame(vals, columns=["ID",'name','date','total hours','total office hours','customer1_visit','customer1_name','customer1_country','customer1_location','customer2_visit','customer2_name','customer2_country','customer2_location','customer3_visit','customer3_name','customer3_country','customer3_location','hospital_visit','hospital_location','vendor1_visit','vendor1_name','vendor2_visit','vendor2_name','business_trip_country','trip_location','date_of_trip','date_of_return','personal_excuse',"reporting_late"])
+           # towrite = io.BytesIO()
+           # downloaded_file = df.to_excel(towrite, encoding='utf-8', index=False, header=True)
+           # towrite.seek(0)  # reset pointer
+            #b64 = base64.b64encode(towrite.read()).decode()  # some strings
+            #linko = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="myfilename.xlsx">Download excel file</a>'
+            #st.markdown(linko, unsafe_allow_html=True)
     elif select_box_choice == 'certain employee':
         clm1, clm2, clm3, clm4 = st.columns(4)
         ID = clm1.text_input('enter employee ID:')
