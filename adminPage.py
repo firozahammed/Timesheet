@@ -99,7 +99,7 @@ if radio_selection == 'print reports':
 
         worksheet.write('A1', 'Hello')
         workbook.close()
-
+  if date_to:
     download_button=st.download_button(
         label="Download Excel workbook",
         data=output.getvalue(),
