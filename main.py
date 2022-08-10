@@ -7,27 +7,24 @@ import pyodbc
 import streamlit as st
 from PIL import Image
 
+# streamlit_app.py
 
-def init_connection():
-    return pyodbc.connect(
-        "DRIVER={ODBC Driver 17 for SQL Server};SERVER="
-        + st.secrets["server"]
-        + ";DATABASE="
-        + st.secrets["database"]
-        + ";UID="
-        + st.secrets["username"]
-        + ";PWD="
-        + st.secrets["password"]
-    )
+import streamlit as st
+from google.oauth2 import service_account
+from gsheetsdb import connect
 
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
 
-@st.experimental_memo(ttl=600)
-def run_query(query):
-    with conn.cursor() as cur:
-        cur.execute(query)
-        return cur.fetchall()
+scopes = ['https://www.googleapis.com/auth/spreadsheets','https://www.googleapis.com/auth/drive']
 
+creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
 
+file = gspread.authorize(creds)
+workbook = file.open("Timesheet")
+sheet = workbook.sheet1
+
+sheet_url = st.secrets["private_gsheets_url"]
 # this function is called when saving response of a customer visit
 def insert_client(mysum, client_name_1, loc1, country1, mysum2, client_name_2, loc2, country2, mysum3, client_name_3,
                   loc3, country3):
@@ -62,12 +59,20 @@ def insert_business_trip(country, location, date_from, date_to):
 
 
 # this function is called to initialize the responses array and @st.cache insures its called only once
-@st.cache(allow_output_mutation=True)
+@st.experimental_singleton()
 def initialize_array():
     array = ['-'] * 29
     array[0] = ""
     array[1] = ""
-    array[2] = date.today()
+    array[2] = str(date.today())
+    return array
+
+@st.cache(allow_output_mutation=True)
+def reinitialize_array(array):
+    new_array = ['-'] * 29
+    new_array[0] = ""
+    new_array[1] = ""
+    new_array[2] = str(date.today())
     return array
 
 
@@ -111,8 +116,7 @@ def set_bg_hack(main_bg):
 
 image = Image.open("OIP.jpg")
 st.image(image)
-array = initialize_array()
-
+array=initialize_array()
 # a flag to be used later for finishing execution
 finish = False
 
@@ -297,21 +301,8 @@ elif selection == 'Reporting late':
         array[28] = mysum
         finish = True
 if finish is True:  # if save/exit button was pressed the code comes here
-
-    conn = init_connection()
-    cur = conn.cursor()
     dates = str(f"{datetime.now():%Y-%m-%d}")
-    cur.execute(
-        "INSERT into attendance(ID,name,date,customer1_visit,customer1_name,customer1_country,customer1_location,"
-        "customer2_visit,customer2_name,customer2_country,customer2_location,customer3_visit,"
-        "customer3_name,customer3_country,customer3_location,hospital_visit,hospital_location,"
-        "vendor1_visit,vendor1_name,vendor2_visit,vendor2_name,business_trip_country,trip_location,"
-        "date_of_trip,date_of_return,personal_excuse,reporting_late) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,"
-        "?,?,?,?,?,?,?,?,?,?,?,?,?)",
-        ('118', 'Khalil', dates, array[5], array[6], array[7], array[8], array[9],
-         array[10], array[11], array[12], array[13], array[14], array[15],
-         array[16], array[17], array[18], array[19], array[20], array[21],
-         array[22], array[23], array[24], array[25], array[26], array[27], array[28]))
-    cur.commit()
+    sheet.append_row(array)
+    st.experimental_singleton.clear()
     st.success('response saved, you can now exit the form')
     st.stop()

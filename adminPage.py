@@ -4,32 +4,42 @@ from PIL import Image
 import streamlit as st
 import base64
 import datetime
+import streamlit as st
+from google.oauth2 import service_account
+from gsheetsdb import connect
 
-def init_connection():
-    return pyodbc.connect(
-        "DRIVER={ODBC Driver 17 for SQL Server};SERVER="
-        + st.secrets["server"]
-        + ";DATABASE="
-        + st.secrets["database"]
-        + ";UID="
-        + st.secrets["username"]
-        + ";PWD="
-        + st.secrets["password"]
-    )
+def fetch_data(date_from,date_to,rows):
+    with open('report ' + str(date_from) + ' ' + str(date_to) + '.csv', 'a') as f:
+        # using csv.writer method from CSV package
+        dw = csv.DictWriter(f, delimiter=',',
+                            fieldnames=headers)
+        dw.writeheader()
+        for row in rows:
+            write = csv.writer(f)
+            write.writerow(row)
 
 
-@st.experimental_memo(ttl=600)
-def run_query(query):
-    with conn.cursor() as cur:
-        cur.execute(query)
-        return cur.fetchall()
 
+
+
+# Create a connection object.
+credentials = service_account.Credentials.from_service_account_info(
+    st.secrets["gcp_service_account"],
+    scopes=["https://www.googleapis.com/auth/spreadsheets",],)
+conn = connect(credentials=credentials)
 
 def type_to_csv(array):
     with open('permissions.csv', 'a') as f:
         # using csv.writer method from CSV package
         write = csv.writer(f)
         write.writerow(array)
+
+
+@st.cache(ttl=600)
+def run_query(query):
+    rows = conn.execute(query, headers=1)
+    rows = rows.fetchall()
+    return rows
 
 
 def set_bg_hack(main_bg):
@@ -73,21 +83,18 @@ if radio_selection == 'print reports':
         clm1, clm2 = st.columns(2)
         date_from = clm1.date_input('from')
         date_to = clm2.date_input('to')
-        download_button = clm1.button('download report')
+        sheet_url = st.secrets["private_gsheets_url"]
+        import pandas as pd
+        import base64
+        import io
+        download_button=clm1.button('downlaod report', f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="myfilename.xlsx">Download excel file</a>')
         if download_button:
-            conn = init_connection()
-            cur = conn.cursor()
-            result = cur.execute('select * from attendance where date >= ? AND date <= ?', date_from, date_to)
-            rows = result.fetchall()
-            with open('report '+str(date_from)+' '+str(date_to)+'.csv', 'a') as f:
-                # using csv.writer method from CSV package
-                dw = csv.DictWriter(f, delimiter=',',
-                                    fieldnames=headers)
-                dw.writeheader()
-                for row in rows:
-                    write = csv.writer(f)
-                    write.writerow(row)
-            st.success('report downloaded!')
+            df = pd.DataFrame(vals, columns=["ID",'name','date','total hours','total office hours','customer1_visit','customer1_name','customer1_country','customer1_location','customer2_visit','customer2_name','customer2_country','customer2_location','customer3_visit','customer3_name','customer3_country','customer3_location','hospital_visit','hospital_location','vendor1_visit','vendor1_name','vendor2_visit','vendor2_name','business_trip_country','trip_location','date_of_trip','date_of_return','personal_excuse',"reporting_late"])
+            towrite = io.BytesIO()
+            downloaded_file = df.to_excel(towrite, encoding='utf-8', index=False, header=True)
+            towrite.seek(0)  # reset pointer
+            b64 = base64.b64encode(towrite.read()).decode()  # some strings
+            st.markdown(linko, unsafe_allow_html=True)
     elif select_box_choice == 'certain employee':
         clm1, clm2, clm3, clm4 = st.columns(4)
         ID = clm1.text_input('enter employee ID:')
