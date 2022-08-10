@@ -287,7 +287,7 @@ elif selection == 'Personal excuse':
         finish = True
 
 elif selection == 'Reporting late':
-    clm1, clm2, clm3 = st.columns(3)
+    clm2, clm3 = st.columns(2)
     start_time1 = str(clm2.time_input('from:', datetime.now(), 1))
     end_time1 = str(clm3.time_input('to:', datetime.now(), 1))
     save_add_button = clm2.button('save/add')
