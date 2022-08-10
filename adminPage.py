@@ -80,7 +80,7 @@ if radio_selection == 'print reports':
                'vendor1_visit','vendor1_name','vendor2_visit','vendor2_name','business_trip_country','trip_location',
                'date_of_trip','date_of_return','personal_excuse','reporting_late')
     if select_box_choice == 'all':
-        clm1, clm2 = st.columns(4)
+        clm1, clm2, clm3,clm4 = st.columns(4)
         date_from = clm1.date_input('from')
         date_to = clm2.date_input('to')
         sheet_url = st.secrets["private_gsheets_url"]
