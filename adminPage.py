@@ -94,7 +94,7 @@ if radio_selection == 'print reports':
             downloaded_file = df.to_excel(towrite, encoding='utf-8', index=False, header=True)
             towrite.seek(0)  # reset pointer
             b64 = base64.b64encode(towrite.read()).decode()  # some strings
-            #linko = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="myfilename.xlsx">Download excel file</a>'
+            linko = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="myfilename.xlsx">Download excel file</a>'
             st.markdown(linko, unsafe_allow_html=True)
     elif select_box_choice == 'certain employee':
         clm1, clm2, clm3, clm4 = st.columns(4)
