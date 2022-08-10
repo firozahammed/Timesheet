@@ -90,26 +90,18 @@ if radio_selection == 'print reports':
         import xlsxwriter
         from io import BytesIO
 
-        download_button=clm1.button('download report')
+        output = BytesIO()
+
+        # Write files to in-memory strings using BytesIO
+        # See: https://xlsxwriter.readthedocs.io/workbook.html?highlight=BytesIO#constructor
+        workbook = xlsxwriter.Workbook(output, {'in_memory': True})
+        worksheet = workbook.add_worksheet()
+
+        worksheet.write('A1', 'Hello')
+        workbook.close()
+
+        download_button=clm1.button(label="Download Excel workbook",data=output.getvalue(),file_name="workbook.xlsx",mime="application/vnd.ms-excel")
         if download_button:
-
-
-            output = BytesIO()
-
-            # Write files to in-memory strings using BytesIO
-            # See: https://xlsxwriter.readthedocs.io/workbook.html?highlight=BytesIO#constructor
-            workbook = xlsxwriter.Workbook(output, {'in_memory': True})
-            worksheet = workbook.add_worksheet()
-
-            worksheet.write('A1', 'Hello')
-            workbook.close()
-
-            st.download_button(
-                label="Download Excel workbook",
-                data=output.getvalue(),
-                file_name="workbook.xlsx",
-                mime="application/vnd.ms-excel"
-            )
 
           #  df = pd.DataFrame(vals, columns=["ID",'name','date','total hours','total office hours','customer1_visit','customer1_name','customer1_country','customer1_location','customer2_visit','customer2_name','customer2_country','customer2_location','customer3_visit','customer3_name','customer3_country','customer3_location','hospital_visit','hospital_location','vendor1_visit','vendor1_name','vendor2_visit','vendor2_name','business_trip_country','trip_location','date_of_trip','date_of_return','personal_excuse',"reporting_late"])
            # towrite = io.BytesIO()
