@@ -78,6 +78,7 @@ st.image(image)
 st.title('Welcome to the admin page ')
 radio_selection = st.sidebar.selectbox('Choose an option:', ('---','Print Reports', 'Give Exception', 'Grant Privilege'))
 if radio_selection == 'Print Reports':
+    st.title('Print Reports ')
     select_box_choice = st.selectbox('Print for:', ('--','All', 'Specific Employee'))
     headers = ('ID', 'name', 'date', 'customer1_visit',' customer1_name', 'customer1_country', 'customer1_location',
                'customer2_visit','customer2_name','customer2_country','customer2_location','customer3_visit',
