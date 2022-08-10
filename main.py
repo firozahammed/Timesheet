@@ -124,7 +124,7 @@ finish = False
 st.title('specify all late reasons below')
 options = (
     '----', 'Customer visit', 'Hospital visit', 'Vendor visit', 'Business trip', 'Personal excuse', 'Reporting late')
-selection = st.selectbox("Dear NA u have been late for today's attendance for '00:00', please choose a reason",
+selection = st.selectbox("Dear Employee, you have been late for today's attendance. Please choose a reason",
                          options)
 
 # these if statements are for setting up the form selection box
