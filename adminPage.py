@@ -99,6 +99,5 @@ if radio_selection == 'Print Reports':
         worksheet = workbook.add_worksheet()
         worksheet.write('A1', 'Hello')
         workbook.close()
-    if date_to !="":    
-        download_button=st.download_button(label="Download Excel workbook",data=output.getvalue(),file_name="workbook.xlsx",mime="application/vnd.ms-excel")
+        download_button=st.download_button(label="Download Report",data=output.getvalue(),file_name="workbook.xlsx",mime="application/vnd.ms-excel")
 
