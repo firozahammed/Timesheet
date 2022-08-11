@@ -73,16 +73,11 @@ if radio_selection == 'Print Reports':
             rows = rows.fetchall()
             return rows
 
-        customer_name=["Ali"]
+        #customer_name=["Ali"]
         sheet_url = st.secrets["private_gsheets_url"]
         #rows = run_query(f'SELECT * FROM "{sheet_url}" WHERE ID={id_num}')
         #rows = run_query(f'SELECT * FROM "{sheet_url}" WHERE name={customer_name}')
-        df = pd.DataFrame(headers, columns=['ID', 'name', 'date', 'customer1_visit',' customer1_name', 'customer1_country', 'customer1_location',
-               'customer2_visit','customer2_name','customer2_country','customer2_location','customer3_visit',
-               'customer3_name','customer3_country','customer3_location','hospital_visit','hospital_location',
-               'vendor1_visit','vendor1_name','vendor2_visit','vendor2_name','business_trip_country','trip_location',
-               'date_of_trip','date_of_return','personal_excuse','reporting_late'])
-        df
+        rows = run_query(df[df['name'].str.contains('Ali')])
         #Print results.
         for row in rows:
             st.write(rows)
