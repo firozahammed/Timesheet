@@ -73,9 +73,9 @@ if radio_selection == 'Print Reports':
             rows = rows.fetchall()
             return rows
 
-
+        id_num=123
         sheet_url = st.secrets["private_gsheets_url"]
-        rows = run_query(f'SELECT * FROM "{sheet_url}" WHERE ID=222')
+        rows = run_query(f'SELECT * FROM "{sheet_url}" WHERE ID={id_num}')
 
         # Print results.
         for row in rows:
