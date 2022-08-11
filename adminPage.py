@@ -73,10 +73,10 @@ if radio_selection == 'Print Reports':
             rows = rows.fetchall()
             return rows
 
-        id_num="Afaq"
+        customer_name="1122"
         sheet_url = st.secrets["private_gsheets_url"]
         #rows = run_query(f'SELECT * FROM "{sheet_url}" WHERE ID={id_num}')
-        rows = run_query(f'SELECT * FROM "{sheet_url}" WHERE vendor1_name={id_num}')
+        rows = run_query(f'SELECT * FROM "{sheet_url}" WHERE vendor1_name={customer_name}')
         # Print results.
         for row in rows:
             st.write(rows)
