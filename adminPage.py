@@ -73,7 +73,7 @@ if radio_selection == 'Print Reports':
         sheet = workbook.sheet1
         sheet_url = st.secrets["private_gsheets_url"]
         df = pd.DataFrame(sheet.get_all_records())
-        df.loc[(df['date'] >= date_from) & (df['date'] <= date_to)]
+        df = df.loc[(df['date'] >= date_from) & (df['date'] <= date_to)]
 
         towrite = io.BytesIO()
         with pd.ExcelWriter(towrite,engine='xlsxwriter') as writer:
