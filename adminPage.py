@@ -92,7 +92,7 @@ if radio_selection == 'Print Reports':
         sh=gs.service_account(filename='secret.json').open_by_url('https://docs.google.com/spreadsheets/d/1xNIIeQKEoM7CpFlFDIApSFv5EUUL7mKQqEoBquhusFk/edit#gid=0')
         workbook = sh.worksheet('Sheet1')
         df=pd.DataFrame(workbook.get_all_records())
-        df.head()
+        #df.head()
         print(df)
 
 
