@@ -70,17 +70,17 @@ if radio_selection == 'Print Reports':
 
         towrite = io.BytesIO()
         with pd.ExcelWriter(towrite,engine='xlsxwriter') as writer:
-            df.to_excel(writer,sheet_name='Sheet1')
+            df.to_excel(writer,sheet_name='Sheet1',index=False)
             writer.save()
 
         download_button=st.download_button(label="Download Report",data=towrite,file_name="Report_"+date_from+".xlsx",mime="application/vnd.ms-excel")
 
     if select_box_choice == 'Specific Employee':
-        clm1, clm2, clm3, clm4 = st.columns(4)
+        clm1, clm2, clm3 = st.columns(3)
         ID = clm1.text_input('Enter employee ID:')
-        name = clm2.text_input(label="", value="", disabled=True)
-        date_from = clm3.date_input('From').strftime("%Y-%m-%d")
-        date_to = clm4.date_input('To').strftime("%Y-%m-%d")
+        #name = clm2.text_input(label="", value="", disabled=True)
+        date_from = clm2.date_input('From').strftime("%Y-%m-%d")
+        date_to = clm3.date_input('To').strftime("%Y-%m-%d")
 
         scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
         creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
@@ -93,7 +93,7 @@ if radio_selection == 'Print Reports':
 
         towrite = io.BytesIO()
         with pd.ExcelWriter(towrite, engine='xlsxwriter') as writer:
-            df.to_excel(writer, sheet_name='Sheet1')
+            df.to_excel(writer, sheet_name='Sheet1',index=False)
             writer.save()
 
         download_button = st.download_button(label="Download Report", data=towrite,
