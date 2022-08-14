@@ -7,7 +7,6 @@ from io import BytesIO
 import pyodbc
 from PIL import Image
 import streamlit as st
-from streamlit_option_menu import option_menu
 import base64
 import datetime
 import streamlit as st
@@ -47,8 +46,7 @@ image = Image.open("OIP.jpg")
 st.image(image)
 
 
-with st.sidebar:
-    selected=option_menu(menu_title=None,options=["Home","Reports"])
+tab1,tab2=st.tabs(["Home","Reports"])
 
 
 #radio_selection = st.sidebar.selectbox('Choose an option:', ('---','Print Reports', 'Give Exception'))
