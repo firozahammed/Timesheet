@@ -104,7 +104,7 @@ if radio_selection == 'Print Reports':
 elif radio_selection == 'Give Exception':
     col1, col2 = st.columns(2)
     ID = col1.text_input('Enter employee ID: ')
-    name = col2.text_input(label="", value="name of ID", disabled=True)
+    name = col2.text_input(label="", value="")
     options = ('Customer site', 'Medical excuse', 'Vacation')
     selection = st.selectbox("please choose a reason",
                              options)
