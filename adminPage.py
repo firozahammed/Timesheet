@@ -90,10 +90,8 @@ if radio_selection == 'Print Reports':
 
         #creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
         sh=gs.service_account(filename='secret.json').open_by_url('https://docs.google.com/spreadsheets/d/1xNIIeQKEoM7CpFlFDIApSFv5EUUL7mKQqEoBquhusFk/edit#gid=0')
-        file = gspread.authorize(creds)
-        workbook = file.open("Timesheet")
-        sheet = workbook.sheet1
-        df=pd.DataFrame(sheet.get_all_records())
+        workbook = sh.worksheet('Timesheet')
+        df=pd.DataFrame(workbook.get_all_records())
         df.head()
         print(df)
 
