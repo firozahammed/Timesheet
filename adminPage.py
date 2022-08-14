@@ -46,12 +46,12 @@ image = Image.open("OIP.jpg")
 st.image(image)
 
 st.markdown("Main Page")
-
+st
 
 
 #radio_selection = st.sidebar.selectbox('Choose an option:', ('---','Print Reports', 'Give Exception'))
 #if radio_selection == 'Print Reports':
-if selected == 'Print Reports':
+#if selected == 'Print Reports':
     st.title('Print Reports ')
     select_box_choice = st.selectbox('Print for:', ('--','All', 'Specific Employee'))
     headers = ('ID', 'name', 'date', 'customer1_visit',' customer1_name', 'customer1_country', 'customer1_location',
