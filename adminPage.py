@@ -14,6 +14,8 @@ from google.oauth2 import service_account
 from gsheetsdb import connect
 import gspread as gs
 from datetime import datetime
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
 def set_bg_hack(main_bg):
     '''
     A function to unpack an image from root folder and set as bg.
@@ -56,39 +58,13 @@ if radio_selection == 'Print Reports':
 
         date_from = clm1.date_input('From').strftime("%Y-%m-%d")
         date_to = clm2.date_input('To').strftime("%Y-%m-%d")
-        
+
         #date_from = datetime.strptime(clm1.date_input('From'),'%Y-%m-%d')
         #date_to = datetime.strptime(clm2.date_input('To'),'%Y-%m-%d')
 
 
-        # Create a connection object.
-        #credentials = service_account.Credentials.from_service_account_info(
-         #   st.secrets["gcp_service_account"],
-          #  scopes=[
-           #     "https://www.googleapis.com/auth/spreadsheets",
-           # ],
-        #)
-        #conn = connect(credentials=credentials)
 
-        # Perform SQL query on the Google Sheet.
-        # Uses st.cache to only rerun when the query changes or after 10 min.
-        #@st.cache(ttl=600)
-        #def run_query(query):
-         #   rows = conn.execute(query, headers=1)
-          #  rows = rows.fetchall()
-           # return rows
 
-        #customer_name='Ali'
-
-       # sheet_url = st.secrets["private_gsheets_url"]
-        #rows = run_query(f'SELECT * FROM "{sheet_url}" WHERE ID={id_num}')
-        #rows = run_query(f'SELECT * FROM "{sheet_url}" WHERE name={customer_name}')
-        #Print results.
-        #for row in rows:
-        #    st.write(rows)
-
-        import gspread
-        from oauth2client.service_account import ServiceAccountCredentials
 
         scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
         creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
@@ -96,11 +72,6 @@ if radio_selection == 'Print Reports':
         workbook = file.open("Timesheet")
         sheet = workbook.sheet1
         sheet_url = st.secrets["private_gsheets_url"]
-
-        #sh=gs.service_account(filename='secret.json').open_by_url('https://docs.google.com/spreadsheets/d/1xNIIeQKEoM7CpFlFDIApSFv5EUUL7mKQqEoBquhusFk/edit#gid=0')
-        #workbook = sh.worksheet('Sheet1')
-        #df=pd.DataFrame(workbook.get_all_records())
-        #df.head()
         df = pd.DataFrame(sheet.get_all_records())
         df.loc[(df['date'] >= date_from) & (df['date'] <= date_to)]
 
@@ -110,9 +81,9 @@ if radio_selection == 'Print Reports':
 
         # Write files to in-memory strings using BytesIO
         # See: https://xlsxwriter.readthedocs.io/workbook.html?highlight=BytesIO#constructor
-        workbook = xlsxwriter.Workbook(output, {'in_memory': True})
+        workbook = xlsxwriter.Workbook(df, {'in_memory': True})
         worksheet = workbook.add_worksheet()
-        worksheet.write('A1', 'Hello')
+        worksheet.write(df)
         workbook.close()
-        download_button=st.download_button(label="Download Report",data=output.getvalue(),file_name="workbook.xlsx",mime="application/vnd.ms-excel")
+        download_button=st.download_button(label="Download Report",data=df,file_name="workbook.xlsx",mime="application/vnd.ms-excel")
 
