@@ -94,7 +94,7 @@ if radio_selection == 'Print Reports':
         workbook = file.open("Timesheet")
         sheet = workbook.sheet1
         df=pd.DataFrame(sheet.get_all_records())
-        print(df)
+        
 
 
         output = BytesIO()
