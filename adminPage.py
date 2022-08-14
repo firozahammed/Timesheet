@@ -89,7 +89,7 @@ if radio_selection == 'Print Reports':
         scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
 
         #creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
-        sh=gs.service_account(filename='secret.json').open('https://docs.google.com/spreadsheets/d/1xNIIeQKEoM7CpFlFDIApSFv5EUUL7mKQqEoBquhusFk/edit#gid=0')
+        sh=gs.service_account(filename='secret.json').open_by_url('https://docs.google.com/spreadsheets/d/1xNIIeQKEoM7CpFlFDIApSFv5EUUL7mKQqEoBquhusFk/edit#gid=0')
         file = gspread.authorize(creds)
         workbook = file.open("Timesheet")
         sheet = workbook.sheet1
