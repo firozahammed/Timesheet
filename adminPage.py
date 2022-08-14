@@ -102,6 +102,7 @@ if radio_selection == 'Print Reports':
 
 
 elif radio_selection == 'Give Exception':
+    st.title('Give Exception ')
     col1, col2 = st.columns(2)
     ID = col1.text_input('Enter employee ID: ')
     #name = col2.text_input(label="", value="name of ID", disabled=True)
@@ -129,8 +130,8 @@ elif radio_selection == 'Give Exception':
     elif selection == 'Medical excuse':
         clm1, clm2, clm3 = st.columns(3)
         hospital_name = clm1.text_input('Hospital name: ')
-        start_time = clm2.date_input('from:')
-        end_time = clm3.date_input('to:')
+        start_time = clm2.date_input('From:')
+        end_time = clm3.date_input('To:')
         save_add_button = clm1.button('save/add')
         if save_add_button:
             array = [ID, name, selection, hospital_name, start_time, end_time]
@@ -144,8 +145,8 @@ elif radio_selection == 'Give Exception':
             st.stop()
     elif selection == 'Vacation':
         clm1, clm2 = st.columns(2)
-        start_time = clm1.date_input('from:')
-        end_time = clm2.date_input('to:')
+        start_time = clm1.date_input('From:')
+        end_time = clm2.date_input('To:')
         save_add_button = clm1.button('save/add')
         if save_add_button:
             array = [ID, name, selection, start_time, end_time]
