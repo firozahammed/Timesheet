@@ -77,7 +77,7 @@ if radio_selection == 'Print Reports':
 
     if select_box_choice == 'Specific Employee':
         clm1, clm2, clm3 = st.columns(3)
-        ID = clm1.number_input('Enter employee ID:')
+        ID = clm1.text_input('Enter employee ID:')
         #name = clm2.text_input(label="", value="", disabled=True)
         date_from = clm2.date_input('From').strftime("%Y-%m-%d")
         date_to = clm3.date_input('To').strftime("%Y-%m-%d")
@@ -89,7 +89,7 @@ if radio_selection == 'Print Reports':
         sheet = workbook.sheet1
         sheet_url = st.secrets["private_gsheets_url"]
         df = pd.DataFrame(sheet.get_all_records())
-        df = df.loc[(df['date'] >= date_from) & (df['date'] <= date_to) & (df['ID'] == ID) ]
+        df = df.loc[(df['date'] >= date_from) & (df['date'] <= date_to) & (df['ID'].astype(str) == ID) ]
 
         towrite = io.BytesIO()
         with pd.ExcelWriter(towrite, engine='xlsxwriter') as writer:
