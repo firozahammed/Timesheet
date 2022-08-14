@@ -12,6 +12,7 @@ import datetime
 import streamlit as st
 from google.oauth2 import service_account
 from gsheetsdb import connect
+import gspread as gs
 
 def set_bg_hack(main_bg):
     '''
@@ -57,30 +58,44 @@ if radio_selection == 'Print Reports':
 
 
         # Create a connection object.
-        credentials = service_account.Credentials.from_service_account_info(
-            st.secrets["gcp_service_account"],
-            scopes=[
-                "https://www.googleapis.com/auth/spreadsheets",
-            ],
-        )
-        conn = connect(credentials=credentials)
+        #credentials = service_account.Credentials.from_service_account_info(
+         #   st.secrets["gcp_service_account"],
+          #  scopes=[
+           #     "https://www.googleapis.com/auth/spreadsheets",
+           # ],
+        #)
+        #conn = connect(credentials=credentials)
 
         # Perform SQL query on the Google Sheet.
         # Uses st.cache to only rerun when the query changes or after 10 min.
-        @st.cache(ttl=600)
-        def run_query(query):
-            rows = conn.execute(query, headers=1)
-            rows = rows.fetchall()
-            return rows
+        #@st.cache(ttl=600)
+        #def run_query(query):
+         #   rows = conn.execute(query, headers=1)
+          #  rows = rows.fetchall()
+           # return rows
 
-        customer_name='Ali'
-        
-        sheet_url = st.secrets["private_gsheets_url"]
+        #customer_name='Ali'
+
+       # sheet_url = st.secrets["private_gsheets_url"]
         #rows = run_query(f'SELECT * FROM "{sheet_url}" WHERE ID={id_num}')
-        rows = run_query(f'SELECT * FROM "{sheet_url}" WHERE name={customer_name}')
+        #rows = run_query(f'SELECT * FROM "{sheet_url}" WHERE name={customer_name}')
         #Print results.
-        for row in rows:
-            st.write(rows)
+        #for row in rows:
+        #    st.write(rows)
+
+        import gspread
+        from oauth2client.service_account import ServiceAccountCredentials
+
+        scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
+
+        creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
+
+        file = gspread.authorize(creds)
+        workbook = file.open("Timesheet")
+        sheet = workbook.sheet1
+        df=pd.DataFrame(sheet.get_all_records())
+       print(df)
+            
 
         output = BytesIO()
 
