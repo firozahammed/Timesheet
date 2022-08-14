@@ -7,6 +7,7 @@ from io import BytesIO
 import pyodbc
 from PIL import Image
 import streamlit as st
+from streamlit_option_menu import option_menu
 import base64
 import datetime
 import streamlit as st
