@@ -53,8 +53,12 @@ if radio_selection == 'Print Reports':
                'date_of_trip','date_of_return','personal_excuse','reporting_late')
     if select_box_choice == 'All':
         clm1, clm2 = st.columns(2)
-        date_from = datetime.strptime(clm1.date_input('From'),'%Y-%m-%d')
-        date_to = datetime.strptime(clm2.date_input('To'),'%Y-%m-%d')
+
+        date_from = clm1.date_input('From').strftime("%Y-%m-%d")
+        date_to = clm2.date_input('To').strftime("%Y-%m-%d")
+        
+        #date_from = datetime.strptime(clm1.date_input('From'),'%Y-%m-%d')
+        #date_to = datetime.strptime(clm2.date_input('To'),'%Y-%m-%d')
 
 
         # Create a connection object.
