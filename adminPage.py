@@ -99,7 +99,7 @@ if radio_selection == 'Print Reports':
         #df.head()
         df = pd.DataFrame(sheet.get_all_records())
         df.loc[df['date'] > '2022-08-09']
-        df
+        
 
 
         output = BytesIO()
