@@ -98,7 +98,7 @@ if radio_selection == 'Print Reports':
         #df=pd.DataFrame(workbook.get_all_records())
         #df.head()
         df = pd.DataFrame(sheet.get_all_records())
-        df.loc[df['date'] > '2022-08-09']
+        #df.loc[df['date'] > '2022-08-09']
         
 
 
