@@ -93,7 +93,7 @@ if radio_selection == 'Print Reports':
         workbook = sh.worksheet('Sheet1')
         df=pd.DataFrame(workbook.get_all_records())
         #df.head()
-        print(df)
+        df
 
 
         output = BytesIO()
