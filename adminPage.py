@@ -53,8 +53,8 @@ if radio_selection == 'Print Reports':
                'date_of_trip','date_of_return','personal_excuse','reporting_late')
     if select_box_choice == 'All':
         clm1, clm2 = st.columns(2)
-        date_from = clm1.date_input('From')
-        date_to = clm2.date_input('To')
+        date_from = pd.to_datetime(clm1.date_input('From')).date()
+        date_to = pd.to_datetime(clm2.date_input('To')).date()
 
 
         # Create a connection object.
@@ -99,7 +99,7 @@ if radio_selection == 'Print Reports':
         #df.head()
         df = pd.DataFrame(sheet.get_all_records())
         df.loc[(df['date'] >= date_from) & (df['date'] <= date_to)]
-        
+
 
 
         output = BytesIO()
