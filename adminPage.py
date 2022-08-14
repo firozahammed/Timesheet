@@ -77,7 +77,7 @@ if radio_selection == 'Print Reports':
 
 
 
-        output = BytesIO()
+        #output = BytesIO()
 
         # Write files to in-memory strings using BytesIO
         # See: https://xlsxwriter.readthedocs.io/workbook.html?highlight=BytesIO#constructor
