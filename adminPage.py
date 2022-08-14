@@ -77,7 +77,7 @@ if radio_selection == 'Print Reports':
 
     if select_box_choice == 'Specific Employee':
         clm1, clm2, clm3 = st.columns(3)
-        ID = clm1.text_input('Enter employee ID:')
+        ID = clm1.number_input('Enter employee ID:')
         #name = clm2.text_input(label="", value="", disabled=True)
         date_from = clm2.date_input('From').strftime("%Y-%m-%d")
         date_to = clm3.date_input('To').strftime("%Y-%m-%d")
