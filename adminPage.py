@@ -93,8 +93,8 @@ if radio_selection == 'Print Reports':
         file = gspread.authorize(creds)
         workbook = file.open("Timesheet")
         sheet = workbook.sheet1
-        df=pd.DataFrame(workbook.values_get())
-        
+        df=pd.DataFrame(sheet.get_all_records())
+        print(df)
 
 
         output = BytesIO()
