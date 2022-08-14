@@ -93,8 +93,10 @@ if radio_selection == 'Print Reports':
         file = gspread.authorize(creds)
         workbook = file.open("Timesheet")
         sheet = workbook.sheet1
-        df=pd.DataFrame(sheet.get_all_records(),columns=['ID','name'])
-        print(len(df))
+        sheet_url = st.secrets["private_gsheets_url"]
+        df=pd.DataFrame(sheet.get_all_records())
+        df.head()
+        print(df)
 
 
         output = BytesIO()
