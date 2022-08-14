@@ -75,17 +75,18 @@ if radio_selection == 'Print Reports':
         df = pd.DataFrame(sheet.get_all_records())
         df.loc[(df['date'] >= date_from) & (df['date'] <= date_to)]
 
-
-
         towrite = io.BytesIO()
-        downloaded_file=df.to_excel(towrite,encoding='utf-8',index=False,header=True)
-        towrite.seek(0)
-        b64=base64.b64encode(towrite.read()).decode()
+        with pd.ExcelWriter(towrite,engine='xlsxwriter') as writer:
+            df.to_excel(writer,sheet_name='Sheet1')
+            writer.save()
+        #downloaded_file=df.to_excel(towrite,encoding='utf-8',index=False,header=True)
+        #towrite.seek(0)
+        #b64=base64.b64encode(towrite.read()).decode()
        # Write files to in-memory strings using BytesIO
         #See: https://xlsxwriter.readthedocs.io/workbook.html?highlight=BytesIO#constructor
         #workbook = xlsxwriter.Workbook(df, {'in_memory': True})
         #worksheet = workbook.add_worksheet()
         #worksheet.write(df)
         #workbook.close()
-        
-        download_button=st.download_button(label="Download Report",data=df,file_name="workbook.xlsx",mime="application/vnd.ms-excel")
+
+        download_button=st.download_button(label="Download Report",data=towrite,file_name="workbook.xlsx",mime="application/vnd.ms-excel")
