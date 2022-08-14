@@ -45,8 +45,8 @@ def set_bg_hack(main_bg):
 image = Image.open("OIP.jpg")
 st.image(image)
 
+st.markdown("Main Page")
 
-tab1,tab2=st.tabs(["Home","Reports"])
 
 
 #radio_selection = st.sidebar.selectbox('Choose an option:', ('---','Print Reports', 'Give Exception'))
