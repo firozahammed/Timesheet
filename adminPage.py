@@ -89,4 +89,4 @@ if radio_selection == 'Print Reports':
         #worksheet.write(df)
         #workbook.close()
 
-        download_button=st.download_button(label="Download Report",data=towrite,file_name="workbook.xlsx",mime="application/vnd.ms-excel")
+        download_button=st.download_button(label="Download Report",data=towrite,file_name="Report_"+date_from+".xlsx",mime="application/vnd.ms-excel")
