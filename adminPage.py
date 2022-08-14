@@ -81,12 +81,11 @@ if radio_selection == 'Print Reports':
         downloaded_file=df.to_excel(towrite,encoding='utf-8',index=False,header=True)
         towrite.seek(0)
         b64=base64.b64encode(towrite.read()).decode()
-        # Write files to in-memory strings using BytesIO
-        # See: https://xlsxwriter.readthedocs.io/workbook.html?highlight=BytesIO#constructor
+       # Write files to in-memory strings using BytesIO
+        #See: https://xlsxwriter.readthedocs.io/workbook.html?highlight=BytesIO#constructor
         #workbook = xlsxwriter.Workbook(df, {'in_memory': True})
         #worksheet = workbook.add_worksheet()
         #worksheet.write(df)
         #workbook.close()
         
-        download_button=st.download_button(label="Download Report",data=pd.DataFrame.to_excel(b64,index=False),file_name="workbook.xlsx",mime="application/vnd.ms-excel")
-
+        download_button=st.download_button(label="Download Report",data=df,file_name="workbook.xlsx",mime="application/vnd.ms-excel")
