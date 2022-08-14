@@ -104,10 +104,9 @@ if radio_selection == 'Print Reports':
 elif radio_selection == 'Give Exception':
     col1, col2 = st.columns(2)
     ID = col1.text_input('Enter employee ID: ')
-    name = col2.text_input(label="", value="")
+    #name = col2.text_input(label="", value="")
     options = ('Customer site', 'Medical excuse', 'Vacation')
-    selection = st.selectbox("please choose a reason",
-                             options)
+    selection = st.selectbox("Please choose a reason",options)
 
     if selection == 'Customer site':
         clm1, clm2, clm3, clm4, clm5 = st.columns(5)
