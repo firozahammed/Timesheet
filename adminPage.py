@@ -117,46 +117,46 @@ elif radio_selection == 'Give Exception':
         country = clm2.text_input('Country:', key=3)
         start_time = clm4.date_input('From:')
         end_time = clm5.date_input('To:')
-        save_add_button = clm1.button('save/add')
+        save_add_button = clm1.button('Add')
         if save_add_button:
             array = [ID, name, selection, client_name, loc, country, start_time, end_time]
-            type_to_csv(array)
+            type_to_excel(array)
             st.success('permission saved!')
-        save_exit_button = clm2.button('save/exit')
+        save_exit_button = clm2.button('Submit')
         if save_exit_button:
             array = [ID, name, selection, client_name, loc, country, start_time, end_time]
             st.success('permission saved , you can exit the site')
-            type_to_csv(array)
+            type_to_excel(array)
             st.stop()
     elif selection == 'Medical excuse':
         clm1, clm2, clm3 = st.columns(3)
         hospital_name = clm1.text_input('Hospital name: ')
         start_time = clm2.date_input('From:')
         end_time = clm3.date_input('To:')
-        save_add_button = clm1.button('save/add')
+        save_add_button = clm1.button('Add')
         if save_add_button:
             array = [ID, name, selection, hospital_name, start_time, end_time]
-            type_to_csv(array)
+            type_to_excel(array)
             st.success('permission saved!')
-        save_exit_button = clm2.button('save/exit')
+        save_exit_button = clm2.button('Submit')
         if save_exit_button:
             array = [ID, name, selection, hospital_name, start_time, end_time]
             st.success('permission saved , you can exit the site')
-            type_to_csv(array)
+            type_to_excel(array)
             st.stop()
     elif selection == 'Vacation':
         clm1, clm2 = st.columns(2)
         start_time = clm1.date_input('From:')
         end_time = clm2.date_input('To:')
-        save_add_button = clm1.button('save/add')
+        save_add_button = clm1.button('Add')
         if save_add_button:
             array = [ID, name, selection, start_time, end_time]
             st.success('permission saved , you can exit the site')
-            type_to_csv(array)
-        save_exit_button = clm2.button('save/exit')
+            type_to_excel(array)
+        save_exit_button = clm2.button('Submit')
         if save_exit_button:
             array = [ID, name, selection, start_time, end_time]
             st.success('permission saved , you can exit the site')
-            type_to_csv(array)
+            type_to_excel(array)
             st.stop()
 
