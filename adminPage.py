@@ -63,11 +63,11 @@ if radio_selection == 'Print Reports':
         scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
         creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
         file = gspread.authorize(creds)
-        workbook = file.open("Timesheet")
+        workbook = file.open("Summary Timesheet")
         sheet = workbook.sheet1
         sheet_url = st.secrets["private_gsheets_url"]
         df = pd.DataFrame(sheet.get_all_records())
-        df = df.loc[(df['date'] >= date_from) & (df['date'] <= date_to)]
+        #df = df.loc[(df['date'] >= date_from) & (df['date'] <= date_to)]
 
         towrite = io.BytesIO()
         with pd.ExcelWriter(towrite,engine='xlsxwriter') as writer:
@@ -86,7 +86,7 @@ if radio_selection == 'Print Reports':
         scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
         creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
         file = gspread.authorize(creds)
-        workbook = file.open("Timesheet")
+        workbook = file.open("Summary Timesheet")
         sheet = workbook.sheet1
         sheet_url = st.secrets["private_gsheets_url"]
         df = pd.DataFrame(sheet.get_all_records())
