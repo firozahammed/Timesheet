@@ -96,6 +96,11 @@ if radio_selection == 'Print Reports':
         with pd.ExcelWriter(towrite, engine='xlsxwriter') as writer:
             df.to_excel(writer, sheet_name='Sheet1',index=False)
 
+            for column in df:
+                column_length = max(df[column].astype(str).map(len).max(), len(column))
+                col_idx = df.columns.get_loc(column)
+                writer.sheets['Sheet1'].set_column(col_idx, col_idx, column_length)
+            
             writer.save()
 
         download_button = st.download_button(label="Download Report", data=towrite,
