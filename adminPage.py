@@ -102,12 +102,12 @@ if radio_selection == 'Print Reports':
                                              file_name="Report_" + date_from + ".xlsx", mime="application/vnd.ms-excel")
 
 
-elif radio_selection == 'Give Exception':
-    st.title('Give Exception ')
+elif radio_selection == 'Give Excuse':
+    st.title('Give Excuse ')
     col1, col2 = st.columns(2)
     ID = col1.text_input('Enter employee ID: ')
     #name = col2.text_input(label="", value="name of ID", disabled=True)
-    options = ('Customer site', 'Medical excuse', 'Vacation')
+    options = ('Customer site', 'Medical excuse', 'Vacation','Personal')
     selection = st.selectbox("Please choose a reason",options)
 
     if selection == 'Customer site':
