@@ -45,7 +45,7 @@ def set_bg_hack(main_bg):
 image = Image.open("OIP.jpg")
 st.image(image)
 
-radio_selection = st.sidebar.radio('Choose an option:', ('Print Reports', 'Give Exception'))
+radio_selection = st.sidebar.radio('Choose an option:', ('Print Reports', 'Give Excuse'))
 if radio_selection == 'Print Reports':
     st.title('Print Reports ')
     select_box_choice = st.radio('Print for:', ('All', 'Specific Employee'))
