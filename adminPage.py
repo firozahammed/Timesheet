@@ -100,7 +100,7 @@ if radio_selection == 'Print Reports':
         df = pd.DataFrame(sheet.get_all_records())
         #df = df.loc[(df['date'] >= date_from) & (df['date'] <= date_to) & (df['ID'].astype(str) == ID) ]
         df
-        df = df.loc[(df['User ID'].astype(str) == ID) ]
+        #df = df.loc[(df['User ID'].astype(str) == ID) ]
         towrite = io.BytesIO()
         with pd.ExcelWriter(towrite, engine='xlsxwriter') as writer:
             df.to_excel(writer, sheet_name='Sheet1',index=False)
