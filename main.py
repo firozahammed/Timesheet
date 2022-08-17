@@ -57,5 +57,5 @@ image = Image.open("OIP.jpg")
 st.image(image)
 security_key=None
 st.title('Please enter the security key')
-st.text_input('Security key',security_key)
-selection = security_key
+security_key=st.text_input('Security key')
+
