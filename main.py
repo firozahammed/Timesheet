@@ -12,18 +12,15 @@ from PIL import Image
 import streamlit as st
 from google.oauth2 import service_account
 from gsheetsdb import connect
-
+import pandas as pd
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
-scopes = ['https://www.googleapis.com/auth/spreadsheets','https://www.googleapis.com/auth/drive']
-
+scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
 creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
-
 file = gspread.authorize(creds)
-workbook = file.open("Timesheet")
+workbook = file.open("Summary Timesheet")
 sheet = workbook.sheet1
-
 sheet_url = st.secrets["private_gsheets_url"]
 
 # setting the form background
@@ -58,4 +55,5 @@ st.image(image)
 security_key=None
 st.title('Please enter the security key')
 security_key=st.text_input('Security key')
-
+df = pd.DataFrame(sheet.get_all_records())
+print(security_key in df['Token'].astype(str).unique())
