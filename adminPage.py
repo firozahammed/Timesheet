@@ -102,7 +102,7 @@ if radio_selection == 'Print Reports':
         #df['Date']=pd.to_datetime(df['Date'])
         #df.groupby([pd.Grouper(key='Date')])['Total Time'].sum()
         #df['Total Time']=pd.to_datetime(['Total Time'],format='%H:%M:%S')
-        df['Total Time'] = pd.to_datetime(['Total Time']).dt.strftime('%H:%M:%S')
+        df['Total Time'] = pd.to_datetime(['Total Time'])
         #df=df.groupby(['Employee ID'])['Total Time'].sum()
         df.dtypes['Total Time']
         df
