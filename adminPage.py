@@ -14,6 +14,7 @@ from google.oauth2 import service_account
 from gsheetsdb import connect
 import gspread as gs
 from datetime import datetime
+import time
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 def set_bg_hack(main_bg):
