@@ -107,7 +107,7 @@ if radio_selection == 'Print Reports':
         #df['Total Time'] = pd.to_datetime(df['Total Time'].astype(str)).dt.strftime('%H:%M:%S')
         #df['Total Time'] = df['Total Time'].dt.strptime('%H:%M:%S')
         df['newtime'] = pd.to_datetime(df['newtime'],format='%H:%M:%S').dt.hour
-        #df=df.groupby(['Employee ID'])['newtime'].sum()
+        df=df.groupby(['Employee ID'])['newtime'].sum()
         #df.dtypes['Total Time']
         df
         #df = df.loc[(df['User ID'].astype(str) == ID) ]
