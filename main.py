@@ -124,7 +124,7 @@ else:
   #Find the row number of the employee info
   Token_col=sheet.col_values(1) 
   for cell in Token_col:
-    if str(cell.value) = str(security_key):
+    if str(cell.value) == str(security_key):
         EmpInfo_RowNum=cell.row
        # emp_info=sheet.row_values(EmpInfo_RowNum)
   #Read employee Name and ID depand on the Row Number
