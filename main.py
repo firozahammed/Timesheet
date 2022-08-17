@@ -56,5 +56,9 @@ security_key=None
 st.title('Please enter the security key')
 security_key=st.text_input('Security key')
 df = pd.DataFrame(sheet.get_all_records())
-st.write(security_key)
-st.write(security_key in df['Token'].astype(str).unique())
+check_security_key=(security_key in df['Token'].astype(str).unique())
+if check_security_key is False:
+    st.error("The security key: "+security_key+" is invalid.")
+else:
+    st.success("Thank you")
+    
