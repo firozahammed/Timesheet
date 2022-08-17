@@ -56,4 +56,5 @@ security_key=None
 st.title('Please enter the security key')
 security_key=st.text_input('Security key')
 df = pd.DataFrame(sheet.get_all_records())
+print(security_key)
 print(security_key in df['Token'].astype(str).unique())
