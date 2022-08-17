@@ -101,9 +101,9 @@ if radio_selection == 'Print Reports':
         #df = df.loc[(df['date'] >= date_from) & (df['date'] <= date_to) & (df['ID'].astype(str) == ID) ]
         #df['Date']=pd.to_datetime(df['Date'])
         #df.groupby([pd.Grouper(key='Date')])['Total Time'].sum()
-        df['Total Time']=pd.to_datetime(['Total Time'],format='%H:%M:%S')
+        #df['Total Time']=pd.to_datetime(['Total Time'],format='%H:%M:%S')
         #df=df.groupby(['Employee ID'])['Total Time'].sum()
-        df
+        df.dtypes
         #df = df.loc[(df['User ID'].astype(str) == ID) ]
         towrite = io.BytesIO()
         with pd.ExcelWriter(towrite, engine='xlsxwriter') as writer:
