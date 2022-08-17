@@ -88,6 +88,7 @@ def calculate_time(start_time1, end_time1):
 def set_bg_hack(main_bg):
     '''
     A function to unpack an image from root folder and set as bg.
+
     Returns
     -------
     The background.
@@ -124,10 +125,12 @@ else:
   #Find the row number of the employee info
   Token_col=sheet.col_values(1) 
   for cell in Token_col:
-    if str(cell.value) == str(security_key):
+    if eval(cell.value) = eval(security_key):
         EmpInfo_RowNum=cell.row
        # emp_info=sheet.row_values(EmpInfo_RowNum)
   #Read employee Name and ID depand on the Row Number
   Emp_ID= sheet.cell(EmpInfo_RowNum, 2).value
   Emp_Name=sheet.cell(EmpInfo_RowNum, 3).value
   st.markdown("Name: "+Emp_Name+", ID: "+Emp_ID)
+    
+        
