@@ -99,8 +99,9 @@ if radio_selection == 'Print Reports':
         sheet_url = st.secrets["private_gsheets_url"]
         df = pd.DataFrame(sheet.get_all_records())
         #df = df.loc[(df['date'] >= date_from) & (df['date'] <= date_to) & (df['ID'].astype(str) == ID) ]
-        df['Date']=pd.to_datetime(df['Date'])
-        df.groupby([pd.Grouper(key='Date')])['Total Time'].sum()
+        #df['Date']=pd.to_datetime(df['Date'])
+        #df.groupby([pd.Grouper(key='Date')])['Total Time'].sum()
+        df=df.groupby(['Employee ID'])['Total Time'].sum()
         df
         #df = df.loc[(df['User ID'].astype(str) == ID) ]
         towrite = io.BytesIO()
