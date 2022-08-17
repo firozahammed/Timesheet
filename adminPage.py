@@ -8,7 +8,7 @@ import pyodbc
 from PIL import Image
 import streamlit as st
 import base64
-import datetime
+import datetime as dt
 import streamlit as st
 from google.oauth2 import service_account
 from gsheetsdb import connect
@@ -101,7 +101,7 @@ if radio_selection == 'Print Reports':
         #df = df.loc[(df['date'] >= date_from) & (df['date'] <= date_to) & (df['ID'].astype(str) == ID) ]
         #df['Date']=pd.to_datetime(df['Date'])
         #df.groupby([pd.Grouper(key='Date')])['Total Time'].sum()
-        df['Total Time']=pd.to_datetime(df['Total Time'],format='%H:%M:%S',errors='ignore').datetime.time
+        df['Total Time']=pd.to_datetime(df['Total Time'],format='%H:%M:%S',errors='ignore').dt.time
         #df=df.groupby(['Employee ID'])['Total Time'].sum()
         #df.dtypes['Total Time']
         df
