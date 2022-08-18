@@ -90,7 +90,10 @@ if radio_selection == 'Print Reports':
     if select_box_choice == 'Summary':
         clm1, clm2, clm3 = st.columns(3)
         ID = clm1.text_input('Enter employee ID:')
-        #name = clm2.text_input(label="", value="", disabled=True)
+        
+        #date_from = clm2.date_input('From').strftime("%m/%d/%Y")
+        #date_to = clm3.date_input('To').strftime("%m/%d/%Y")
+
         date_from = clm2.date_input('From').strftime("%m/%d/%Y")
         date_to = clm3.date_input('To').strftime("%m/%d/%Y")
 
@@ -119,9 +122,9 @@ if radio_selection == 'Print Reports':
         df['Date']= pd.to_datetime(df['Date'], format='%m/%d/%Y').dt.date
 
         #df['Date'] = df['Date'].strftime("%m/%d/%Y")
-        df = df.loc[(df['Date'] >= pd.to_datetime("8/1/2022",format='%m/%d/%Y').dt.date) & (df['Date'] <= pd.to_datetime("8/2/2022",format='%m/%d/%Y').dt.date)]
-        df = df.groupby(['Employee ID',df['Date']],as_index=False)['Total Time'].sum()
-        df
+        df = df.loc[(df['Date'] >= "8/1/2022") & (df['Date'] <= "8/2/2022")]
+        #df = df.groupby(['Employee ID',df['Date']],as_index=False)['Total Time'].sum()
+        df.dtypes
 
 
 
