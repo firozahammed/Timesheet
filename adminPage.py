@@ -120,7 +120,7 @@ if radio_selection == 'Print Reports':
 
         #df['Total Time'] = (pd.to_timedelta(df['Total Time']).astype('timedelta64[s]').astype(int))/3600
         #df['Total Time'] = (pd.to_datetime(df['Total Time'],format='%H:%M:%S',errors='ignore').dt.time)
-        df['Total Time'] = (pd.to_datetime(df['Total Time']))
+        df['Total Time'] = (pd.to_datetime(df['Total Time'], format("%H:%M:%S")))
 
         df['Date']= pd.to_datetime(df['Date'], format='%m/%d/%Y').dt.date
 
