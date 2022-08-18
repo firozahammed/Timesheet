@@ -147,7 +147,7 @@ if radio_selection == 'Print Reports':
             writer.save()
 
         download_button = st.download_button(label="Download Report", data=towrite,
-                                             file_name="Report_" + date_from.astype(str) + ".xlsx", mime="application/vnd.ms-excel")
+                                             file_name="Report_.xlsx", mime="application/vnd.ms-excel")
 
 
 elif radio_selection == 'Employee Exemption':
