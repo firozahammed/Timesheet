@@ -48,7 +48,7 @@ def set_bg_hack(main_bg):
 image = Image.open("OIP.jpg")
 st.image(image)
 
-radio_selection = st.sidebar.radio('Choose an option:', ('Print Reports', 'Give Excuse'))
+radio_selection = st.sidebar.radio('Choose an option:', ('Print Reports', 'Employee Exemption'))
 if radio_selection == 'Print Reports':
     st.title('Print Reports ')
     select_box_choice = st.radio('Print:', ('Daily', 'Summary'))
@@ -137,8 +137,8 @@ if radio_selection == 'Print Reports':
                                              file_name="Report_" + date_from + ".xlsx", mime="application/vnd.ms-excel")
 
 
-elif radio_selection == 'Give Excuse':
-    st.title('Give Excuse ')
+elif radio_selection == 'Employee Exemption':
+    st.title('Employee Exemption')
     col1, col2 = st.columns(2)
     ID = col1.text_input('Enter employee ID: ')
     #name = col2.text_input(label="", value="name of ID", disabled=True)
