@@ -118,7 +118,7 @@ if radio_selection == 'Print Reports':
 
         df['Date']= pd.to_datetime(df['Date'], format='%m/%d/%Y')
         df = df.loc[(df['Date'] >= "8/1/2022") & (df['Date'] <= "8/2/2022")]
-        df = df.groupby(['Date'],as_index=False)['Employee ID'].count()
+        df = df.groupby(['Date'],as_index=False)['Employee ID']
         df
         #df=df.groupby(['Employee ID'])['Total Time'].sum()
 
