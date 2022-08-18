@@ -175,11 +175,10 @@ elif radio_selection == 'Employee Exemption':
         hospital_name = clm1.text_input('Hospital name: ')
         from_date = clm2.date_input('From:').strftime("%d/%m/%Y")
         to_date = clm3.date_input('To:').strftime("%d/%m/%Y")
-        details=[]
         details = ['Hospital:'+hospital_name]
         save_add_button = clm1.button('Add')
         if save_add_button:
-            exemption_list = [ID, str(from_date), str(to_date), reason, details]
+            exemption_list = [ID, str(from_date), str(to_date), reason,details]
             sheet.append_row(exemption_list)
             st.success('Successfully added!')
             st.stop()
