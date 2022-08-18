@@ -122,7 +122,7 @@ if radio_selection == 'Print Reports':
 
         df['Date']= pd.to_datetime(df['Date'], format='%m/%d/%Y').dt.date
 
-        
+
 
         if ID!="":
             df= df.loc[(df['Date'] >= date_from) & (df['Date'] <= date_to) & (df['Employee ID'].astype(str) == ID) ]
@@ -153,9 +153,12 @@ if radio_selection == 'Print Reports':
 
             writer.save()
 
-        download_button = st.download_button(label="Download Report", data=towrite,
-                                             file_name="Report_.xlsx", mime="application/vnd.ms-excel")
-
+        if ID != "":
+            download_button = st.download_button(label="Download Report", data=towrite,
+                                             file_name="Summary_"+ID.astype(str)+"_"+date_from.astype(str)+"-"+date_to.astype(str)+".xlsx", mime="application/vnd.ms-excel")
+        else:
+            download_button = st.download_button(label="Download Report", data=towrite,
+                                                 file_name="Summary_"+date_from.astype(str)+"-"+date_to.astype(str)+".xlsx", mime="application/vnd.ms-excel")
 
 elif radio_selection == 'Employee Exemption':
     st.title('Employee Exemption')
