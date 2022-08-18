@@ -91,8 +91,8 @@ if radio_selection == 'Print Reports':
         clm1, clm2, clm3 = st.columns(3)
         ID = clm1.text_input('Enter employee ID:')
         #name = clm2.text_input(label="", value="", disabled=True)
-        date_from = clm2.date_input('From').strftime("%m-%d-%Y")
-        date_to = clm3.date_input('To').strftime("%m-%d-%Y")
+        date_from = clm2.date_input('From').strftime("%m/%d/%Y")
+        date_to = clm3.date_input('To').strftime("%m/%d/%Y")
 
         scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
         creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
@@ -115,9 +115,10 @@ if radio_selection == 'Print Reports':
         #seconds = df['Total Time'].total_seconds()
 
         df['Total Time'] = (pd.to_timedelta(df['Total Time']).astype('timedelta64[s]').astype(int))/3600
-        
+
         df['Date']= pd.to_datetime(df['Date'], format='%m/%d/%Y')
-        df = df.groupby([df['Date'].dt.date])
+        df = df.loc[(df['Date'] >= "8/1/2022") & (df['Date'] <= "8/2/2022")]
+        df = df.groupby(df['Employee ID'],[df['Date'].dt.date])
         df
         #df=df.groupby(['Employee ID'])['Total Time'].sum()
 
