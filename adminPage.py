@@ -198,11 +198,10 @@ elif radio_selection == 'Employee Exemption':
 
     elif reason == 'Personal':
 
-        
+        personal_details = st.text_area('Enter details',height=None)
         clm1, clm2, clm3 = st.columns(3)
         from_date = clm2.date_input('From:').strftime("%d/%m/%Y")
         to_date = clm3.date_input('To:').strftime("%d/%m/%Y")
-        personal_details = st.text_area('Enter details', height=None)
         details = []
         details = personal_details
         save_add_button = clm1.button('Add')
