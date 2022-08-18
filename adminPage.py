@@ -136,7 +136,7 @@ if radio_selection == 'Print Reports':
 
         #df['Date'].dtypes
 
-        df
+        #df
 
         # Write to Excel
         towrite = io.BytesIO()
