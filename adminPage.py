@@ -15,6 +15,7 @@ from google.oauth2 import service_account
 from gsheetsdb import connect
 import gspread as gs
 from datetime import datetime
+from datetime import timedelta
 import time
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
