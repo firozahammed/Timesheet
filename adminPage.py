@@ -91,11 +91,11 @@ if radio_selection == 'Print Reports':
         clm1, clm2, clm3 = st.columns(3)
         ID = clm1.text_input('Enter employee ID:')
 
-        #date_from = clm2.date_input('From').strftime("%m/%d/%Y")
-        #date_to = clm3.date_input('To').strftime("%m/%d/%Y")
+        date_from = clm2.date_input('From').strftime("%m/%d/%Y")
+        date_to = clm3.date_input('To').strftime("%m/%d/%Y")
 
-        date_from = pd.to_datetime(clm2.date_input('From'), format='%m/%d/%Y')
-        date_to = pd.to_datetime(clm3.date_input('To'), format='%m/%d/%Y')
+        date_from = pd.to_datetime(date_from, format='%m/%d/%Y')
+        date_to = pd.to_datetime(date_to, format='%m/%d/%Y')
 
         #date_from = pd.to_datetime("8/1/2022", format='%m/%d/%Y')
         #date_to = pd.to_datetime("8/2/2022", format='%m/%d/%Y')
