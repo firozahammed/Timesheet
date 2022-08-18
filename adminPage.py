@@ -97,8 +97,8 @@ if radio_selection == 'Print Reports':
         #date_from = pd.to_datetime(clm2.date_input('From'), format='%m/%d/%Y')
         #date_to = pd.to_datetime(clm3.date_input('To'), format='%m/%d/%Y')
 
-        date_from = pd.to_datetime("8/1/2022", format='%m/%d/%Y').dt.date
-        date_to = pd.to_datetime("8/2/2022", format='%m/%d/%Y').dt.date
+        date_from = pd.to_datetime("8/1/2022", format='%m/%d/%Y')
+        date_to = pd.to_datetime("8/2/2022", format='%m/%d/%Y')
 
         scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
         creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
