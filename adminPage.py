@@ -155,7 +155,7 @@ if radio_selection == 'Print Reports':
 
         if ID != "":
             download_button = st.download_button(label="Download Report", data=towrite,
-                                             file_name="Summary_"+ID.astype(str)+"_"+date_from.astype(str)+"-"+date_to.astype(str)+".xlsx", mime="application/vnd.ms-excel")
+                                             file_name="Summary_"+ID+"_"+date_from.astype(str)+"-"+date_to.astype(str)+".xlsx", mime="application/vnd.ms-excel")
         else:
             download_button = st.download_button(label="Download Report", data=towrite,
                                                  file_name="Summary_"+date_from.astype(str)+"-"+date_to.astype(str)+".xlsx", mime="application/vnd.ms-excel")
