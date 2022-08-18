@@ -107,9 +107,12 @@ if radio_selection == 'Print Reports':
         #df['Total Time']=pd.to_datetime(df['Total Time'],format='%H:%M:%S',errors='ignore').dt.time
         #df['Total Time'] = pd.to_datetime(df['Total Time'].astype(str)).dt.strftime('%H:%M:%S')
         #df['Total Time'] = df['Total Time'].dt.strptime('%H:%M:%S')
-        df['Total Time']=pd.to_datetime(df['Total Time'])
+        #df['Total Time']=pd.to_datetime(df['Total Time'],format='%H:%M:%S',errors='ignore').dt.time
         #df['Total Time'] = df['Total Time'].dt.total_seconds()
-
+        df['Total Time'] = pd.to_datetime(df['Total Time'])
+        datetime = datetime.datetime.strptime(df['Total Time'],"%H:%M:%S")
+        df['Total Time'] = df['Total Time'] - datetime.datetime(2022,8,18)
+        seconds = df['Total Time'].total_seconds()
 
         #df['Total Time'] = pd.to_timedelta(df['Total Time']).astype('timedelta64[s]')
         #st.write(timedelta(seconds=df['Total Time']))
