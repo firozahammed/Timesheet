@@ -115,7 +115,7 @@ if radio_selection == 'Print Reports':
         #st.write(timedelta(seconds=df['Total Time']))
         #df=df.groupby(['Employee ID'])['Total Time'].sum
         #td = timedelta(seconds=df['Total Time'])
-        td
+        
 
 
 
