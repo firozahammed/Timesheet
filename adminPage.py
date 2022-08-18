@@ -111,7 +111,7 @@ if radio_selection == 'Print Reports':
 
 
 
-        df['Total Time'] = pd.to_timedelta(df['Total Time']).astype('timedelta64[s]').astype(int)
+        df['Total Time'] = pd.to_timedelta(df['Total Time']).astype('timedelta64[s]')
         st.write(timedelta(seconds=df['Total Time']))
         #df=df.groupby(['Employee ID'])['Total Time'].sum()
 
