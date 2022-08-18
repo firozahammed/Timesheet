@@ -140,28 +140,33 @@ if radio_selection == 'Print Reports':
 elif radio_selection == 'Employee Exemption':
     st.title('Employee Exemption')
     col1, col2 = st.columns(2)
+
+    scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
+    creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
+    file = gspread.authorize(creds)
+    workbook = file.open("Employee Exemption")
+    sheet = workbook.sheet1
+    sheet_url = st.secrets["private_gsheets_url"]
+
+    exemption_list=[]
+
     ID = col1.text_input('Enter employee ID: ')
     #name = col2.text_input(label="", value="name of ID", disabled=True)
     options = ('Customer site', 'Medical excuse', 'Vacation','Personal')
-    selection = st.selectbox("Please choose a reason",options)
+    reason = st.selectbox("Please choose a reason",options)
 
-    if selection == 'Customer site':
+    if reason == 'Customer site':
         clm1, clm2, clm3, clm4, clm5 = st.columns(5)
         client_name = clm1.text_input('Client name: ')
         loc = clm3.text_input('Location:', key=1)
         country = clm2.text_input('Country:', key=3)
-        start_time = clm4.date_input('From:')
-        end_time = clm5.date_input('To:')
+        from_date = clm4.date_input('From:')
+        to_date = clm5.date_input('To:')
         save_add_button = clm1.button('Add')
         if save_add_button:
-            array = [ID, name, selection, client_name, loc, country, start_time, end_time]
-            type_to_excel(array)
+            exemption_list = [ID,from_date,to_date, reason]
+            sheet.append_row(array)
             st.success('permission saved!')
-        save_exit_button = clm2.button('Submit')
-        if save_exit_button:
-            array = [ID, name, selection, client_name, loc, country, start_time, end_time]
-            st.success('permission saved , you can exit the site')
-            type_to_excel(array)
             st.stop()
     elif selection == 'Medical excuse':
         clm1, clm2, clm3 = st.columns(3)
