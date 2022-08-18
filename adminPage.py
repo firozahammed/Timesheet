@@ -90,7 +90,7 @@ if radio_selection == 'Print Reports':
     if select_box_choice == 'Summary':
         clm1, clm2, clm3 = st.columns(3)
         ID = clm1.text_input('Enter employee ID:')
-        
+
         #date_from = clm2.date_input('From').strftime("%m/%d/%Y")
         #date_to = clm3.date_input('To').strftime("%m/%d/%Y")
 
@@ -119,7 +119,7 @@ if radio_selection == 'Print Reports':
 
         df['Total Time'] = (pd.to_timedelta(df['Total Time']).astype('timedelta64[s]').astype(int))/3600
 
-        df['Date']= pd.to_datetime(df['Date'], format='%m/%d/%Y').dt.date
+        df['Date']= pd.to_datetime(df['Date'], format='%m/%d/%Y')
 
         #df['Date'] = df['Date'].strftime("%m/%d/%Y")
         df = df.loc[(df['Date'] >= "8/1/2022") & (df['Date'] <= "8/2/2022")]
