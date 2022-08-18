@@ -91,8 +91,8 @@ if radio_selection == 'Print Reports':
         clm1, clm2, clm3 = st.columns(3)
         ID = clm1.text_input('Enter employee ID:')
         #name = clm2.text_input(label="", value="", disabled=True)
-        date_from = clm2.date_input('From').strftime("%Y-%m-%d")
-        date_to = clm3.date_input('To').strftime("%Y-%m-%d")
+        date_from = clm2.date_input('From').strftime("%m-%d-%Y")
+        date_to = clm3.date_input('To').strftime("%m-%d-%Y")
 
         scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
         creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
@@ -115,12 +115,11 @@ if radio_selection == 'Print Reports':
         #seconds = df['Total Time'].total_seconds()
 
         df['Total Time'] = (pd.to_timedelta(df['Total Time']).astype('timedelta64[s]').astype(int))/3600
-        #st.write(timedelta(seconds=df['Total Time']))
         df = df.loc[(df['Date'] >= date_from) & (df['Date'] <= date_to)]
         df=df.groupby(['Date'])
         df
         #df=df.groupby(['Employee ID'])['Total Time'].sum()
-        
+
         towrite = io.BytesIO()
         with pd.ExcelWriter(towrite, engine='xlsxwriter') as writer:
             df.to_excel(writer, sheet_name='Sheet1',index=False)
@@ -160,8 +159,8 @@ elif radio_selection == 'Employee Exemption':
         client_name = clm1.text_input('Client name:')
         client_loc = clm3.text_input('Location:', key=1)
         country = clm2.text_input('Country:', key=3)
-        from_date = clm4.date_input('From:').strftime("%d/%m/%Y")
-        to_date = clm5.date_input('To:').strftime("%d/%m/%Y")
+        from_date = clm4.date_input('From:').strftime("%m/%d/%Y")
+        to_date = clm5.date_input('To:').strftime("%m/%d/%Y")
         details=['Client:'+client_name,'Location:'+client_loc,'Country:'+country]
         details='\n\n'.join(details)
         save_add_button = clm1.button('Add')
@@ -173,8 +172,8 @@ elif radio_selection == 'Employee Exemption':
     elif reason == 'Medical':
         clm1, clm2, clm3 = st.columns(3)
         hospital_name = clm1.text_input('Hospital name:')
-        from_date = clm2.date_input('From:').strftime("%d/%m/%Y")
-        to_date = clm3.date_input('To:').strftime("%d/%m/%Y")
+        from_date = clm2.date_input('From:').strftime("%m/%d/%Y")
+        to_date = clm3.date_input('To:').strftime("%m/%d/%Y")
         save_add_button = clm1.button('Add')
         if save_add_button:
             exemption_list = [ID, str(from_date), str(to_date), reason,'Hospital:'+hospital_name]
@@ -184,8 +183,8 @@ elif radio_selection == 'Employee Exemption':
 
     elif reason == 'Vacation':
         clm1, clm2 = st.columns(2)
-        start_time = clm1.date_input('From:')
-        end_time = clm2.date_input('To:')
+        start_time = clm1.date_input('From:').strftime("%m/%d/%Y")
+        end_time = clm2.date_input('To:').strftime("%m/%d/%Y")
         save_add_button = clm1.button('Add')
         if save_add_button:
                 exemption_list = [ID, str(from_date), str(to_date), reason]
@@ -198,8 +197,8 @@ elif radio_selection == 'Employee Exemption':
 
         personal_details = st.text_area('Enter details',height=None)
         clm1, clm2 = st.columns(2)
-        from_date = clm1.date_input('From:').strftime("%d/%m/%Y")
-        to_date = clm2.date_input('To:').strftime("%d/%m/%Y")
+        from_date = clm1.date_input('From:').strftime("%m/%d/%Y")
+        to_date = clm2.date_input('To:').strftime("%m/%d/%Y")
         details = []
         details = personal_details
         save_add_button = clm1.button('Add')
