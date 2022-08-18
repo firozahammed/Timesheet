@@ -165,7 +165,7 @@ elif radio_selection == 'Employee Exemption':
         save_add_button = clm1.button('Add')
         if save_add_button:
             exemption_list = [ID,from_date,to_date, reason]
-            sheet.append_row(array)
+            sheet.append_row(exemption_list)
             st.success('permission saved!')
             st.stop()
     elif selection == 'Medical excuse':
