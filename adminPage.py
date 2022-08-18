@@ -97,9 +97,7 @@ if radio_selection == 'Print Reports':
         date_from = pd.to_datetime(date_from, format='%m/%d/%Y')
         date_to = pd.to_datetime(date_to, format='%m/%d/%Y')
 
-        #date_from = pd.to_datetime("8/1/2022", format='%m/%d/%Y')
-        #date_to = pd.to_datetime("8/2/2022", format='%m/%d/%Y')
-
+        #Connect to Google Sheets
         scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
         creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
         file = gspread.authorize(creds)
@@ -123,9 +121,12 @@ if radio_selection == 'Print Reports':
         df['Total Time'] = (pd.to_timedelta(df['Total Time']).astype('timedelta64[s]').astype(int))/3600
 
         df['Date']= pd.to_datetime(df['Date'], format='%m/%d/%Y').dt.date
-
-        #df['Date'] = df['Date'].strftime("%m/%d/%Y")
-        df = df.loc[(df['Date'] >= date_from) & (df['Date'] <= date_to)]
+        
+        if ID!="":
+            df= df.loc[(df['Date'] >= date_from) & (df['Date'] <= date_to) & (df['Employee ID'].astype(str) == ID) ]
+        else:
+            df = df.loc[(df['Date'] >= date_from) & (df['Date'] <= date_to)]
+            
         df = df.groupby(['Employee ID','Date'],as_index=False)['Total Time'].sum()
         #df['Date'].dtypes
 
