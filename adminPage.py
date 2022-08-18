@@ -152,12 +152,12 @@ elif radio_selection == 'Employee Exemption':
     details=[]
     ID = col1.text_input('Enter employee ID: ')
     #name = col2.text_input(label="", value="name of ID", disabled=True)
-    options = ('Customer site', 'Medical excuse', 'Vacation','Personal')
+    options = ('Customer site', 'Medical', 'Vacation','Personal')
     reason = st.selectbox("Please choose a reason",options)
 
     if reason == 'Customer site':
         clm1, clm2, clm3, clm4, clm5 = st.columns(5)
-        client_name = clm1.text_input('Client name: ')
+        client_name = clm1.text_input('Client name:')
         client_loc = clm3.text_input('Location:', key=1)
         country = clm2.text_input('Country:', key=3)
         from_date = clm4.date_input('From:').strftime("%d/%m/%Y")
@@ -170,15 +170,14 @@ elif radio_selection == 'Employee Exemption':
             sheet.append_row(exemption_list)
             st.success('Successfully added!')
             st.stop()
-    elif reason == 'Medical excuse':
+    elif reason == 'Medical':
         clm1, clm2, clm3 = st.columns(3)
-        hospital_name = clm1.text_input('Hospital name: ')
+        hospital_name = clm1.text_input('Hospital name:')
         from_date = clm2.date_input('From:').strftime("%d/%m/%Y")
         to_date = clm3.date_input('To:').strftime("%d/%m/%Y")
-        details = ['Hospital:'+hospital_name]
         save_add_button = clm1.button('Add')
         if save_add_button:
-            exemption_list = [ID, str(from_date), str(to_date), reason,details]
+            exemption_list = [ID, str(from_date), str(to_date), reason,'Hospital:'+hospital_name]
             sheet.append_row(exemption_list)
             st.success('Successfully added!')
             st.stop()
