@@ -176,24 +176,36 @@ elif radio_selection == 'Employee Exemption':
         from_date = clm2.date_input('From:').strftime("%d/%m/%Y")
         to_date = clm3.date_input('To:').strftime("%d/%m/%Y")
         details=[]
-        details = hospital_name
+        details = ['Hospital:'+hospital_name]
         save_add_button = clm1.button('Add')
         if save_add_button:
             exemption_list = [ID, str(from_date), str(to_date), reason, details]
             sheet.append_row(exemption_list)
             st.success('Successfully added!')
             st.stop()
-            
+
     elif reason == 'Vacation':
         clm1, clm2 = st.columns(2)
         start_time = clm1.date_input('From:')
         end_time = clm2.date_input('To:')
         save_add_button = clm1.button('Add')
         if save_add_button:
-            save_add_button = clm1.button('Add')
-            if save_add_button:
                 exemption_list = [ID, str(from_date), str(to_date), reason]
                 sheet.append_row(exemption_list)
                 st.success('Successfully added!')
                 st.stop()
 
+
+    elif reason == 'Personal':
+        clm1, clm2, clm3 = st.columns(3)
+        personal_details = clm1.text_area('Enter details')
+        from_date = clm2.date_input('From:').strftime("%d/%m/%Y")
+        to_date = clm3.date_input('To:').strftime("%d/%m/%Y")
+        details = []
+        details = personal_details
+        save_add_button = clm1.button('Add')
+        if save_add_button:
+            exemption_list = [ID, str(from_date), str(to_date), reason, details]
+            sheet.append_row(exemption_list)
+            st.success('Successfully added!')
+            st.stop()
