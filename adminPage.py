@@ -14,7 +14,7 @@ import numpy as np
 from google.oauth2 import service_account
 from gsheetsdb import connect
 import gspread as gs
-from datetime import datetime
+import datetime
 from datetime import timedelta
 import time
 import gspread
@@ -109,14 +109,14 @@ if radio_selection == 'Print Reports':
         #df['Total Time'] = df['Total Time'].dt.strptime('%H:%M:%S')
         #df['Total Time']=pd.to_datetime(df['Total Time'],format='%H:%M:%S',errors='ignore').dt.time
         #df['Total Time'] = df['Total Time'].dt.total_seconds()
-        df['Total Time'] = pd.to_datetime(df['Total Time'])
-        datetime = datetime.datetime.strptime(df['Total Time'],"%H:%M:%S")
-        df['Total Time'] = df['Total Time'] - datetime.datetime(2022,8,18)
-        seconds = df['Total Time'].total_seconds()
+        #df['Total Time'] = pd.to_datetime(df['Total Time'])
+        #datetime = datetime.datetime.strptime(df['Total Time'],"%H:%M:%S")
+        #df['Total Time'] = df['Total Time'] - datetime.datetime(2022,8,18)
+        #seconds = df['Total Time'].total_seconds()
 
-        #df['Total Time'] = pd.to_timedelta(df['Total Time']).astype('timedelta64[s]')
+        df['Total Time'] = (pd.to_timedelta(df['Total Time']).astype('timedelta64[s]').astype(int))/3600
         #st.write(timedelta(seconds=df['Total Time']))
-        #df=df.groupby(['Employee ID'])['Total Time'].sum
+        df=df.groupby(['Employee ID'])['Total Time'].sum
         #td = timedelta(seconds=df['Total Time'])
 
 
