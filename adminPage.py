@@ -149,7 +149,7 @@ elif radio_selection == 'Employee Exemption':
     sheet_url = st.secrets["private_gsheets_url"]
 
     exemption_list=[]
-
+    details=[]
     ID = col1.text_input('Enter employee ID: ')
     #name = col2.text_input(label="", value="name of ID", disabled=True)
     options = ('Customer site', 'Medical excuse', 'Vacation','Personal')
@@ -158,15 +158,17 @@ elif radio_selection == 'Employee Exemption':
     if reason == 'Customer site':
         clm1, clm2, clm3, clm4, clm5 = st.columns(5)
         client_name = clm1.text_input('Client name: ')
-        loc = clm3.text_input('Location:', key=1)
+        client_loc = clm3.text_input('Location:', key=1)
         country = clm2.text_input('Country:', key=3)
         from_date = clm4.date_input('From:')
         to_date = clm5.date_input('To:')
+        details=['Client:'+client_name,'Location:'+client_loc,'Country:'+country]
+        details='\n'.join(details)
         save_add_button = clm1.button('Add')
         if save_add_button:
-            exemption_list = [ID,str(from_date),str(to_date), reason]
+            exemption_list = [ID,str(from_date),str(to_date), reason,details]
             sheet.append_row(exemption_list)
-            st.success('permission saved!')
+            st.success('Successfully added!')
             st.stop()
     elif selection == 'Medical excuse':
         clm1, clm2, clm3 = st.columns(3)
