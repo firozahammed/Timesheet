@@ -129,7 +129,7 @@ if radio_selection == 'Print Reports':
         df = df.groupby(['Employee ID','Date'],as_index=False)['Total Time'].sum()
         #df['Date'].dtypes
 
-
+        df
 
 
         #df=df.groupby(['Employee ID'])['Total Time'].sum()
