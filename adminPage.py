@@ -160,8 +160,8 @@ elif radio_selection == 'Employee Exemption':
         client_name = clm1.text_input('Client name: ')
         client_loc = clm3.text_input('Location:', key=1)
         country = clm2.text_input('Country:', key=3)
-        from_date = clm4.date_input('From:')
-        to_date = clm5.date_input('To:')
+        from_date = clm4.date_input('From:').strftime("%d/%m/%Y")
+        to_date = clm5.date_input('To:').strftime("%d/%m/%Y")
         details=['Client:'+client_name,'Location:'+client_loc,'Country:'+country]
         details='\n'.join(details)
         save_add_button = clm1.button('Add')
