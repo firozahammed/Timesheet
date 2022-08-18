@@ -163,42 +163,37 @@ elif radio_selection == 'Employee Exemption':
         from_date = clm4.date_input('From:').strftime("%d/%m/%Y")
         to_date = clm5.date_input('To:').strftime("%d/%m/%Y")
         details=['Client:'+client_name,'Location:'+client_loc,'Country:'+country]
-        details='\n'.join(details)
+        details='\n\n'.join(details)
         save_add_button = clm1.button('Add')
         if save_add_button:
             exemption_list = [ID,str(from_date),str(to_date), reason,details]
             sheet.append_row(exemption_list)
             st.success('Successfully added!')
             st.stop()
-    elif selection == 'Medical excuse':
+    elif reason == 'Medical excuse':
         clm1, clm2, clm3 = st.columns(3)
         hospital_name = clm1.text_input('Hospital name: ')
-        start_time = clm2.date_input('From:')
-        end_time = clm3.date_input('To:')
+        from_date = clm2.date_input('From:').strftime("%d/%m/%Y")
+        to_date = clm3.date_input('To:').strftime("%d/%m/%Y")
+        details=[]
+        details = hospital_name
         save_add_button = clm1.button('Add')
         if save_add_button:
-            array = [ID, name, selection, hospital_name, start_time, end_time]
-            type_to_excel(array)
-            st.success('permission saved!')
-        save_exit_button = clm2.button('Submit')
-        if save_exit_button:
-            array = [ID, name, selection, hospital_name, start_time, end_time]
-            st.success('permission saved , you can exit the site')
-            type_to_excel(array)
+            exemption_list = [ID, str(from_date), str(to_date), reason, details]
+            sheet.append_row(exemption_list)
+            st.success('Successfully added!')
             st.stop()
-    elif selection == 'Vacation':
+            
+    elif reason == 'Vacation':
         clm1, clm2 = st.columns(2)
         start_time = clm1.date_input('From:')
         end_time = clm2.date_input('To:')
         save_add_button = clm1.button('Add')
         if save_add_button:
-            array = [ID, name, selection, start_time, end_time]
-            st.success('permission saved , you can exit the site')
-            type_to_excel(array)
-        save_exit_button = clm2.button('Submit')
-        if save_exit_button:
-            array = [ID, name, selection, start_time, end_time]
-            st.success('permission saved , you can exit the site')
-            type_to_excel(array)
-            st.stop()
+            save_add_button = clm1.button('Add')
+            if save_add_button:
+                exemption_list = [ID, str(from_date), str(to_date), reason]
+                sheet.append_row(exemption_list)
+                st.success('Successfully added!')
+                st.stop()
 
