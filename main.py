@@ -42,19 +42,15 @@ def set_bg_hack(main_bg):
     )
 
 #set_bg_hack('background.png')
-def EmployeeForm():
-    placeholder.empty()
-    st.title("Hello")
     
-    
-    
+
 image = Image.open("OIP.jpg")
 st.image(image)
 placeholder = st.empty()
 with placeholder.container():
 
     st.title('Please enter the security key')
-    security_key = st.text_input('Security key',on_change=EmployeeForm())
+    security_key = st.text_input('Security key')
 
     df = pd.DataFrame(sheet.get_all_records())
     check_security_key = (security_key in df['Token'].astype(str).unique())
@@ -65,11 +61,11 @@ with placeholder.container():
         if security_key!="":
                 if check_security_key is False:
                     st.error("The security key: " + security_key + " is invalid.")
-        #placeholder.empty()
+        
 
                 else:
                     placeholder.empty()
-                    st.title("Hello")
+                    placeholder.title("Hello")
                     #df = pd.DataFrame(sheet.get_all_records())
                     #df = df.loc[(df['Token'].astype(str) == str(security_key))]
                     #df
