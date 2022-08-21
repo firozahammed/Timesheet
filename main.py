@@ -64,7 +64,15 @@ security_key = None
 #else:
 #    placeholder.empty()
 
+placeholder = st.empty()
+placeholder.text("Initial text")
 
+with placeholder.container():
+
+    st.write("This is elemnet 1")
+    st.write("This is element 2")
+
+placeholder.empty()
 
 with st.empty():
     i=30
@@ -77,12 +85,4 @@ with st.empty():
 
 
 
-placeholder = st.empty()
-placeholder.text("Initial text")
 
-with placeholder.container():
-
-    st.write("This is elemnet 1")
-    st.write("This is element 2")
-    
-placeholder.empty()    
