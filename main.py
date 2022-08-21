@@ -70,7 +70,7 @@ with placeholder.container():
                     df = df.loc[(df['Token'].astype(str) == str(security_key))]
                     placeholder.dataframe(df)
                     EmployeeName=df['Name'].values[0]
-                    st.write(EmployeeName)
+                    placeholder.write(EmployeeName)
 
 
 
