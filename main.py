@@ -65,11 +65,12 @@ with placeholder.container():
 
                 else:
                     placeholder.empty()
-                    with st.container():
-                        df = pd.DataFrame(sheet.get_all_records())
-                        df = df.loc[(df['Token'].astype(str) == str(security_key))]
-                        #placeholder.dataframe(df)
-                        df
+                    placeholder.title("Hello")
+                    df = pd.DataFrame(sheet.get_all_records())
+                    df = df.loc[(df['Token'].astype(str) == str(security_key))]
+                    placeholder.dataframe(df)
+                    EmployeeName=df['Name'].values[0]
+
 
 
         else:
