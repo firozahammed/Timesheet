@@ -68,20 +68,19 @@ security_key = None
 
 with st.empty():
     i=30
-    while i>30:
+    while i>0:
         st.write(f"{i} seconds left")
         time.sleep(1)
         i=i-1
-        
+
     st.write("Time's up !")
-    
-    
-    
+
+
+
 placeholder = st.empty()
 placeholder.text("Initial text")
 
 with placeholder.container():
-    
+
     st.write("This is elemnet 1")
     st.write("This is element 2")
-    
