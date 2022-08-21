@@ -65,17 +65,18 @@ with placeholder.container():
 
                 else:
                     placeholder.empty()
-                    
+
 
 
 
         else:
             st.error("Please enter the security key")
 
-    st.beta_container()
+FormContainer=st.container()
+with FormContainer:
     df = pd.DataFrame(sheet.get_all_records())
     df = df.loc[(df['Token'].astype(str) == str(security_key))]
     EmployeeName = df['Name'].values[0]
     EmployeeID = df['User ID'].values[0]
-    st.title("Dear " + EmployeeName + ", you have been late for today\'s attendance")
-    st.text_input('Employee ID', value=EmployeeID, disabled=True)
+    FormContainer.title("Dear " + EmployeeName + ", you have been late for today\'s attendance")
+    FormContainer.text_input('Employee ID', value=EmployeeID, disabled=True)
