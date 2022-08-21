@@ -41,7 +41,10 @@ def set_bg_hack(main_bg):
         unsafe_allow_html=True
     )
 
-
+def EmployeeForm():
+    df = pd.DataFrame(sheet.get_all_records())
+    df = df.loc[(df['Token'].astype(str) == str(security_key))]
+    df
 
 #set_bg_hack('background.png')
 
@@ -66,10 +69,8 @@ with placeholder.container():
 
                 else:
                     placeholder.empty()
-                    
-                df = pd.DataFrame(sheet.get_all_records())
-                df = df.loc[(df['Token'].astype(str) == str(security_key))]
-                df
+                    EmployeeForm()
+                
 
         else:
             st.error("Please enter the security key")
