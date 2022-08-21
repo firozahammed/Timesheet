@@ -51,6 +51,7 @@ with placeholder.container():
 
     st.title('Please enter the security key')
     security_key = st.text_input('Security key')
+
     df = pd.DataFrame(sheet.get_all_records())
     check_security_key = (security_key in df['Token'].astype(str).unique())
     submit_button = st.button("Submit")
@@ -64,27 +65,18 @@ with placeholder.container():
 
             else:
                 placeholder.empty()
+                df = pd.DataFrame(sheet.get_all_records())
+                df = df.loc[(df['Token'] == security_key)]
+                df
+
+
+
+
+
         else:
             st.error("Please enter the security key")
 
-#placeholder = st.empty()
-#placeholder.title("Initial text")
 
-#with placeholder.container():
-
-#    st.write("This is elemnet 1")
-#    st.write("This is element 2")
-
-
-
-#with st.empty():
-#    i=30
-#    while i>0:
-#        st.write(f"{i} seconds left")
-#        time.sleep(1)
-#        i=i-1
-
-#    st.write("Time's up !")
 
 
 
