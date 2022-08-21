@@ -67,7 +67,7 @@ with placeholder.container():
             else:
                 placeholder.empty()
                 df = pd.DataFrame(sheet.get_all_records())
-                #df = df.loc[(df['Token'] == str(security_key))]
+                df = df.loc[(df['Token'].astype(str) == str(security_key))]
                 df
 
         else:
