@@ -65,12 +65,14 @@ with placeholder.container():
 
                 else:
                     placeholder.empty()
-                    df = pd.DataFrame(sheet.get_all_records())
-                    df = df.loc[(df['Token'].astype(str) == str(security_key))]
-                    EmployeeName=df['Name'].values[0]
-                    EmployeeID=df['User ID'].values[0]
-                    placeholder.title("Dear "+EmployeeName+", you have been late for today\'s attendance")
-                    placeholder.text_input('Employee ID',value=EmployeeID,disabled=True)
+                    with st.container():
+                        
+                        df = pd.DataFrame(sheet.get_all_records())
+                        df = df.loc[(df['Token'].astype(str) == str(security_key))]
+                        EmployeeName=df['Name'].values[0]
+                        EmployeeID=df['User ID'].values[0]
+                        st.title("Dear "+EmployeeName+", you have been late for today\'s attendance")
+                        st.text_input('Employee ID',value=EmployeeID,disabled=True)
 
 
 
