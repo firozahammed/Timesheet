@@ -42,7 +42,15 @@ def set_bg_hack(main_bg):
     )
 
 #set_bg_hack('background.png')
-
+def EmployeeForm():
+    FormContainer = st.container()
+    with FormContainer:
+        df = pd.DataFrame(sheet.get_all_records())
+        df = df.loc[(df['Token'].astype(str) == str(security_key))]
+        EmployeeName = df['Name'].values[0]
+        EmployeeID = df['User ID'].values[0]
+        FormContainer.title("Dear " + EmployeeName + ", you have been late for today\'s attendance")
+        FormContainer.text_input('Employee ID', value=EmployeeID, disabled=True)
 
 image = Image.open("OIP.jpg")
 st.image(image)
@@ -65,14 +73,7 @@ with placeholder.container():
 
                 else:
                     placeholder.empty()
-                    FormContainer = st.container()
-                    with FormContainer:
-                        df = pd.DataFrame(sheet.get_all_records())
-                        df = df.loc[(df['Token'].astype(str) == str(security_key))]
-                        EmployeeName = df['Name'].values[0]
-                        EmployeeID = df['User ID'].values[0]
-                        FormContainer.title("Dear " + EmployeeName + ", you have been late for today\'s attendance")
-                        FormContainer.text_input('Employee ID', value=EmployeeID, disabled=True)
+                    EmployeeForm()
 
 
 
