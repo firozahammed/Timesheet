@@ -49,7 +49,7 @@ st.image(image)
 placeholder = st.empty()
 with placeholder.container():
 
-    Security_Key_Title = st.title('Please enter the security key')
+    st.title('Please enter the security key')
     security_key = st.text_input('Security key')
     df = pd.DataFrame(sheet.get_all_records())
     check_security_key = (security_key in df['Token'].astype(str).unique())
