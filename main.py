@@ -1,4 +1,5 @@
 import base64
+import time
 from datetime import datetime
 import datetime as dt
 from datetime import date
@@ -52,13 +53,35 @@ def set_bg_hack(main_bg):
 image = Image.open("OIP.jpg")
 st.image(image)
 security_key = None
-placeholder = st.empty()
+#placeholder = st.empty()
 
-placeholder.text('Please enter the security key')
-security_key = placeholder.text_input('Security key')
-df = pd.DataFrame(sheet.get_all_records())
-check_security_key = (security_key in df['Token'].astype(str).unique())
-if check_security_key is False:
-    st.error("The security key: "+security_key+" is invalid.")
-else:
-    placeholder.empty()
+#placeholder.text('Please enter the security key')
+#security_key = placeholder.text_input('Security key')
+#df = pd.DataFrame(sheet.get_all_records())
+#check_security_key = (security_key in df['Token'].astype(str).unique())
+#if check_security_key is False:
+#    st.error("The security key: "+security_key+" is invalid.")
+#else:
+#    placeholder.empty()
+
+
+
+with st.empty():
+    i=30
+    while i>30:
+        st.write(f"{i} seconds left")
+        time.sleep(1)
+        i=i-1
+        
+    st.write("Time's up !")
+    
+    
+    
+placeholder = st.empty()
+placeholder.text("Initial text")
+
+with placeholder.container():
+    
+    st.write("This is elemnet 1")
+    st.write("This is element 2")
+    
