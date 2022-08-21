@@ -65,7 +65,7 @@ security_key = None
 #    placeholder.empty()
 
 
-placeholder.text("Initial text")
+
 with st.empty():
     i=30
     while i>0:
@@ -78,7 +78,7 @@ with st.empty():
 
 
 placeholder = st.empty()
-
+placeholder.text("Initial text")
 
 with placeholder.container():
 
