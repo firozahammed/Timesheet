@@ -84,3 +84,5 @@ with placeholder.container():
 
     st.write("This is elemnet 1")
     st.write("This is element 2")
+    
+placeholder.empty()    
