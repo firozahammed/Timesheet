@@ -72,13 +72,13 @@ with placeholder.container():
         else:
             st.error("Please enter the security key")
 
-with st.container1():
-    df = pd.DataFrame(sheet.get_all_records())
-    df = df.loc[(df['Token'].astype(str) == str(security_key))]
-    EmployeeName = df['Name'].values[0]
-    EmployeeID = df['User ID'].values[0]
-    st.title("Dear " + EmployeeName + ", you have been late for today\'s attendance")
-    st.text_input('Employee ID', value=EmployeeID, disabled=True)
+st.container()
+df = pd.DataFrame(sheet.get_all_records())
+df = df.loc[(df['Token'].astype(str) == str(security_key))]
+EmployeeName = df['Name'].values[0]
+EmployeeID = df['User ID'].values[0]
+st.title("Dear " + EmployeeName + ", you have been late for today\'s attendance")
+st.text_input('Employee ID', value=EmployeeID, disabled=True)
 
 
 
