@@ -65,14 +65,14 @@ with placeholder.container():
 
                 else:
                     placeholder.empty()
-                    
+
 
 
 
         else:
             st.error("Please enter the security key")
 
-with st.container():
+with placeholder.container():
     df = pd.DataFrame(sheet.get_all_records())
     df = df.loc[(df['Token'].astype(str) == str(security_key))]
     EmployeeName = df['Name'].values[0]
