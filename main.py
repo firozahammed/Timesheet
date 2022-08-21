@@ -1,17 +1,11 @@
 import base64
-import time
-from datetime import datetime
-import datetime as dt
-from datetime import date
 
-import pyodbc
+
 from PIL import Image
 
 # streamlit_app.py
 
 import streamlit as st
-from google.oauth2 import service_account
-from gsheetsdb import connect
 import pandas as pd
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
@@ -52,7 +46,7 @@ def set_bg_hack(main_bg):
 
 image = Image.open("OIP.jpg")
 st.image(image)
-security_key = None
+
 placeholder = st.empty()
 
 Security_Key_Title = st.title('Please enter the security key')
@@ -60,7 +54,7 @@ security_key = st.text_input('Security key')
 df = pd.DataFrame(sheet.get_all_records())
 check_security_key = (security_key in df['Token'].astype(str).unique())
 if check_security_key is False:
-   st.error("The security key: "+security_key+" is invalid.")
+    st.error("The security key: "+security_key+" is invalid.")
 else:
     placeholder.title(Security_Key_Title)
 
