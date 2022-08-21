@@ -60,6 +60,4 @@ check_security_key = (security_key in df['Token'].astype(str).unique())
 if check_security_key is False:
     st.error("The security key: "+security_key+" is invalid.")
 else:
-    placeholder.title('Please enter the security key')
-    security_key = placeholder.text_input('Security key')
-    placeholder.empty()
+    st.empty(security_key)
