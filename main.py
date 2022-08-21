@@ -50,20 +50,23 @@ placeholder = st.empty()
 with placeholder.container():
 
     st.title('Please enter the security key')
-    security_key = st.text_input('Security key')
+    security_key = st.text_input(placeholder='Security key')
     df = pd.DataFrame(sheet.get_all_records())
     check_security_key = (security_key in df['Token'].astype(str).unique())
     submit_button = st.button("Submit")
-    
+
     if submit_button:
-
-        if check_security_key is False:
-            st.error("The security key: " + security_key + " is invalid.")
-        #placeholder.empty()
         
-        else:
-            placeholder.empty()
+        if security_key!="":
+            if check_security_key is False:
+                st.error("The security key: " + security_key + " is invalid.")
+        #placeholder.empty()
 
+            else:
+                placeholder.empty()
+        else:
+            st.error("Please enter the security key")
+            
 #placeholder = st.empty()
 #placeholder.title("Initial text")
 
