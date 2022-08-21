@@ -60,15 +60,16 @@ with placeholder.container():
     if submit_button:
 
         if security_key!="":
-            if check_security_key is False:
-                st.error("The security key: " + security_key + " is invalid.")
+                if check_security_key is False:
+                    st.error("The security key: " + security_key + " is invalid.")
         #placeholder.empty()
 
-            else:
-                placeholder.empty()
-        df = pd.DataFrame(sheet.get_all_records())
-        df = df.loc[(df['Token'].astype(str) == str(security_key))]
-        df
+                else:
+                    placeholder.empty()
+                    st.stop()
+                df = pd.DataFrame(sheet.get_all_records())
+                df = df.loc[(df['Token'].astype(str) == str(security_key))]
+                df
 
         else:
             st.error("Please enter the security key")
