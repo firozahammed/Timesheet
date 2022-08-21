@@ -70,7 +70,8 @@ with placeholder.container():
                     df = df.loc[(df['Token'].astype(str) == str(security_key))]
                     placeholder.dataframe(df)
                     EmployeeName=df['Name'].values[0]
-                    placeholder.write(EmployeeName)
+                    EmployeeID=df['User ID'].values[0]
+                    placeholder.text_input('Employee ID',value=EmployeeID,disabled=True)
 
 
 
