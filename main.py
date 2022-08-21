@@ -65,7 +65,7 @@ with placeholder.container():
 
                 else:
                     placeholder.empty()
-                    st.container()
+                    st.beta_container()
                     df = pd.DataFrame(sheet.get_all_records())
                     df = df.loc[(df['Token'].astype(str) == str(security_key))]
                     EmployeeName = df['Name'].values[0]
