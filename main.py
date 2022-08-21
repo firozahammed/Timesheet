@@ -65,7 +65,7 @@ security_key = None
 #    placeholder.empty()
 
 placeholder = st.empty()
-placeholder.text("Initial text")
+placeholder.title("Initial text")
 
 with placeholder.container():
 
