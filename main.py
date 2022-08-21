@@ -53,13 +53,13 @@ with placeholder.container():
     security_key = st.text_input('Security key')
     df = pd.DataFrame(sheet.get_all_records())
     check_security_key = (security_key in df['Token'].astype(str).unique())
-    submit_button = st.button("Submit")
-    #if check_security_key is False:
-    if submit_button:
-        placeholder.empty()
-        #st.error("The security key: "+security_key+" is invalid.")
-    #else:
+    #submit_button = st.button("Submit")
+    if check_security_key is False:
+    #if submit_button:
         #placeholder.empty()
+        st.error("The security key: "+security_key+" is invalid.")
+    else:
+        placeholder.empty()
 
 #placeholder = st.empty()
 #placeholder.title("Initial text")
