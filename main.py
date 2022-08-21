@@ -43,8 +43,8 @@ def set_bg_hack(main_bg):
 
 #set_bg_hack('background.png')
 def EmployeeForm():
-    FormContainer = st.container()
-    with FormContainer:
+    FormContainer = st.empty()
+    with FormContainer.container():
         df = pd.DataFrame(sheet.get_all_records())
         df = df.loc[(df['Token'].astype(str) == str(security_key))]
         EmployeeName = df['Name'].values[0]
