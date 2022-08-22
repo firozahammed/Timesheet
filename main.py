@@ -89,60 +89,23 @@ with TokenContainer.container():
 
 
                         if reason == 'Customer visit':
-                            clm1, clm2, clm3, clm4, clm5 = st.columns(5)
-                            client_name = clm1.text_input('Client name:')
-                            client_loc = clm3.text_input('Location:', key=1)
-                            country = clm2.text_input('Country:', key=3)
-                            from_time = clm4.time_input('From:', datetime.now(), 1)
-                            to_time = clm5.time_input('To:', datetime.now(), 1)
-                            details = ['Client:' + client_name, 'Location:' + client_loc, 'Country:' + country]
-                            details = '\n\n'.join(details)
-                            save_add_button = clm1.button('Add')
-                            if save_add_button:
-                                details_list = [EmployeeToken,EmployeeID,EmployeeName,str(ReportingDate),str(from_time), str(to_time), reason, details]
-                                sheet.append_row(details_list)
-                                #st.success('Successfully added!')
-                                st.write(details_list)
-
-                        elif reason == 'Medical':
-                            clm1, clm2, clm3 = st.columns(3)
-                            hospital_name = clm1.text_input('Hospital name:')
-                            from_time = clm2.time_input('From:', datetime.now(), 1)
-                            to_time = clm3.time_input('To:', datetime.now(), 1)
-                            save_add_button = clm1.button('Add')
-                            if save_add_button:
-                                details_list = [EmployeeToken,EmployeeID,EmployeeName,ReportingDate,str(from_time), str(to_time), reason,'Hospital:' + hospital_name]
-                                sheet.append_row(details_list)
-                                st.success('Successfully added!')
-                                st.stop()
-
-                        elif reason == 'Vacation':
-                            clm1, clm2 = st.columns(2)
-                            from_time = clm1.time_input('From:', datetime.now(), 1)
-                            to_time = clm2.time_input('To:', datetime.now(), 1)
-                            save_add_button = clm1.button('Add')
-                            if save_add_button:
-                                details_list = [EmployeeToken,EmployeeID,EmployeeName,ReportingDate,str(from_time), str(to_time), reason]
-                                sheet.append_row(details_list)
-                                st.success('Successfully added!')
-                                st.stop()
-
-
-                        elif reason == 'Personal':
-
-                            personal_details = st.text_area('Enter details', height=None)
-                            clm1, clm2 = st.columns(2)
-                            from_time = clm1.time_input('From:', datetime.now(), 1)
-                            to_time = clm2.time_input('To:', datetime.now(), 1)
-                            details = []
-                            details = personal_details
-                            save_add_button = clm1.button('Add')
-                            if save_add_button:
-                                    details_list = [EmployeeToken,EmployeeID,EmployeeName,ReportingDate,str(from_time), str(to_time), reason, details]
+                                clm1, clm2, clm3, clm4, clm5 = st.columns(5)
+                                client_name = clm1.text_input('Client name:')
+                                client_loc = clm3.text_input('Location:', key=1)
+                                country = clm2.text_input('Country:', key=3)
+                                from_time = clm4.time_input('From:', datetime.now(), 1)
+                                to_time = clm5.time_input('To:', datetime.now(), 1)
+                                details = ['Client:' + client_name, 'Location:' + client_loc, 'Country:' + country]
+                                details = '\n\n'.join(details)
+                                save_add_button = clm1.button('Add')
+                                if save_add_button:
+                                    details_list = [EmployeeToken,EmployeeID,EmployeeName,str(ReportingDate),str(from_time), str(to_time), reason, details]
                                     sheet.append_row(details_list)
-                                    st.success('Successfully added!')
-                                    st.stop()
-
+                                    #st.success('Successfully added!')
+                                    st.write(details_list)
+                        else:
+                                    pass
+                            
 
 
 
@@ -150,7 +113,7 @@ with TokenContainer.container():
 
 
             else:
-                    st.warning('Note: Security key is mandatory')
+                 st.warning('Note: Security key is mandatory')
 
 
 
