@@ -48,28 +48,25 @@ image = Image.open("OIP.jpg")
 st.image(image)
 
 FormContainer = st.empty()
-
 with FormContainer.container():
-    st.title('Please enter the security key')
-    security_key = st.text_input('Security key')
-    df = pd.DataFrame(sheet.get_all_records())
-    check_security_key = (security_key in df['Token'].astype(str).unique())
-    submit_button = st.button("Submit")
+        st.title('Please enter the security key')
+        security_key = st.text_input('Security key')
+        df = pd.DataFrame(sheet.get_all_records())
+        check_security_key = (security_key in df['Token'].astype(str).unique())
+        submit_button = st.button("Submit")
 
-    if submit_button:
+        if submit_button:
 
-        if security_key != "":
-            if check_security_key is False:
-                st.error("The security key: " + security_key + " is invalid.")
-            else:
-                FormContainer.empty()
-                          
+                if security_key != "":
+                    if check_security_key is False:
+                        st.error("The security key: " + security_key + " is invalid.")
+                    else:
+                        FormContainer.empty()
+                        st.write("This is one element")
+                        st.write("This is another")
+                        
+                        
         else:
-            st.error("Please enter the security key")
+                st.error("Please enter the security key")
 
-        placeholder = st.empty()
-
-        # Replace the chart with several elements:
-        with placeholder.container():
-            st.write("This is one element")
-            st.write("This is another") 
+    
