@@ -47,6 +47,27 @@ def set_bg_hack(main_bg):
 
 image = Image.open("OIP.jpg")
 st.image(image)
+@st.cache(allow_output_mutation=True)
+def EmployeeForm():
+    if reason == 'Customer visit':
+        clm1, clm2, clm3, clm4, clm5 = TokenContainer.columns(5)
+        client_name = clm1.text_input('Client name:')
+        client_loc = clm3.text_input('Location:', key=1)
+        country = clm2.text_input('Country:', key=3)
+        from_time = clm4.time_input('From:', datetime.now(), 1)
+        to_time = clm5.time_input('To:', datetime.now(), 1)
+        details = ['Client:' + client_name, 'Location:' + client_loc, 'Country:' + country]
+        details = '\n\n'.join(details)
+        save_add_button = clm1.button('Add')
+        if save_add_button:
+            details_list = [EmployeeToken, EmployeeID, EmployeeName, str(ReportingDate), str(from_time), str(to_time),
+                            reason, details]
+            sheet.append_row(details_list)
+            # st.success('Successfully added!')
+            st.write(details_list)
+            st.stop()
+
+
 TokenContainer = st.empty()
 with TokenContainer.container():
             st.title('Please enter the security key')
@@ -86,28 +107,9 @@ with TokenContainer.container():
 
                             exemption_list = []
                             details = []
-
-                        with st.container():
-                            if reason == 'Customer visit':
-                                clm1, clm2, clm3, clm4, clm5 = TokenContainer.columns(5)
-                                client_name = clm1.text_input('Client name:')
-                                client_loc = clm3.text_input('Location:', key=1)
-                                country = clm2.text_input('Country:', key=3)
-                                from_time = clm4.time_input('From:', datetime.now(), 1)
-                                to_time = clm5.time_input('To:', datetime.now(), 1)
-                                details = ['Client:' + client_name, 'Location:' + client_loc, 'Country:' + country]
-                                details = '\n\n'.join(details)
-                                save_add_button = clm1.button('Add')
-                                if save_add_button:
-                                        details_list = [EmployeeToken,EmployeeID,EmployeeName,str(ReportingDate),str(from_time), str(to_time), reason, details]
-                                        sheet.append_row(details_list)
-                                        #st.success('Successfully added!')
-                                        st.write(details_list)
-                                        st.stop()
-
-                            else:
-                                pass
-
+                            EmployeeForm()
+                        
+                            
 
 
 
@@ -116,6 +118,13 @@ with TokenContainer.container():
 
             else:
                  st.warning('Note: Security key is mandatory')
+
+
+
+
+
+
+
 
 
 
