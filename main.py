@@ -76,19 +76,19 @@ with TokenContainer.container():
                             options = ('Customer visit','Medical','Vendor visit','Business trip','Personal','Reporting late')
                             reason = st.selectbox("Please choose a reason",options)
 
-                        scopes = ['https://www.googleapis.com/auth/spreadsheets',
+                            scopes = ['https://www.googleapis.com/auth/spreadsheets',
                                       'https://www.googleapis.com/auth/drive']
-                        creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
-                        file = gspread.authorize(creds)
-                        workbook = file.open("Timesheet")
-                        sheet = workbook.sheet1
-                        sheet_url = st.secrets["private_gsheets_url"]
+                            creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
+                            file = gspread.authorize(creds)
+                            workbook = file.open("Timesheet")
+                            sheet = workbook.sheet1
+                            sheet_url = st.secrets["private_gsheets_url"]
 
-                        exemption_list = []
-                        details = []
+                            exemption_list = []
+                            details = []
 
-
-                        if reason == 'Customer visit':
+                            st.stop()
+                            if reason == 'Customer visit':
                                 clm1, clm2, clm3, clm4, clm5 = st.columns(5)
                                 client_name = clm1.text_input('Client name:')
                                 client_loc = clm3.text_input('Location:', key=1)
@@ -99,13 +99,14 @@ with TokenContainer.container():
                                 details = '\n\n'.join(details)
                                 save_add_button = clm1.button('Add')
                                 if save_add_button:
-                                    details_list = [EmployeeToken,EmployeeID,EmployeeName,str(ReportingDate),str(from_time), str(to_time), reason, details]
-                                    sheet.append_row(details_list)
-                                    #st.success('Successfully added!')
-                                    st.write(details_list)
-                        else:
-                                    pass
-                            
+                                        details_list = [EmployeeToken,EmployeeID,EmployeeName,str(ReportingDate),str(from_time), str(to_time), reason, details]
+                                        sheet.append_row(details_list)
+                                        #st.success('Successfully added!')
+                                        st.write(details_list)
+
+                            else:
+                                pass
+
 
 
 
