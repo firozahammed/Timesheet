@@ -73,7 +73,7 @@ with TokenContainer.container():
                             st.title("Dear " + EmployeeName + ", you have been late for today "+date.today().strftime("%m/%d/%y"))
                             st.text_input('Employee ID', value=EmployeeID, disabled=True)
                             st.text_input('Reporting Time',value=ReportingTime,disabled=True)
-                            options = ('Customer visit','Hospital visit','Vendor visit','Business trip','Personal','Reporting late')
+                            options = ('Customer visit','Medical','Vendor visit','Business trip','Personal','Reporting late')
                             reason = st.selectbox("Please choose a reason",options)
 
                             scopes = ['https://www.googleapis.com/auth/spreadsheets',
@@ -87,7 +87,7 @@ with TokenContainer.container():
                             exemption_list = []
                             details = []
 
-                            if reason == 'Customer site':
+                            if reason == 'Customer visit':
                                 clm1, clm2, clm3, clm4, clm5 = st.columns(5)
                                 client_name = clm1.text_input('Client name:')
                                 client_loc = clm3.text_input('Location:', key=1)
