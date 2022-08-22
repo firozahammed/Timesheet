@@ -48,11 +48,7 @@ image = Image.open("OIP.jpg")
 st.image(image)
 
 
-def FormCont():
-    FormContainer = st.empty()
-    with FormContainer.container():
-        FormContainer.write("This is one element")
-        FormContainer.write("This is another")
+
 
 
 TokenContainer = st.empty()
@@ -70,11 +66,12 @@ with TokenContainer.container():
                         st.error("The security key: " + security_key + " is invalid.")
                     else:
                         TokenContainer.empty()
-                        FormCont()
+                        st.write("This is one element")
+                        st.write("This is another")
 
 
                 else:
                     st.error("Please enter the security key")
 
-                
+
 
