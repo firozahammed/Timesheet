@@ -68,8 +68,9 @@ with TokenContainer.container():
                             EmployeeID = df['User ID'].values[0]
                             ReportingTime = df['Reporting Time'].values[0]
                             st.title("Dear " + EmployeeName + ", you have been late for today "+date.today().strftime("%m/%d/%y"))
-                            st.text_input('Employee ID', value=EmployeeID, disabled=True)
-                            st.text_input('Reporting Time',value=ReportingTime,disabled=True)
+                            empID, reportingTime = st.columns(2)
+                            empID.st.text_input('Employee ID', value=EmployeeID, disabled=True)
+                            reportingTime.st.text_input('Reporting Time',value=ReportingTime,disabled=True)
                             options = ('Customer visit','Hospital visit','Vendor visit','Business trip','Personal excuse','Reporting late')
                             selection = st.selectbox("Please choose a reason",options)
 
