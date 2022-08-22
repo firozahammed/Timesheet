@@ -47,31 +47,14 @@ def set_bg_hack(main_bg):
 
 image = Image.open("OIP.jpg")
 st.image(image)
-@st.cache(allow_output_mutation=True)
-def EmployeeForm():
-    if reason == 'Customer visit':
-        clm1, clm2, clm3, clm4, clm5 = TokenContainer.columns(5)
-        client_name = clm1.text_input('Client name:')
-        client_loc = clm3.text_input('Location:', key=1)
-        country = clm2.text_input('Country:', key=3)
-        from_time = clm4.time_input('From:', datetime.now(), 1)
-        to_time = clm5.time_input('To:', datetime.now(), 1)
-        details = ['Client:' + client_name, 'Location:' + client_loc, 'Country:' + country]
-        details = '\n\n'.join(details)
-        save_add_button = clm1.button('Add')
-        if save_add_button:
-            details_list = [EmployeeToken, EmployeeID, EmployeeName, str(ReportingDate), str(from_time), str(to_time),
-                            reason, details]
-            sheet.append_row(details_list)
-            # st.success('Successfully added!')
-            st.write(details_list)
-            st.stop()
 
+if "SecurityFlag" not in st.session_state:
+    st.session_state.SecurityFlag = False
 
 TokenContainer = st.empty()
 with TokenContainer.container():
             st.title('Please enter the security key')
-            security_key = st.text_input('Security key')
+            security_key = st.text_input('Security key',key='SecurityFlag')
             df = pd.DataFrame(sheet.get_all_records())
             check_security_key = (security_key in df['Token'].astype(str).unique())
             #submit_button = st.button("Submit")
@@ -82,6 +65,7 @@ with TokenContainer.container():
                 if check_security_key is False:
                         st.error("The security key: " + security_key + " is invalid.")
                 else:
+                        st.session_state.SecurityFlag = True
                         TokenContainer.empty()
                         with TokenContainer.container():
                             df = pd.DataFrame(sheet.get_all_records())
@@ -107,9 +91,28 @@ with TokenContainer.container():
 
                             exemption_list = []
                             details = []
-                            EmployeeForm()
-                        
-                            
+
+
+                            if reason == 'Customer visit':
+                                clm1, clm2, clm3, clm4, clm5 = TokenContainer.columns(5)
+                                client_name = clm1.text_input('Client name:')
+                                client_loc = clm3.text_input('Location:', key=1)
+                                country = clm2.text_input('Country:', key=3)
+                                from_time = clm4.time_input('From:', datetime.now(), 1)
+                                to_time = clm5.time_input('To:', datetime.now(), 1)
+                                details = ['Client:' + client_name, 'Location:' + client_loc, 'Country:' + country]
+                                details = '\n\n'.join(details)
+                                save_add_button = clm1.button('Add')
+                                if save_add_button:
+                                        details_list = [EmployeeToken,EmployeeID,EmployeeName,str(ReportingDate),str(from_time), str(to_time), reason, details]
+                                        sheet.append_row(details_list)
+                                        #st.success('Successfully added!')
+                                        st.write(details_list)
+                                        st.stop()
+
+                            else:
+                                pass
+
 
 
 
@@ -118,13 +121,6 @@ with TokenContainer.container():
 
             else:
                  st.warning('Note: Security key is mandatory')
-
-
-
-
-
-
-
 
 
 
