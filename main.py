@@ -87,7 +87,8 @@ with TokenContainer.container():
                             exemption_list = []
                             details = []
 
-                            
+
+                            @st.cache(allow_output_mutation=True)
                             if reason == 'Customer visit':
                                 clm1, clm2, clm3, clm4, clm5 = TokenContainer.columns(5)
                                 client_name = clm1.text_input('Client name:')
