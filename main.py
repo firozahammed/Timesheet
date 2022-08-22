@@ -98,7 +98,7 @@ with TokenContainer.container():
                                 details = '\n\n'.join(details)
                                 save_add_button = clm1.button('Add')
                                 if save_add_button:
-                                    details_list = [EmployeeToken,EmployeeID,EmployeeName,ReportingDate,str(from_time), str(to_time), reason, details]
+                                    details_list = [EmployeeToken,EmployeeID,EmployeeName,str(ReportingDate),str(from_time), str(to_time), reason, details]
                                     sheet.append_row(details_list)
                                     st.success('Successfully added!')
                                     st.stop()
