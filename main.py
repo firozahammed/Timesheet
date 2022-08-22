@@ -71,7 +71,7 @@ with TokenContainer.container():
                             df = df.loc[(df['Token'].astype(str) == str(security_key))]
                             EmployeeName = df['Name'].values[0]
                             EmployeeID = df['User ID'].values[0]
-                            st.title("Dear " + EmployeeName + ", you have been late for "+date.today().strftime("%m/%d/%y")+"attendance")
+                            st.title("Dear " + EmployeeName + ", you have been late for "+date.today().strftime("%m/%d/%y")+" attendance")
                             st.text_input('Employee ID', value=EmployeeID, disabled=True)
                             options = ('Customer visit', 'Hospital visit', 'Vendor visit', 'Business trip','Personal excuse', 'Reporting late')
                             selection = st.selectbox("Please choose a reason",options)
