@@ -44,22 +44,31 @@ def set_bg_hack(main_bg):
 #set_bg_hack('background.png')
 
 
-
 image = Image.open("OIP.jpg")
 st.image(image)
 
+FormContainer = st.empty()
 
-placeholder = st.empty()
+with FormContainer.container():
+    st.title('Please enter the security key')
+    security_key = st.text_input('Security key')
+    df = pd.DataFrame(sheet.get_all_records())
+    check_security_key = (security_key in df['Token'].astype(str).unique())
+    submit_button = st.button("Submit")
 
-# Replace the placeholder with some text:
-placeholder.text("Hello")
+    if submit_button:
 
-# Replace the text with a chart:
-placeholder.line_chart({"data": [1, 5, 2, 6]})
+        if security_key != "":
+            if check_security_key is False:
+                st.error("The security key: " + security_key + " is invalid.")
+            else:
+                FormContainer.empty()
+                placeholder = st.empty()
 
-# Replace the chart with several elements:
-with placeholder.container():
-     st.write("This is one element")
-     st.write("This is another")
-
-
+                # Replace the chart with several elements:
+                with placeholder.container():
+                    st.write("This is one element")
+                    st.write("This is another")           
+        else:
+            st.error("Please enter the security key")
+     
