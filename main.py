@@ -63,12 +63,13 @@ with FormContainer.container():
                 st.error("The security key: " + security_key + " is invalid.")
             else:
                 FormContainer.empty()
-                placeholder = st.empty()
-
-                # Replace the chart with several elements:
-                with placeholder.container():
-                    st.write("This is one element")
-                    st.write("This is another")           
+                          
         else:
             st.error("Please enter the security key")
-     
+
+        placeholder = st.empty()
+
+        # Replace the chart with several elements:
+        with placeholder.container():
+            st.write("This is one element")
+            st.write("This is another") 
