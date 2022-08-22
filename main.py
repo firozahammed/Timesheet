@@ -47,8 +47,8 @@ def set_bg_hack(main_bg):
 image = Image.open("OIP.jpg")
 st.image(image)
 
-FormContainer = st.empty()
-with FormContainer.container():
+TokenContainer = st.empty()
+with TokenContainer.container():
         st.title('Please enter the security key')
         security_key = st.text_input('Security key')
         df = pd.DataFrame(sheet.get_all_records())
@@ -61,14 +61,15 @@ with FormContainer.container():
                     if check_security_key is False:
                         st.error("The security key: " + security_key + " is invalid.")
                     else:
-                        FormContainer.empty()
-                        FormContainer.write("This is one element")
-                        FormContainer.write("This is another")
+                        TokenContainer.empty()
+                        
 
 
                 else:
                     st.error("Please enter the security key")
 
-                FormContainer.write("This is one element")
-                FormContainer.write("This is another")
+                FormContainer = st.empty()
+                with FormContainer.container():
+                    FormContainer.write("This is one element")
+                    FormContainer.write("This is another")
 
