@@ -57,8 +57,9 @@ with FormContainer.container():
                         if check_security_key is False:
                             pass
 
-                        else:
-                            FormContainer.empty()
+                        
+                        #else:
+                            #FormContainer.empty()
                             # df = df.loc[(df['Token'].astype(str) == str(security_key))]
                             # EmployeeName = df['Name'].values[0]
                             # EmployeeID = df['User ID'].values[0]
