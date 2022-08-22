@@ -74,8 +74,8 @@ with TokenContainer.container():
                             selection = st.selectbox("Please choose a reason",options)
 
             else:
-                    st.info('Please enter the security key', icon="ℹ")
-                    
+                    st.error('Please enter the security key')
+
 
 
 
