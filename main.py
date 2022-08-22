@@ -62,11 +62,11 @@ with FormContainer.container():
                         st.error("The security key: " + security_key + " is invalid.")
                     else:
                         FormContainer.empty()
-                        st.write("This is one element")
-                        st.write("This is another")
-                        
-                        
+                        FormContainer.write("This is one element")
+                        FormContainer.write("This is another")
+
+
         else:
                 st.error("Please enter the security key")
 
-    
+
