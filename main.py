@@ -46,11 +46,6 @@ def set_bg_hack(main_bg):
 
 image = Image.open("OIP.jpg")
 st.image(image)
-
-
-
-
-
 TokenContainer = st.empty()
 with TokenContainer.container():
             st.title('Please enter the security key')
@@ -71,13 +66,12 @@ with TokenContainer.container():
                             df = df.loc[(df['Token'].astype(str) == str(security_key))]
                             EmployeeName = df['Name'].values[0]
                             EmployeeID = df['User ID'].values[0]
-                            st.title("Dear " + EmployeeName + ", you have been late for "+date.today().strftime("%m/%d/%y")+" attendance")
+                            ReportingTime = df['Reporting Time'].values[0]
+                            st.title("Dear " + EmployeeName + ", you have been late for today "+date.today().strftime("%m/%d/%y"))
                             st.text_input('Employee ID', value=EmployeeID, disabled=True)
-                            options = ('Customer visit', 'Hospital visit', 'Vendor visit', 'Business trip','Personal excuse', 'Reporting late')
+                            st.text_input('Reporting Time',value=ReportingTime,disabled=True)
+                            options = ('Customer visit','Hospital visit','Vendor visit','Business trip','Personal excuse','Reporting late')
                             selection = st.selectbox("Please choose a reason",options)
-
-
-
 
                 else:
                     st.error("Please enter the security key")
