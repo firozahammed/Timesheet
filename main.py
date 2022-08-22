@@ -86,7 +86,7 @@ with TokenContainer.container():
 
                             exemption_list = []
                             details = []
-                            sheet.append_row("details_list")
+                            
 
                             if reason == 'Customer visit':
                                 clm1, clm2, clm3, clm4, clm5 = st.columns(5)
@@ -101,8 +101,9 @@ with TokenContainer.container():
                                 if save_add_button:
                                     details_list = [EmployeeToken,EmployeeID,EmployeeName,str(ReportingDate),str(from_time), str(to_time), reason, details]
                                     sheet.append_row(details_list)
-                                    st.success('Successfully added!')
-                                    
+                                    #st.success('Successfully added!')
+                                    st.write(details_list)
+
                             elif reason == 'Medical':
                                 clm1, clm2, clm3 = st.columns(3)
                                 hospital_name = clm1.text_input('Hospital name:')
