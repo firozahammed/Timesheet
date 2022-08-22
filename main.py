@@ -67,8 +67,8 @@ with TokenContainer.container():
                             df = df.loc[(df['Token'].astype(str) == str(security_key))]
                             EmployeeName = df['Name'].values[0]
                             EmployeeID = df['User ID'].values[0]
-                            EmployeeToken = df['User ID'].values[0]
-                            ReportingTime = df['Token'].values[0]
+                            EmployeeToken = df['Token'].values[0]
+                            ReportingTime = df['Reporting Time'].values[0]
                             ReportingDate = date.today().strftime("%m/%d/%y")
                             st.title("Dear " + EmployeeName + ", you have been late for today "+date.today().strftime("%m/%d/%y"))
                             st.text_input('Employee ID', value=EmployeeID, disabled=True)
@@ -103,6 +103,7 @@ with TokenContainer.container():
                                         sheet.append_row(details_list)
                                         #st.success('Successfully added!')
                                         st.write(details_list)
+                                        st.stop()
 
                             else:
                                 pass
