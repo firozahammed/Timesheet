@@ -56,7 +56,7 @@ with FormContainer.container():
                         check_security_key = (security_key in df['Token'].astype(str).unique())
                         if check_security_key is False:
                             pass
-                        
+
                         else:
                             FormContainer.empty()
                             # df = df.loc[(df['Token'].astype(str) == str(security_key))]
@@ -65,7 +65,7 @@ with FormContainer.container():
                             # FormContainer.title("Dear " + EmployeeName + ", you have been late for today\'s attendance")
                             # FormContainer.text_input('Employee ID', value=EmployeeID, disabled=True)
 
-                        
+
 
 
 
@@ -75,24 +75,24 @@ placeholder = st.empty()
 with placeholder.container():
 
     st.title('Please enter the security key')
-    security_key = st.text_input('Security key')
+    #security_key = st.text_input('Security key')
 
-    df = pd.DataFrame(sheet.get_all_records())
-    check_security_key = (security_key in df['Token'].astype(str).unique())
-    submit_button = st.button("Submit")
+    #df = pd.DataFrame(sheet.get_all_records())
+    #check_security_key = (security_key in df['Token'].astype(str).unique())
+    #submit_button = st.button("Submit")
 
-    if submit_button:
+    #if submit_button:
 
-        if security_key!="":
-                if check_security_key is False:
-                    st.error("The security key: " + security_key + " is invalid.")
-
-
-                else:
-                    placeholder.empty()
+        #if security_key!="":
+         #       if check_security_key is False:
+          #          st.error("The security key: " + security_key + " is invalid.")
 
 
+           #     else:
+            #        placeholder.empty()
 
 
-        else:
-            st.error("Please enter the security key")
+
+
+       # else:
+        #    st.error("Please enter the security key")
