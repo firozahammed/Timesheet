@@ -49,17 +49,22 @@ image = Image.open("OIP.jpg")
 st.image(image)
 
 
+def CheckEmpl():
+    check_security_key = (security_key in df['Token'].astype(str).unique())
+
+    if check_security_key is False:
+        pass
+
+
+    else:
+        FormContainer.empty()
+
+
 FormContainer = st.empty()
 with FormContainer.container():
                         df = pd.DataFrame(sheet.get_all_records())
-                        security_key = st.text_input('Security key')
-                        check_security_key = (security_key in df['Token'].astype(str).unique())
-                        if check_security_key is False:
-                            pass
-
+                        security_key = st.text_input('Security key',on_change=CheckEmpl())
                         
-                        #else:
-                            #FormContainer.empty()
                             # df = df.loc[(df['Token'].astype(str) == str(security_key))]
                             # EmployeeName = df['Name'].values[0]
                             # EmployeeID = df['User ID'].values[0]
