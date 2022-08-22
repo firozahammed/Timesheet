@@ -52,14 +52,14 @@ with TokenContainer.container():
             security_key = st.text_input('Security key')
             df = pd.DataFrame(sheet.get_all_records())
             check_security_key = (security_key in df['Token'].astype(str).unique())
-            submit_button = st.button("Submit")
+            #submit_button = st.button("Submit")
 
-            if submit_button:
+            #if submit_button:
 
-                if security_key != "":
-                    if check_security_key is False:
+            if security_key != "":
+                if check_security_key is False:
                         st.error("The security key: " + security_key + " is invalid.")
-                    else:
+                else:
                         TokenContainer.empty()
                         with TokenContainer.container():
                             df = pd.DataFrame(sheet.get_all_records())
@@ -68,13 +68,12 @@ with TokenContainer.container():
                             EmployeeID = df['User ID'].values[0]
                             ReportingTime = df['Reporting Time'].values[0]
                             st.title("Dear " + EmployeeName + ", you have been late for today "+date.today().strftime("%m/%d/%y"))
-                            empID, reportingTime = st.columns(2)
-                            empID.st.text_input('Employee ID', value=EmployeeID, disabled=True)
-                            reportingTime.st.text_input('Reporting Time',value=ReportingTime,disabled=True)
+                            st.text_input('Employee ID', value=EmployeeID, disabled=True)
+                            st.text_input('Reporting Time',value=ReportingTime,disabled=True)
                             options = ('Customer visit','Hospital visit','Vendor visit','Business trip','Personal excuse','Reporting late')
                             selection = st.selectbox("Please choose a reason",options)
 
-                else:
+            else:
                     st.error("Please enter the security key")
 
 
