@@ -89,7 +89,7 @@ with TokenContainer.container():
 
                             
                             if reason == 'Customer visit':
-                                clm1, clm2, clm3, clm4, clm5 = st.columns(5)
+                                clm1, clm2, clm3, clm4, clm5 = TokenContainer.columns(5)
                                 client_name = clm1.text_input('Client name:')
                                 client_loc = clm3.text_input('Location:', key=1)
                                 country = clm2.text_input('Country:', key=3)
