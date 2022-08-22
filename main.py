@@ -66,10 +66,9 @@ with TokenContainer.container():
                         st.error("The security key: " + security_key + " is invalid.")
                     else:
                         TokenContainer.empty()
-                        placeholder=st.container()
-                        
-                        placeholder.write("This is one element")
-                        placeholder.write("This is another")
+                        with TokenContainer.container():
+                            st.title("Dear , you have been late for today\'s attendance")
+
 
 
                 else:
