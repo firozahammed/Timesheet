@@ -61,5 +61,5 @@ with st.container():
             if check_security_key is False:
                 st.error("The security key: " + security_key + " is invalid.")
             else:
-                st.empty()
+                st.container().empty()
 
