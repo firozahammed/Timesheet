@@ -50,10 +50,8 @@ st.image(image)
 
 
 def EmployeeForm():
-    
-FormContainer = st.container()
-#with FormContainer.container():
-df = pd.DataFrame(sheet.get_all_records())
+    with st.container():
+        df = pd.DataFrame(sheet.get_all_records())
         # df = df.loc[(df['Token'].astype(str) == str(security_key))]
         # EmployeeName = df['Name'].values[0]
         # EmployeeID = df['User ID'].values[0]
