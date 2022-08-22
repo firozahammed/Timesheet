@@ -73,7 +73,9 @@ with TokenContainer.container():
                             EmployeeID = df['User ID'].values[0]
                             st.title("Dear " + EmployeeName + ", you have been late for today\'s attendance")
                             st.text_input('Employee ID', value=EmployeeID, disabled=True)
-                            
+                            options = ('Customer visit', 'Hospital visit', 'Vendor visit', 'Business trip','Personal excuse', 'Reporting late')
+                            selection = st.selectbox("Please choose a reason",options)
+
 
 
 
