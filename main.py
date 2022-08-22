@@ -86,6 +86,7 @@ with TokenContainer.container():
 
                             exemption_list = []
                             details = []
+                            sheet.append_row("details_list")
 
                             if reason == 'Customer visit':
                                 clm1, clm2, clm3, clm4, clm5 = st.columns(5)
