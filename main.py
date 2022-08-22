@@ -50,16 +50,17 @@ st.image(image)
 
 
 def EmployeeForm():
-    FormContainer = st.empty()
-    with FormContainer.container():
-        df = pd.DataFrame(sheet.get_all_records())
+    
+FormContainer = st.container()
+#with FormContainer.container():
+df = pd.DataFrame(sheet.get_all_records())
         # df = df.loc[(df['Token'].astype(str) == str(security_key))]
         # EmployeeName = df['Name'].values[0]
         # EmployeeID = df['User ID'].values[0]
         # FormContainer.title("Dear " + EmployeeName + ", you have been late for today\'s attendance")
         # FormContainer.text_input('Employee ID', value=EmployeeID, disabled=True)
 
-        st.title("Dear , you have been late for today\'s attendance")
+st.title("Dear , you have been late for today\'s attendance")
 
 
 
@@ -90,4 +91,3 @@ with placeholder.container():
             st.error("Please enter the security key")
 
 
-    
