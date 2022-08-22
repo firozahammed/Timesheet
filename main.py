@@ -48,21 +48,18 @@ def set_bg_hack(main_bg):
 image = Image.open("OIP.jpg")
 st.image(image)
 
+with st.container():
+    st.title('Please enter the security key')
+    security_key = st.text_input('Security key')
 
-container=st.container()
-container.title('Please enter the security key')
-security_key = container.text_input('Security key')
+    df = pd.DataFrame(sheet.get_all_records())
+    check_security_key = (security_key in df['Token'].astype(str).unique())
+    submit_button = st.button("Submit")
+    if submit_button:
 
-df = pd.DataFrame(sheet.get_all_records())
-check_security_key = (security_key in df['Token'].astype(str).unique())
-submit_button = container.button("Submit")
-if submit_button:
-
-    if security_key != "":
-        if check_security_key is False:
-            container.error("The security key: " + security_key + " is invalid.")
-
-
-        else:
-            container.empty()
+        if security_key != "":
+            if check_security_key is False:
+                st.error("The security key: " + security_key + " is invalid.")
+            else:
+                st.empty()
 
