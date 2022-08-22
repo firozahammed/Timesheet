@@ -58,14 +58,14 @@ with TokenContainer.container():
             df = pd.DataFrame(sheet.get_all_records())
             check_security_key = (security_key in df['Token'].astype(str).unique())
             #submit_button = st.button("Submit")
-
+            st.session_state.SecurityFlag = True
             #if submit_button:
 
             if security_key != "":
                 if check_security_key is False:
                         st.error("The security key: " + security_key + " is invalid.")
                 else:
-                        st.session_state.SecurityFlag = True
+                        
                         TokenContainer.empty()
                         with TokenContainer.container():
                             df = pd.DataFrame(sheet.get_all_records())
