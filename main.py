@@ -58,7 +58,7 @@ with TokenContainer.container():
 
             if security_key != "":
                 if check_security_key is False:
-                        st.error("The security key: " + security_key + " is invalid.", icon="🚨")
+                        st.error("The security key: " + security_key + " is invalid.")
                 else:
                         TokenContainer.empty()
                         with TokenContainer.container():
@@ -74,7 +74,7 @@ with TokenContainer.container():
                             selection = st.selectbox("Please choose a reason",options)
 
             else:
-                    st.error('Please enter the security key')
+                    st.warning('Security key is mandatory')
 
 
 
