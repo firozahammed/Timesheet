@@ -101,7 +101,7 @@ with TokenContainer.container():
                                     details_list = [EmployeeToken,EmployeeID,EmployeeName,str(ReportingDate),str(from_time), str(to_time), reason, details]
                                     sheet.append_row(details_list)
                                     st.success('Successfully added!')
-                                    st.stop()
+                                    
                             elif reason == 'Medical':
                                 clm1, clm2, clm3 = st.columns(3)
                                 hospital_name = clm1.text_input('Hospital name:')
