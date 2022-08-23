@@ -43,14 +43,13 @@ image = Image.open("OIP.jpg")
 st.image(image)
 
 
-EmployeeToken=0
 
 if st.session_state.get('step') is None:
     st.session_state['step'] = 0
 
 if st.session_state['step'] == 0:
 
-    with st.container():
+    with st.form(key = 'TokenForm'):
         scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
         creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
         file = gspread.authorize(creds)
@@ -62,8 +61,7 @@ if st.session_state['step'] == 0:
         security_key = st.text_input('Security key')
         df = pd.DataFrame(sheet.get_all_records())
         check_security_key = (security_key in df['Token'].astype(str).unique())
-        submit_button = st.button("Submit")
-
+        submit_button = st.form_submit_button(label="Submit")
 
     if submit_button:
 
@@ -82,8 +80,8 @@ if st.session_state['step'] == 0:
 
 if st.session_state['step'] == 1:
 
-        st.write("Security key -"+str(EmployeeToken))
-        with st.container():
+        st.write("Security key -"+str(security_key))
+        with st.form(key='EmployeeForm'):
             scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
             creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
             file = gspread.authorize(creds)
