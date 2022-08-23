@@ -78,7 +78,7 @@ if TokenContainerFlag is False:
                         TokenContainer.empty()
                         TokenContainerFlag = True
                         st.session_state['TokenSession'] += 1
-                        
+
 
             else:
                  st.warning('Note: Security key is mandatory')
@@ -120,7 +120,7 @@ if TokenContainerFlag is True:
             details = '\n\n'.join(details)
             save_add_button = clm1.button('Add')
             if save_add_button:
-                details_list = [EmployeeToken, EmployeeID, EmployeeName, str(ReportingDate), str(from_time), str(to_time),
+                details_list = [str(EmployeeToken),str(EmployeeID), str(EmployeeName), str(ReportingDate), str(from_time), str(to_time),
                                 reason, details]
                 sheet.append_row(details_list)
                 # st.success('Successfully added!')
