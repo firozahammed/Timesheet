@@ -60,7 +60,7 @@ if TokenContainerFlag is False:
             sheet = workbook.sheet1
             sheet_url = st.secrets["private_gsheets_url"]
             
-            
+
             df = pd.DataFrame(sheet.get_all_records())
             check_security_key = (security_key in df['Token'].astype(str).unique())
             submit_button = st.form_submit_button(label="Submit")
@@ -74,7 +74,7 @@ if TokenContainerFlag is False:
 
                         TokenContainer.empty()
                         TokenContainerFlag = True
-                        
+
 
 
             else:
@@ -119,7 +119,8 @@ if TokenContainerFlag is True:
             if add_button:
                 details_list = [str(EmployeeToken),str(EmployeeID), str(EmployeeName), str(ReportingDate), str(from_time), str(to_time),
                                 reason, details]
-                sheet.append_row(details_list)
+                #sheet.append_row(details_list)
+                sheet.append_row("details_list","1","2","2","2","2","2","2")
                 df = pd.DataFrame(sheet.get_all_records())
                 df
                 # st.success('Successfully added!')
