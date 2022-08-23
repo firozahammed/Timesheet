@@ -43,7 +43,8 @@ image = Image.open("OIP.jpg")
 st.image(image)
 
 def PassSecurityKey(security_key):
-    return security_key
+    EmployeeToken=security_key
+    return EmployeeToken
 
 if st.session_state.get('step') is None:
     st.session_state['step'] = 0
@@ -88,8 +89,8 @@ if st.session_state['step'] == 1:
             sheet_url = st.secrets["private_gsheets_url"]
 
             df = pd.DataFrame(sheet.get_all_records())
-            PassSecurityKey(security_key)
-            df = df.loc[(df['Token'].astype(str) == str(security_key))]
+            EmployeeToken = PassSecurityKey(security_key)
+            df = df.loc[(df['Token'].astype(str) == str(EmployeeToken))]
             EmployeeName = df['Name'].values[0]
             EmployeeID = df['User ID'].values[0]
             EmployeeToken = df['Token'].values[0]
