@@ -94,7 +94,7 @@ with st.form(key='EmployeeForm'):
         to_date = clm5.date_input('To:').strftime("%m/%d/%Y")
         details=['Client:'+client_name,'Location:'+client_loc,'Country:'+country]
         details='\n\n'.join(details)
-        save_add_button = clm1.button('Add')
+        save_add_button = st.form_submit_button(label="Add")
         if save_add_button:
             exemption_list = ['123','234','Yass',str(from_date),str(from_date),str(to_date), reason,details]
             sheet.append_row(exemption_list)
