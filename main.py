@@ -129,7 +129,7 @@ if st.session_state['step'] == 1:
                 details = '\n\n'.join(details)
                 add_button = st.form_submit_button(label="Add")
                 if add_button:
-                    details_list = [EmployeeToken, EmployeeID, EmployeeName, date.today().strftime("%m/%d/%Y"),
+                    details_list = [str(EmployeeToken), str(EmployeeID), str(EmployeeName), date.today().strftime("%m/%d/%Y"),
                                     str(from_time), str(to_time),
                                     reason, details]
                     sheet.append_row(details_list)
