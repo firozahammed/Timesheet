@@ -47,6 +47,9 @@ st.image(image)
 if st.session_state.get('step') is None:
     st.session_state['step'] = 0
 
+if st.session_state.get('security_key') is None:
+    st.session_state['security_key'] = 0
+
 if st.session_state['step'] == 0:
 
     with st.form(key = 'TokenForm'):
@@ -59,6 +62,7 @@ if st.session_state['step'] == 0:
 
         st.title('Please enter the security key')
         security_key = st.text_input('Security key')
+        st.session_state['security_key'] = security_key
         df = pd.DataFrame(sheet.get_all_records())
         check_security_key = (security_key in df['Token'].astype(str).unique())
         submit_button = st.form_submit_button(label="Submit")
@@ -70,7 +74,7 @@ if st.session_state['step'] == 0:
                 st.error("The security key: " + security_key + " is invalid.")
             else:
                 st.session_state['step'] = 1
-                #st.experimental_rerun()
+                st.experimental_rerun()
 
 
     else:
@@ -89,6 +93,7 @@ if st.session_state['step'] == 1:
             sheet = workbook.sheet1
             sheet_url = st.secrets["private_gsheets_url"]
             df = pd.DataFrame(sheet.get_all_records())
+            security_key = st.session_state.get('security_key')
             df = df.loc[(df['Token'].astype(str) == str(security_key))]
             EmployeeName = df['Name'].values[0]
             EmployeeID = df['User ID'].values[0]
