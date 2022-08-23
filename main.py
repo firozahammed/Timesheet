@@ -72,38 +72,31 @@ with st.form(key='EmployeeForm'):
     st.text_input('Employee ID', value=EmployeeID, disabled=True)
     st.text_input('Reporting Time', value=ReportingTime, disabled=True)
     options = (
-        'Customer visit', 'Medical', 'Vendor visit', 'Business trip', 'Personal', 'Reporting late')
+        'Customer site', 'Medical', 'Vendor visit', 'Business trip', 'Personal', 'Reporting late')
     reason = st.selectbox("Please choose a reason", options)
 
-
-    scopes = ['https://www.googleapis.com/auth/spreadsheets',
-              'https://www.googleapis.com/auth/drive']
+    scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
     creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
     file = gspread.authorize(creds)
-    workbook = file.open("Employee Exemption")
+    workbook = file.open("Timesheet")
     sheet = workbook.sheet1
     sheet_url = st.secrets["private_gsheets_url"]
-    sheet.append_row('123', '08/08/22', '03/03/22', 'late', 'hospital')
-    df = pd.DataFrame(sheet.get_all_records())
-    df
-    exemption_list = []
-    details = []
 
-    if reason == 'Customer visit':
+    exemption_list=[]
+    details=[]
+
+    if reason == 'Customer site':
         clm1, clm2, clm3, clm4, clm5 = st.columns(5)
         client_name = clm1.text_input('Client name:')
         country = clm2.text_input('Country:', key=3)
         client_loc = clm3.text_input('Location:', key=1)
-        from_time = clm4.time_input('From:', datetime.now(), 1)
-        to_time = clm5.time_input('To:', datetime.now(), 1)
-        details = ['Client:' + client_name, 'Location:' + client_loc, 'Country:' + country]
-        details = '\n\n'.join(details)
-        add_button = st.form_submit_button(label="Add")
-        if add_button:
-            details_list = [str(EmployeeToken), str(EmployeeID), str(EmployeeName),
-                            str(ReportingDate), str(from_time), str(to_time),
-                            reason, details]
-            # sheet.append_row(details_list)
-            sheet.append_row("details_list", "1", "2")
-            #sheet.append_row("details_list","1","2","2","2","2","2","2")
-            df = pd.DataFrame(sheet.get_all_records())
+        from_date = clm4.date_input('From:').strftime("%m/%d/%Y")
+        to_date = clm5.date_input('To:').strftime("%m/%d/%Y")
+        details=['Client:'+client_name,'Location:'+client_loc,'Country:'+country]
+        details='\n\n'.join(details)
+        save_add_button = clm1.button('Add')
+        if save_add_button:
+            exemption_list = ['123','234','Yass',str(from_date),str(from_date),str(to_date), reason,details]
+            sheet.append_row(exemption_list)
+            st.success('Successfully added!')
+            st.stop()
