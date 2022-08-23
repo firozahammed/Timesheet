@@ -72,7 +72,7 @@ if st.session_state['step'] == 0:
                 st.error("The security key: " + security_key + " is invalid.")
             else:
                 st.session_state['step'] = 1
-                st.experimental_rerun()
+                #st.experimental_rerun()
 
 
     else:
