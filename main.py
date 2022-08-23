@@ -52,8 +52,8 @@ TokenContainer = st.empty()
 FormContainer = st.empty()
 TokenContainerFlag = False
 
-if 'TokenSession' not in st.session_state:
-    st.session_state['TokenSession'] = 0
+if 'EmployeeForm' not in st.session_state:
+    st.session_state['EmployeeForm'] = 0
 
 
 if TokenContainerFlag is False:
@@ -74,7 +74,7 @@ if TokenContainerFlag is False:
 
                         TokenContainer.empty()
                         TokenContainerFlag = True
-                        st.session_state['TokenSession'] += 1
+                        st.session_state['EmployeeForm'] += 1
 
 
             else:
@@ -96,8 +96,7 @@ if TokenContainerFlag is True:
         options = ('Customer visit', 'Medical', 'Vendor visit', 'Business trip', 'Personal', 'Reporting late')
         reason = st.selectbox("Please choose a reason", options)
 
-        scopes = ['https://www.googleapis.com/auth/spreadsheets',
-                  'https://www.googleapis.com/auth/drive']
+        scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
         creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
         file = gspread.authorize(creds)
         workbook = file.open("Timesheet")
@@ -121,9 +120,11 @@ if TokenContainerFlag is True:
                 details_list = [str(EmployeeToken),str(EmployeeID), str(EmployeeName), str(ReportingDate), str(from_time), str(to_time),
                                 reason, details]
                 sheet.append_row(details_list)
+                df = pd.DataFrame(sheet.get_all_records())
+                df
                 # st.success('Successfully added!')
                 st.write(details_list)
-                
 
-        
+
+
 
