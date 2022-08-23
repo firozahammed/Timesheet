@@ -71,7 +71,7 @@ if st.session_state['step'] == 0:
             else:
                 st.session_state['step'] = 1
                 st.experimental_rerun()
-               
+
 
     else:
         st.warning('Note: Security key is mandatory')
@@ -87,7 +87,7 @@ if st.session_state['step'] == 1:
             sheet_url = st.secrets["private_gsheets_url"]
 
             df = pd.DataFrame(sheet.get_all_records())
-            df = df.loc[(df['Token'].astype(str) == str(security_key))]
+            #df = df.loc[(df['Token'].astype(str) == str(security_key))]
             EmployeeName = df['Name'].values[0]
             EmployeeID = df['User ID'].values[0]
             EmployeeToken = df['Token'].values[0]
