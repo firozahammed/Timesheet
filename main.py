@@ -50,9 +50,6 @@ if st.session_state.get('step') is None:
 
 if st.session_state['step'] == 0:
 
-    st.title('Please enter the security key')
-    security_key = st.text_input('Security key')
-
     with st.form(key = 'TokenForm'):
         scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
         creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
@@ -84,7 +81,7 @@ if st.session_state['step'] == 0:
 
 
 if st.session_state['step'] == 1:
-        st.write("Security key ---" + str(security_key))
+        
         st.write("Security key -"+str(EmployeeToken))
         with st.form(key='EmployeeForm'):
             scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
