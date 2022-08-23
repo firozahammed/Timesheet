@@ -79,8 +79,8 @@ if st.session_state['step'] == 0:
 
 
 if st.session_state['step'] == 1:
-    
-        st.write("Security key -"+security_key.astype(str))
+
+        st.write("Security key -"+str(security_key))
         with st.form(key='EmployeeForm'):
             scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
             creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
