@@ -101,6 +101,6 @@ with st.form(key='EmployeeForm'):
                             str(ReportingDate), str(from_time), str(to_time),
                             reason, details]
             # sheet.append_row(details_list)
-            #sheet.append_row("details_list", "1", "2", "2")
-            sheet.append_row("details_list","1","2","2","2","2","2","2")
+            sheet.append_row("details_list", "1", "2")
+            #sheet.append_row("details_list","1","2","2","2","2","2","2")
             df = pd.DataFrame(sheet.get_all_records())
