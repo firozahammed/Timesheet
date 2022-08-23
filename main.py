@@ -75,6 +75,7 @@ with st.form(key='EmployeeForm'):
         'Customer visit', 'Medical', 'Vendor visit', 'Business trip', 'Personal', 'Reporting late')
     reason = st.selectbox("Please choose a reason", options)
 
+
     scopes = ['https://www.googleapis.com/auth/spreadsheets',
               'https://www.googleapis.com/auth/drive']
     creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
@@ -82,7 +83,7 @@ with st.form(key='EmployeeForm'):
     workbook = file.open("Timesheet")
     sheet = workbook.sheet1
     sheet_url = st.secrets["private_gsheets_url"]
-
+    df = pd.DataFrame(sheet.get_all_records())
     exemption_list = []
     details = []
 
