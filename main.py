@@ -42,13 +42,14 @@ def set_bg_hack(main_bg):
 image = Image.open("OIP.jpg")
 st.image(image)
 
-security_key = 0
-
-
 if st.session_state.get('step') is None:
     st.session_state['step'] = 0
 
 if st.session_state['step'] == 0:
+
+    st.title('Please enter the security key')
+    security_key = st.text_input('Security key')
+    
     with st.form(key = 'TokenForm'):
         scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
         creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
@@ -88,7 +89,6 @@ if st.session_state['step'] == 1:
             workbook = file.open("Summary Timesheet")
             sheet = workbook.sheet1
             sheet_url = st.secrets["private_gsheets_url"]
-
             df = pd.DataFrame(sheet.get_all_records())
             df = df.loc[(df['Token'].astype(str) == str(security_key))]
             EmployeeName = df['Name'].values[0]
