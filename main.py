@@ -80,10 +80,11 @@ with st.form(key='EmployeeForm'):
               'https://www.googleapis.com/auth/drive']
     creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
     file = gspread.authorize(creds)
-    workbook = file.open("Attendance")
+    workbook = file.open("Timesheet")
     sheet = workbook.sheet1
     sheet_url = st.secrets["private_gsheets_url"]
     df = pd.DataFrame(sheet.get_all_records())
+    df
     exemption_list = []
     details = []
 
