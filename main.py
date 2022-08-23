@@ -41,18 +41,6 @@ def set_bg_hack(main_bg):
 image = Image.open("OIP.jpg")
 st.image(image)
 
-def DropDown():
-    if st.session_state['reason'] =='Medical':
-        clm1, clm2, clm3 = st.columns(3)
-        hospital_name = clm1.text_input('Hospital name:')
-        from_time = clm4.time_input('From:')
-        to_time = clm5.time_input('To:')
-        
-
-
-
-
-
 if st.session_state.get('step') is None:
     st.session_state['step'] = 0
 
@@ -91,7 +79,7 @@ if st.session_state['step'] == 0:
 
 if st.session_state['step'] == 1:
 
-    with st.form(key='EmployeeForm'):
+    
 
         scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
         creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
@@ -113,10 +101,8 @@ if st.session_state['step'] == 1:
         st.text_input('Reporting Time', value=ReportingTime, disabled=True)
         options = (
             'Customer site', 'Medical', 'Business trip', 'Personal', 'Reporting late')
-        reason = st.selectbox("Please choose a reason", options, on_change=DropDown, key="reason")
-        st.session_state['reason']=reason
-        
-        
+        reason = st.selectbox("Please choose a reason", options)
+
         scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
         creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
         file = gspread.authorize(creds)
@@ -136,7 +122,7 @@ if st.session_state['step'] == 1:
             to_time = clm5.time_input('To:')
             details = ['Client:' + client_name, 'Location:' + client_loc, 'Country:' + country]
             details = '\n\n'.join(details)
-            add_button = st.form_submit_button(label="Add")
+            add_button = clm1.button(label="Add")
             if add_button:
                 details_list = [str(EmployeeToken), str(EmployeeID), str(EmployeeName),
                                 date.today().strftime("%m/%d/%Y"),
