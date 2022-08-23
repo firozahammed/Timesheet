@@ -11,12 +11,7 @@ import pandas as pd
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
-scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
-creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
-file = gspread.authorize(creds)
-workbook = file.open("Summary Timesheet")
-sheet = workbook.sheet1
-sheet_url = st.secrets["private_gsheets_url"]
+
 
 # setting the form background
 def set_bg_hack(main_bg):
@@ -52,15 +47,20 @@ TokenContainer = st.empty()
 FormContainer = st.empty()
 TokenContainerFlag = False
 
-if 'EmployeeForm' not in st.session_state:
-    st.session_state['EmployeeForm'] = 0
-
-
 if TokenContainerFlag is False:
     with TokenContainer.container():
       with TokenContainer.form(key='TokenForm'):
             st.title('Please enter the security key')
             security_key = st.text_input('Security key')
+
+            scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
+            creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
+            file = gspread.authorize(creds)
+            workbook = file.open("Summary Timesheet")
+            sheet = workbook.sheet1
+            sheet_url = st.secrets["private_gsheets_url"]
+            
+            
             df = pd.DataFrame(sheet.get_all_records())
             check_security_key = (security_key in df['Token'].astype(str).unique())
             submit_button = st.form_submit_button(label="Submit")
@@ -74,7 +74,7 @@ if TokenContainerFlag is False:
 
                         TokenContainer.empty()
                         TokenContainerFlag = True
-                        st.session_state['EmployeeForm'] += 1
+                        
 
 
             else:
