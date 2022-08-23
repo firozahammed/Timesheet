@@ -56,7 +56,10 @@ TokenContainer = st.empty()
 FormContainer = st.empty()
 TokenContainerFlag = False
 
-
+if 'TokenSession' not in st.session_state:
+    st.session_state['TokenSession'] = 0
+st.write(st.session_state)
+    
 if TokenContainerFlag is False:
     with TokenContainer.container():
             st.title('Please enter the security key')
