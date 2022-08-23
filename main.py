@@ -70,14 +70,14 @@ with st.form(key = 'TokenForm'):
                 st.error("The security key: " + security_key + " is invalid.")
             else:
 
-                st.empty()
+                st.form.empty()
                 
 
 
 
     else:
         st.warning('Note: Security key is mandatory')
-    
+
 
 
 
