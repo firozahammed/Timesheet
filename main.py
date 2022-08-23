@@ -57,8 +57,8 @@ if 'TokenSession' not in st.session_state:
 
 
 if TokenContainerFlag is False:
-    #with TokenContainer.container():
-      with st.form(key='TokenForm'):
+    with TokenContainer.container():
+      with TokenContainer.form(key='TokenForm'):
             st.title('Please enter the security key')
             security_key = st.text_input('Security key')
             df = pd.DataFrame(sheet.get_all_records())
