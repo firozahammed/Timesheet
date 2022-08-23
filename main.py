@@ -47,7 +47,7 @@ FormContainer = st.empty()
 TokenContainerFlag = False
 
 
-@st.cache(allow_output_mutation=True)
+
 
 def EmployeeForm():
     with st.form(key='EmployeeForm'):
@@ -142,8 +142,8 @@ def EmployeeForm():
                     sheet.append_row(details_list)
                     st.success('Successfully added!')
                     st.stop()
-    
-    
+
+
 
 
 #if TokenContainerFlag is False:
