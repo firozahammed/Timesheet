@@ -88,6 +88,7 @@ if st.session_state['step'] == 1:
 
         df = pd.DataFrame(sheet.get_all_records())
         df = df.loc[(df['Token'].astype(str) == str(security_key))]
+        df
         EmployeeName = df['Name'].values[0]
         EmployeeID = df['User ID'].values[0]
         EmployeeToken = df['Token'].values[0]
