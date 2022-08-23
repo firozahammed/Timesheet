@@ -83,7 +83,7 @@ with st.form(key='EmployeeForm'):
     workbook = file.open("Employee Exemption")
     sheet = workbook.sheet1
     sheet_url = st.secrets["private_gsheets_url"]
-    sheet.append_row('1', '1', '2', '2', '2')
+    sheet.append_row('123', '08/08/22', '03/03/22', 'late', 'hospital')
     df = pd.DataFrame(sheet.get_all_records())
     df
     exemption_list = []
