@@ -78,7 +78,7 @@ if st.session_state['step'] == 0:
 
 
     else:
-        st.warning('Note: Security key is mandatory')
+        st.info('Note: Security key is mandatory')
 
 
 
@@ -86,7 +86,7 @@ if st.session_state['step'] == 1:
 
 
         with st.form(key='EmployeeForm'):
-
+            
             scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
             creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
             file = gspread.authorize(creds)
@@ -135,7 +135,6 @@ if st.session_state['step'] == 1:
                                     reason, details]
                     sheet.append_row(details_list)
                     st.success('Successfully added!')
-                    st.session_state['step'] = 1
                     
 
                 elif reason == 'Medical':
@@ -150,7 +149,7 @@ if st.session_state['step'] == 1:
                                         str(to_time), reason, 'Hospital:' + hospital_name]
                         sheet.append_row(details_list)
                         st.success('Successfully added!')
-                        st.session_state['step'] = 1
+                        
 
 
                 elif reason == 'Business trip':
@@ -164,7 +163,7 @@ if st.session_state['step'] == 1:
                                         str(to_time), reason]
                         sheet.append_row(details_list)
                         st.success('Successfully added!')
-                        st.session_state['step'] = 1
+                       
 
 
 
@@ -183,6 +182,6 @@ if st.session_state['step'] == 1:
                                         str(to_time), reason, details]
                         sheet.append_row(details_list)
                         st.success('Successfully added!')
-                        st.session_state['step'] = 1
+                        
 
 
