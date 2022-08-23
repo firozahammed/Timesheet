@@ -45,9 +45,8 @@ st.image(image)
 security_key = 0
 
 def PassSecurityKey(security_key):
-    st.title('Please enter the security key')
-    
-
+    EmployeeToken = security_key
+    return EmployeeToken
 
 
 if st.session_state.get('step') is None:
@@ -62,8 +61,8 @@ if st.session_state['step'] == 0:
         sheet = workbook.sheet1
         sheet_url = st.secrets["private_gsheets_url"]
 
-        #st.title('Please enter the security key')
-        #security_key = st.text_input('Security key')
+        st.title('Please enter the security key')
+        security_key = st.text_input('Security key')
         PassSecurityKey(security_key)
         df = pd.DataFrame(sheet.get_all_records())
         check_security_key = (security_key in df['Token'].astype(str).unique())
@@ -83,6 +82,7 @@ if st.session_state['step'] == 0:
         st.warning('Note: Security key is mandatory')
 
 
+
 if st.session_state['step'] == 1:
     with st.form(key='EmployeeForm'):
             scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
@@ -93,7 +93,7 @@ if st.session_state['step'] == 1:
             sheet_url = st.secrets["private_gsheets_url"]
 
             df = pd.DataFrame(sheet.get_all_records())
-           
+            EmployeeToken = PassSecurityKey(security_key)
             df = df.loc[(df['Token'].astype(str) == str(EmployeeToken))]
             EmployeeName = df['Name'].values[0]
             EmployeeID = df['User ID'].values[0]
