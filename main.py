@@ -93,7 +93,7 @@ if TokenContainerFlag is True:
         st.text_input('Reporting Time', value=ReportingTime, disabled=True)
         options = ('Customer visit', 'Medical', 'Vendor visit', 'Business trip', 'Personal', 'Reporting late')
         reason = st.selectbox("Please choose a reason", options)
-    
+
         scopes = ['https://www.googleapis.com/auth/spreadsheets',
                   'https://www.googleapis.com/auth/drive']
         creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
@@ -101,12 +101,12 @@ if TokenContainerFlag is True:
         workbook = file.open("Timesheet")
         sheet = workbook.sheet1
         sheet_url = st.secrets["private_gsheets_url"]
-    
+
         exemption_list = []
         details = []
 
         if reason == 'Customer visit':
-            clm1, clm2, clm3, clm4, clm5 = TokenContainer.columns(5)
+            clm1, clm2, clm3, clm4, clm5 = st.columns(5)
             client_name = clm1.text_input('Client name:')
             client_loc = clm3.text_input('Location:', key=1)
             country = clm2.text_input('Country:', key=3)
