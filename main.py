@@ -59,7 +59,7 @@ TokenContainerFlag = False
 if 'TokenSession' not in st.session_state:
     st.session_state['TokenSession'] = 0
 st.write(st.session_state)
-    
+
 if TokenContainerFlag is False:
     with TokenContainer.container():
             st.title('Please enter the security key')
@@ -77,7 +77,8 @@ if TokenContainerFlag is False:
 
                         TokenContainer.empty()
                         TokenContainerFlag = True
-
+                        st.session_state['TokenSession'] += 1
+                        st.write(st.session_state)
 
             else:
                  st.warning('Note: Security key is mandatory')
