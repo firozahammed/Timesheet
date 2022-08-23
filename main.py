@@ -43,7 +43,7 @@ image = Image.open("OIP.jpg")
 st.image(image)
 
 
-security_key = None
+security_key=None
 
 if st.session_state.get('step') is None:
     st.session_state['step'] = 0
@@ -58,8 +58,8 @@ if st.session_state['step'] == 0:
         sheet_url = st.secrets["private_gsheets_url"]
 
         st.title('Please enter the security key')
-        security_key = st.text_input('Security key')
-
+        token_key = st.text_input('Security key')
+        security_key = token_key
         df = pd.DataFrame(sheet.get_all_records())
         check_security_key = (security_key in df['Token'].astype(str).unique())
         submit_button = st.form_submit_button(label="Submit")
@@ -88,7 +88,6 @@ if st.session_state['step'] == 1:
 
         df = pd.DataFrame(sheet.get_all_records())
         df = df.loc[(df['Token'].astype(str) == str(security_key))]
-        df
         EmployeeName = df['Name'].values[0]
         EmployeeID = df['User ID'].values[0]
         EmployeeToken = df['Token'].values[0]
