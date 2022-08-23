@@ -42,20 +42,9 @@ def set_bg_hack(main_bg):
 image = Image.open("OIP.jpg")
 st.image(image)
 
-TokenContainer = st.empty()
-FormContainer = st.empty()
-TokenContainerFlag = False
-
-
-
-
-
 
 if st.session_state.get('step') is None:
     st.session_state['step'] = 0
-
-if st.session_state.get('number') is None:
-    st.session_state['number'] = 0
 
 if st.session_state['step'] == 0:
     with st.form(key = 'TokenForm'):
@@ -82,10 +71,6 @@ if st.session_state['step'] == 0:
                 st.session_state['step'] = 1
                 st.experimental_rerun()
 
-
-
-
-
     else:
         st.warning('Note: Security key is mandatory')
 
@@ -100,7 +85,7 @@ if st.session_state['step'] == 1:
         sheet_url = st.secrets["private_gsheets_url"]
 
         df = pd.DataFrame(sheet.get_all_records())
-        # df = df.loc[(df['Token'].astype(str) == str(security_key))]
+        df = df.loc[(df['Token'].astype(str) == str(security_key))]
         EmployeeName = df['Name'].values[0]
         EmployeeID = df['User ID'].values[0]
         EmployeeToken = df['Token'].values[0]
@@ -135,11 +120,11 @@ if st.session_state['step'] == 1:
             details = '\n\n'.join(details)
             add_button = st.form_submit_button(label="Add")
             if add_button:
-                details_list = ['123', '234', 'Yass', date.today().strftime("%m/%d/%Y"), str(from_time), str(to_time),
+                details_list = [EmployeeToken,EmployeeID,EmployeeName, date.today().strftime("%m/%d/%Y"), str(from_time), str(to_time),
                                 reason, details]
                 sheet.append_row(details_list)
                 st.success('Successfully added!')
-                st.stop()
+
 
             elif reason == 'Medical':
                 clm1, clm2, clm3 = st.columns(3)
@@ -148,12 +133,12 @@ if st.session_state['step'] == 1:
                 to_time = clm5.time_input('To:')
                 save_add_button = clm1.button('Add')
                 if save_add_button:
-                    details_list = ['123', '234', 'Yass', date.today().strftime("%m/%d/%Y"), str(from_time),
+                    details_list = [EmployeeToken,EmployeeID,EmployeeName, date.today().strftime("%m/%d/%Y"), str(from_time),
                                     str(to_time), reason, 'Hospital:' + hospital_name]
                     sheet.append_row(details_list)
                     st.success('Successfully added!')
                     st.session_state['step'] = 1
-                    st.stop()
+
 
             elif reason == 'Business trip':
                 clm1, clm2 = st.columns(2)
@@ -161,12 +146,12 @@ if st.session_state['step'] == 1:
                 to_time = clm2.time_input('To:')
                 save_add_button = clm1.button('Add')
                 if save_add_button:
-                    details_list = ['123', '234', 'Yass', date.today().strftime("%m/%d/%Y"), str(from_time),
+                    details_list = [EmployeeToken,EmployeeID,EmployeeName, date.today().strftime("%m/%d/%Y"), str(from_time),
                                     str(to_time), reason]
                     sheet.append_row(details_list)
                     st.success('Successfully added!')
                     st.session_state['step'] = 1
-                    st.stop()
+
 
 
             elif reason == 'Personal':
@@ -179,11 +164,11 @@ if st.session_state['step'] == 1:
                 details = personal_details
                 save_add_button = clm1.button('Add')
                 if save_add_button:
-                    details_list = ['123', '234', 'Yass', date.today().strftime("%m/%d/%Y"), str(from_time),
+                    details_list = [EmployeeToken,EmployeeID,EmployeeName, date.today().strftime("%m/%d/%Y"), str(from_time),
                                     str(to_time), reason, details]
                     sheet.append_row(details_list)
                     st.success('Successfully added!')
                     st.session_state['step'] = 1
-                    st.stop()
+
 
 
