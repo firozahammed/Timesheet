@@ -57,21 +57,21 @@ if st.session_state.get('step') is None:
 if st.session_state.get('number') is None:
     st.session_state['number'] = 0
 
-#if TokenContainerFlag is False:
-with st.form(key = 'TokenForm'):
-    scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
-    creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
-    file = gspread.authorize(creds)
-    workbook = file.open("Summary Timesheet")
-    sheet = workbook.sheet1
-    sheet_url = st.secrets["private_gsheets_url"]
+if st.session_state['step'] == 0:
+    with st.form(key = 'TokenForm'):
+        scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
+        creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
+        file = gspread.authorize(creds)
+        workbook = file.open("Summary Timesheet")
+        sheet = workbook.sheet1
+        sheet_url = st.secrets["private_gsheets_url"]
 
-    st.title('Please enter the security key')
-    security_key = st.text_input('Security key')
+        st.title('Please enter the security key')
+        security_key = st.text_input('Security key')
 
-    df = pd.DataFrame(sheet.get_all_records())
-    check_security_key = (security_key in df['Token'].astype(str).unique())
-    submit_button = st.form_submit_button(label="Submit")
+        df = pd.DataFrame(sheet.get_all_records())
+        check_security_key = (security_key in df['Token'].astype(str).unique())
+        submit_button = st.form_submit_button(label="Submit")
 
     if submit_button:
 
@@ -151,6 +151,7 @@ if st.session_state['step'] == 1:
                                     str(to_time), reason, 'Hospital:' + hospital_name]
                     sheet.append_row(details_list)
                     st.success('Successfully added!')
+                    st.session_state['step'] = 1
                     st.stop()
 
             elif reason == 'Business trip':
@@ -163,6 +164,7 @@ if st.session_state['step'] == 1:
                                     str(to_time), reason]
                     sheet.append_row(details_list)
                     st.success('Successfully added!')
+                    st.session_state['step'] = 1
                     st.stop()
 
 
@@ -180,6 +182,7 @@ if st.session_state['step'] == 1:
                                     str(to_time), reason, details]
                     sheet.append_row(details_list)
                     st.success('Successfully added!')
+                    st.session_state['step'] = 1
                     st.stop()
 
 
