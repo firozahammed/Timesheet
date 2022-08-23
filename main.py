@@ -71,7 +71,7 @@ if st.session_state['step'] == 0:
             else:
                 st.session_state['step'] = 1
                 st.experimental_rerun()
-                
+
 
     else:
         st.warning('Note: Security key is mandatory')
@@ -79,6 +79,8 @@ if st.session_state['step'] == 0:
 
 
 if st.session_state['step'] == 1:
+    
+        st.write("Security key -"+security_key)
         with st.form(key='EmployeeForm'):
             scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
             creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
