@@ -42,10 +42,13 @@ def set_bg_hack(main_bg):
 image = Image.open("OIP.jpg")
 st.image(image)
 
-EmployeeToken=0
+security_key = 0
+
 def PassSecurityKey(security_key):
-    EmployeeToken=security_key
-    return EmployeeToken
+    st.title('Please enter the security key')
+    
+
+
 
 if st.session_state.get('step') is None:
     st.session_state['step'] = 0
@@ -59,8 +62,8 @@ if st.session_state['step'] == 0:
         sheet = workbook.sheet1
         sheet_url = st.secrets["private_gsheets_url"]
 
-        st.title('Please enter the security key')
-        security_key = st.text_input('Security key')
+        #st.title('Please enter the security key')
+        #security_key = st.text_input('Security key')
         PassSecurityKey(security_key)
         df = pd.DataFrame(sheet.get_all_records())
         check_security_key = (security_key in df['Token'].astype(str).unique())
