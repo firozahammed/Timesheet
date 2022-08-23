@@ -71,7 +71,7 @@ if st.session_state['step'] == 0:
                 st.error("The security key: " + security_key + " is invalid.")
             else:
                 st.session_state['step'] = 1
-                # st.experimental_rerun()
+                st.experimental_rerun()
 
 
     else:
@@ -79,7 +79,7 @@ if st.session_state['step'] == 0:
 
 if st.session_state['step'] == 1:
 
-    
+
 
         scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
         creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
