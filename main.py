@@ -90,13 +90,13 @@ with st.form(key='EmployeeForm'):
         client_name = clm1.text_input('Client name:')
         country = clm2.text_input('Country:', key=3)
         client_loc = clm3.text_input('Location:', key=1)
-        from_date = clm4.date_input('From:').strftime("%m/%d/%Y")
-        to_date = clm5.date_input('To:').strftime("%m/%d/%Y")
+        from_time = clm4.time_input('From:')
+        to_time = clm5.time_input('To:')
         details=['Client:'+client_name,'Location:'+client_loc,'Country:'+country]
         details='\n\n'.join(details)
         save_add_button = st.form_submit_button(label="Add")
         if save_add_button:
-            exemption_list = ['123','234','Yass',str(from_date),str(from_date),str(to_date), reason,details]
+            exemption_list = ['123','234','Yass',str(from_time),str(from_time),str(to_time), reason,details]
             sheet.append_row(exemption_list)
             st.success('Successfully added!')
             st.stop()
