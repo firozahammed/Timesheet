@@ -84,7 +84,7 @@ if st.session_state['step'] == 0:
 
 
 if st.session_state['step'] == 1:
-
+        st.write("Security key ---" + str(security_key))
         st.write("Security key -"+str(EmployeeToken))
         with st.form(key='EmployeeForm'):
             scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
