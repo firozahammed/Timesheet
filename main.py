@@ -50,14 +50,21 @@ st.image(image)
 
 
 
+
+
 TokenContainer = st.empty()
-with TokenContainer.container():
+FormContainer = st.empty()
+TokenContainerFlag = False
+
+
+if TokenContainerFlag is False:
+    with TokenContainer.container():
             st.title('Please enter the security key')
             security_key = st.text_input('Security key')
             df = pd.DataFrame(sheet.get_all_records())
             check_security_key = (security_key in df['Token'].astype(str).unique())
             #submit_button = st.button("Submit")
-            
+
             #if submit_button:
 
             if security_key != "":
@@ -66,54 +73,56 @@ with TokenContainer.container():
                 else:
 
                         TokenContainer.empty()
-                        
+                        TokenContainerFlag = True
+
 
             else:
                  st.warning('Note: Security key is mandatory')
 
-with st.container():
-    df = pd.DataFrame(sheet.get_all_records())
-    df = df.loc[(df['Token'].astype(str) == str(security_key))]
-    EmployeeName = df['Name'].values[0]
-    EmployeeID = df['User ID'].values[0]
-    EmployeeToken = df['Token'].values[0]
-    ReportingTime = df['Reporting Time'].values[0]
-    ReportingDate = date.today().strftime("%m/%d/%y")
-    st.title("Dear " + EmployeeName + ", you have been late for today " + date.today().strftime("%m/%d/%y"))
-    st.text_input('Employee ID', value=EmployeeID, disabled=True)
-    st.text_input('Reporting Time', value=ReportingTime, disabled=True)
-    options = ('Customer visit', 'Medical', 'Vendor visit', 'Business trip', 'Personal', 'Reporting late')
-    reason = st.selectbox("Please choose a reason", options)
+if TokenContainerFlag is True:
+    with st.container():
+        df = pd.DataFrame(sheet.get_all_records())
+        df = df.loc[(df['Token'].astype(str) == str(security_key))]
+        EmployeeName = df['Name'].values[0]
+        EmployeeID = df['User ID'].values[0]
+        EmployeeToken = df['Token'].values[0]
+        ReportingTime = df['Reporting Time'].values[0]
+        ReportingDate = date.today().strftime("%m/%d/%y")
+        st.title("Dear " + EmployeeName + ", you have been late for today " + date.today().strftime("%m/%d/%y"))
+        st.text_input('Employee ID', value=EmployeeID, disabled=True)
+        st.text_input('Reporting Time', value=ReportingTime, disabled=True)
+        options = ('Customer visit', 'Medical', 'Vendor visit', 'Business trip', 'Personal', 'Reporting late')
+        reason = st.selectbox("Please choose a reason", options)
+    
+        scopes = ['https://www.googleapis.com/auth/spreadsheets',
+                  'https://www.googleapis.com/auth/drive']
+        creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
+        file = gspread.authorize(creds)
+        workbook = file.open("Timesheet")
+        sheet = workbook.sheet1
+        sheet_url = st.secrets["private_gsheets_url"]
+    
+        exemption_list = []
+        details = []
 
-    scopes = ['https://www.googleapis.com/auth/spreadsheets',
-              'https://www.googleapis.com/auth/drive']
-    creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
-    file = gspread.authorize(creds)
-    workbook = file.open("Timesheet")
-    sheet = workbook.sheet1
-    sheet_url = st.secrets["private_gsheets_url"]
+        if reason == 'Customer visit':
+            clm1, clm2, clm3, clm4, clm5 = TokenContainer.columns(5)
+            client_name = clm1.text_input('Client name:')
+            client_loc = clm3.text_input('Location:', key=1)
+            country = clm2.text_input('Country:', key=3)
+            from_time = clm4.time_input('From:', datetime.now(), 1)
+            to_time = clm5.time_input('To:', datetime.now(), 1)
+            details = ['Client:' + client_name, 'Location:' + client_loc, 'Country:' + country]
+            details = '\n\n'.join(details)
+            save_add_button = clm1.button('Add')
+            if save_add_button:
+                details_list = [EmployeeToken, EmployeeID, EmployeeName, str(ReportingDate), str(from_time), str(to_time),
+                                reason, details]
+                sheet.append_row(details_list)
+                # st.success('Successfully added!')
+                st.write(details_list)
+                st.stop()
 
-    exemption_list = []
-    details = []
-
-    if reason == 'Customer visit':
-        clm1, clm2, clm3, clm4, clm5 = TokenContainer.columns(5)
-        client_name = clm1.text_input('Client name:')
-        client_loc = clm3.text_input('Location:', key=1)
-        country = clm2.text_input('Country:', key=3)
-        from_time = clm4.time_input('From:', datetime.now(), 1)
-        to_time = clm5.time_input('To:', datetime.now(), 1)
-        details = ['Client:' + client_name, 'Location:' + client_loc, 'Country:' + country]
-        details = '\n\n'.join(details)
-        save_add_button = clm1.button('Add')
-        if save_add_button:
-            details_list = [EmployeeToken, EmployeeID, EmployeeName, str(ReportingDate), str(from_time), str(to_time),
-                            reason, details]
-            sheet.append_row(details_list)
-            # st.success('Successfully added!')
-            st.write(details_list)
-            st.stop()
-
-    else:
-        pass
+        else:
+            pass
 
