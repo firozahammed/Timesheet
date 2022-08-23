@@ -48,11 +48,42 @@ FormContainer = st.empty()
 TokenContainerFlag = False
 
 #if TokenContainerFlag is False:
+with st.form(key = 'TokenForm'):
+    scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
+    creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
+    file = gspread.authorize(creds)
+    workbook = file.open("Summary Timesheet")
+    sheet = workbook.sheet1
+    sheet_url = st.secrets["private_gsheets_url"]
 
-with st.form(key='EmployeeForm'):
+    st.title('Please enter the security key')
+    security_key = st.text_input('Security key')
 
-    scopes = ['https://www.googleapis.com/auth/spreadsheets',
-              'https://www.googleapis.com/auth/drive']
+    df = pd.DataFrame(sheet.get_all_records())
+    check_security_key = (security_key in df['Token'].astype(str).unique())
+    submit_button = st.form_submit_button(label="Submit")
+
+    if submit_button:
+
+        if security_key != "":
+            if check_security_key is False:
+                st.error("The security key: " + security_key + " is invalid.")
+            else:
+
+                st.empty()
+                
+
+
+
+    else:
+        st.warning('Note: Security key is mandatory')
+    
+
+
+
+with st.form(key = 'EmployeeForm'):
+
+    scopes = ['https://www.googleapis.com/auth/spreadsheets','https://www.googleapis.com/auth/drive']
     creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
     file = gspread.authorize(creds)
     workbook = file.open("Summary Timesheet")
@@ -72,7 +103,7 @@ with st.form(key='EmployeeForm'):
     st.text_input('Employee ID', value=EmployeeID, disabled=True)
     st.text_input('Reporting Time', value=ReportingTime, disabled=True)
     options = (
-        'Customer site', 'Medical', 'Vendor visit', 'Business trip', 'Personal', 'Reporting late')
+        'Customer site', 'Medical', 'Business trip', 'Personal', 'Reporting late')
     reason = st.selectbox("Please choose a reason", options)
 
     scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
@@ -82,7 +113,7 @@ with st.form(key='EmployeeForm'):
     sheet = workbook.sheet1
     sheet_url = st.secrets["private_gsheets_url"]
 
-    exemption_list=[]
+    details_list=[]
     details=[]
 
     if reason == 'Customer site':
@@ -94,9 +125,48 @@ with st.form(key='EmployeeForm'):
         to_time = clm5.time_input('To:')
         details=['Client:'+client_name,'Location:'+client_loc,'Country:'+country]
         details='\n\n'.join(details)
-        save_add_button = st.form_submit_button(label="Add")
-        if save_add_button:
-            exemption_list = ['123','234','Yass',str(from_time),str(from_time),str(to_time), reason,details]
-            sheet.append_row(exemption_list)
+        add_button = st.form_submit_button(label="Add")
+        if add_button:
+            details_list = ['123','234','Yass',date.today().strftime("%m/%d/%Y"),str(from_time),str(to_time), reason,details]
+            sheet.append_row(details_list)
             st.success('Successfully added!')
             st.stop()
+
+        elif reason == 'Medical':
+            clm1, clm2, clm3 = st.columns(3)
+            hospital_name = clm1.text_input('Hospital name:')
+            from_time = clm4.time_input('From:')
+            to_time = clm5.time_input('To:')
+            save_add_button = clm1.button('Add')
+            if save_add_button:
+                details_list = ['123','234','Yass',date.today().strftime("%m/%d/%Y"), str(from_time), str(to_time), reason, 'Hospital:' + hospital_name]
+                sheet.append_row(details_list)
+                st.success('Successfully added!')
+                st.stop()
+
+        elif reason == 'Business trip':
+            clm1, clm2 = st.columns(2)
+            from_time = clm1.time_input('From:')
+            to_time = clm2.time_input('To:')
+            save_add_button = clm1.button('Add')
+            if save_add_button:
+                details_list = ['123','234','Yass',date.today().strftime("%m/%d/%Y"), str(from_time), str(to_time), reason]
+                sheet.append_row(details_list)
+                st.success('Successfully added!')
+                st.stop()
+
+
+        elif reason == 'Personal':
+
+            personal_details = st.text_area('Enter details', height=None)
+            clm1, clm2 = st.columns(2)
+            from_time = clm1.time_input('From:')
+            to_time = clm2.time_input('To:')
+            details = []
+            details = personal_details
+            save_add_button = clm1.button('Add')
+            if save_add_button:
+                details_list = ['123','234','Yass',date.today().strftime("%m/%d/%Y"), str(from_time), str(to_time), reason, details]
+                sheet.append_row(details_list)
+                st.success('Successfully added!')
+                st.stop()
