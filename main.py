@@ -139,7 +139,7 @@ if st.session_state['step'] == 1:
             to_time = clm3.time_input('To:')
             save_add_button = clm1.button('Add')
             if save_add_button:
-                    details_list = [EmployeeToken, EmployeeID, EmployeeName, date.today().strftime("%m/%d/%Y"),
+                    details_list = [str(EmployeeToken), str(EmployeeID), str(EmployeeName), date.today().strftime("%m/%d/%Y"),
                                     str(from_time),
                                     str(to_time), reason, 'Hospital:' + hospital_name]
                     sheet.append_row(details_list)
@@ -153,7 +153,7 @@ if st.session_state['step'] == 1:
             to_time = clm2.time_input('To:')
             save_add_button = clm1.button('Add')
             if save_add_button:
-                    details_list = [EmployeeToken, EmployeeID, EmployeeName, date.today().strftime("%m/%d/%Y"),
+                    details_list = [str(EmployeeToken), str(EmployeeID), str(EmployeeName), date.today().strftime("%m/%d/%Y"),
                                     str(from_time),
                                     str(to_time), reason]
                     sheet.append_row(details_list)
@@ -172,11 +172,19 @@ if st.session_state['step'] == 1:
                 details = personal_details
                 save_add_button = clm1.button('Add')
                 if save_add_button:
-                    details_list = [EmployeeToken, EmployeeID, EmployeeName, date.today().strftime("%m/%d/%Y"),
+                    details_list = [str(EmployeeToken), str(EmployeeID), str(EmployeeName), date.today().strftime("%m/%d/%Y"),
                                     str(from_time),
                                     str(to_time), reason, details]
                     sheet.append_row(details_list)
                     st.success('Successfully added!')
 
 
-
+        elif reason == 'Reporting late':
+            clm1 = st.columns(1)
+            save_add_button = clm1.button('Add')
+            if save_add_button:
+                    details_list = [str(EmployeeToken), str(EmployeeID), str(EmployeeName), date.today().strftime("%m/%d/%Y"),
+                                    str(ReportingTime),
+                                    '', reason,"Reported at - "+str(ReportingTime)]
+                    sheet.append_row(details_list)
+                    st.success('Successfully added!')
