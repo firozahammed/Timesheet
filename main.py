@@ -86,7 +86,7 @@ if st.session_state['step'] == 1:
 
 
         with st.form(key='EmployeeForm'):
-            
+
             scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
             creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
             file = gspread.authorize(creds)
@@ -107,7 +107,7 @@ if st.session_state['step'] == 1:
             st.text_input('Reporting Time', value=ReportingTime, disabled=True)
             options = (
                 'Customer site', 'Medical', 'Business trip', 'Personal', 'Reporting late')
-            reason = st.selectbox("Please choose a reason", options)
+            reason = st.selectbox("Please choose a reason", options, key="reason")
 
             scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
             creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
@@ -119,69 +119,14 @@ if st.session_state['step'] == 1:
             details_list = []
             details = []
 
-            if reason == 'Customer site':
-                clm1, clm2, clm3, clm4, clm5 = st.columns(5)
-                client_name = clm1.text_input('Client name:')
-                country = clm2.text_input('Country:', key=3)
-                client_loc = clm3.text_input('Location:', key=1)
-                from_time = clm4.time_input('From:')
-                to_time = clm5.time_input('To:')
-                details = ['Client:' + client_name, 'Location:' + client_loc, 'Country:' + country]
-                details = '\n\n'.join(details)
-                add_button = st.form_submit_button(label="Add")
-                if add_button:
-                    details_list = [str(EmployeeToken), str(EmployeeID), str(EmployeeName), date.today().strftime("%m/%d/%Y"),
-                                    str(from_time), str(to_time),
-                                    reason, details]
-                    sheet.append_row(details_list)
-                    st.success('Successfully added!')
-                    
-
-                elif reason == 'Medical':
+            if reason:
+                if st.session_state["reason"]=='Customer site':
+                    st.session_state["reason"]=st.columns(5)
+                    clm1, clm2, clm3, clm4, clm5 = st.columns(5)
+            
+                if st.session_state["reason"] == 'Medical':
+                    st.session_state["reason"] = st.columns(3)
                     clm1, clm2, clm3 = st.columns(3)
-                    hospital_name = clm1.text_input('Hospital name:')
-                    from_time = clm4.time_input('From:')
-                    to_time = clm5.time_input('To:')
-                    save_add_button = clm1.button('Add')
-                    if save_add_button:
-                        details_list = [EmployeeToken, EmployeeID, EmployeeName, date.today().strftime("%m/%d/%Y"),
-                                        str(from_time),
-                                        str(to_time), reason, 'Hospital:' + hospital_name]
-                        sheet.append_row(details_list)
-                        st.success('Successfully added!')
-                        
-
-
-                elif reason == 'Business trip':
-                    clm1, clm2 = st.columns(2)
-                    from_time = clm1.time_input('From:')
-                    to_time = clm2.time_input('To:')
-                    save_add_button = clm1.button('Add')
-                    if save_add_button:
-                        details_list = [EmployeeToken, EmployeeID, EmployeeName, date.today().strftime("%m/%d/%Y"),
-                                        str(from_time),
-                                        str(to_time), reason]
-                        sheet.append_row(details_list)
-                        st.success('Successfully added!')
-                       
-
-
-
-                elif reason == 'Personal':
-
-                    personal_details = st.text_area('Enter details', height=None)
-                    clm1, clm2 = st.columns(2)
-                    from_time = clm1.time_input('From:')
-                    to_time = clm2.time_input('To:')
-                    details = []
-                    details = personal_details
-                    save_add_button = clm1.button('Add')
-                    if save_add_button:
-                        details_list = [EmployeeToken, EmployeeID, EmployeeName, date.today().strftime("%m/%d/%Y"),
-                                        str(from_time),
-                                        str(to_time), reason, details]
-                        sheet.append_row(details_list)
-                        st.success('Successfully added!')
-                        
+                    
 
 
