@@ -50,7 +50,8 @@ st.image(image)
 
 
 
-
+TokenForm = st.form()
+EmployeeForm = st.form()
 
 TokenContainer = st.empty()
 FormContainer = st.empty()
@@ -62,18 +63,19 @@ if 'TokenSession' not in st.session_state:
 
 if TokenContainerFlag is False:
     with TokenContainer.container():
-            st.title('Please enter the security key')
-            security_key = st.text_input('Security key')
+      with TokenForm:
+            TokenForm.title('Please enter the security key')
+            security_key = TokenForm.text_input('Security key')
             df = pd.DataFrame(sheet.get_all_records())
             check_security_key = (security_key in df['Token'].astype(str).unique())
-            #submit_button = st.button("Submit")
+            submit_button = TokenForm.form_submit_button(label="Submit")
 
-            #if submit_button:
+            if submit_button:
 
-            if security_key != "":
-                if check_security_key is False:
+                if security_key != "":
+                    if check_security_key is False:
                         st.error("The security key: " + security_key + " is invalid.")
-                else:
+                    else:
 
                         TokenContainer.empty()
                         TokenContainerFlag = True
@@ -85,6 +87,7 @@ if TokenContainerFlag is False:
 
 if TokenContainerFlag is True:
     with st.container():
+       with EmployeeForm: 
         df = pd.DataFrame(sheet.get_all_records())
         df = df.loc[(df['Token'].astype(str) == str(security_key))]
         EmployeeName = df['Name'].values[0]
@@ -92,11 +95,11 @@ if TokenContainerFlag is True:
         EmployeeToken = df['Token'].values[0]
         ReportingTime = df['Reporting Time'].values[0]
         ReportingDate = date.today().strftime("%m/%d/%y")
-        st.title("Dear " + EmployeeName + ", you have been late for today " + date.today().strftime("%m/%d/%y"))
-        st.text_input('Employee ID', value=EmployeeID, disabled=True)
-        st.text_input('Reporting Time', value=ReportingTime, disabled=True)
+        EmployeeForm.title("Dear " + EmployeeName + ", you have been late for today " + date.today().strftime("%m/%d/%y"))
+        EmployeeForm.text_input('Employee ID', value=EmployeeID, disabled=True)
+        EmployeeForm.text_input('Reporting Time', value=ReportingTime, disabled=True)
         options = ('Customer visit', 'Medical', 'Vendor visit', 'Business trip', 'Personal', 'Reporting late')
-        reason = st.selectbox("Please choose a reason", options)
+        reason = EmployeeForm.selectbox("Please choose a reason", options)
 
         scopes = ['https://www.googleapis.com/auth/spreadsheets',
                   'https://www.googleapis.com/auth/drive']
