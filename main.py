@@ -132,13 +132,13 @@ if st.session_state['step'] == 1:
                 st.success('Successfully added!')
 
 
-            elif reason == 'Medical':
-                clm1, clm2, clm3 = st.columns(3)
-                hospital_name = clm1.text_input('Hospital name:')
-                from_time = clm4.time_input('From:')
-                to_time = clm5.time_input('To:')
-                save_add_button = clm1.button('Add')
-                if save_add_button:
+        elif reason == 'Medical':
+            clm1, clm2, clm3 = st.columns(3)
+            hospital_name = clm1.text_input('Hospital name:')
+            from_time = clm2.time_input('From:')
+            to_time = clm3.time_input('To:')
+            save_add_button = clm1.button('Add')
+            if save_add_button:
                     details_list = [EmployeeToken, EmployeeID, EmployeeName, date.today().strftime("%m/%d/%Y"),
                                     str(from_time),
                                     str(to_time), reason, 'Hospital:' + hospital_name]
@@ -147,12 +147,12 @@ if st.session_state['step'] == 1:
 
 
 
-            elif reason == 'Business trip':
-                clm1, clm2 = st.columns(2)
-                from_time = clm1.time_input('From:')
-                to_time = clm2.time_input('To:')
-                save_add_button = clm1.button('Add')
-                if save_add_button:
+        elif reason == 'Business trip':
+            clm1, clm2 = st.columns(2)
+            from_time = clm1.time_input('From:')
+            to_time = clm2.time_input('To:')
+            save_add_button = clm1.button('Add')
+            if save_add_button:
                     details_list = [EmployeeToken, EmployeeID, EmployeeName, date.today().strftime("%m/%d/%Y"),
                                     str(from_time),
                                     str(to_time), reason]
@@ -162,7 +162,7 @@ if st.session_state['step'] == 1:
 
 
 
-            elif reason == 'Personal':
+        elif reason == 'Personal':
 
                 personal_details = st.text_area('Enter details', height=None)
                 clm1, clm2 = st.columns(2)
