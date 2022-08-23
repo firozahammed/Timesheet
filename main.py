@@ -59,7 +59,7 @@ if TokenContainerFlag is False:
             workbook = file.open("Summary Timesheet")
             sheet = workbook.sheet1
             sheet_url = st.secrets["private_gsheets_url"]
-            
+
 
             df = pd.DataFrame(sheet.get_all_records())
             check_security_key = (security_key in df['Token'].astype(str).unique())
@@ -99,7 +99,7 @@ if TokenContainerFlag is True:
         scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
         creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
         file = gspread.authorize(creds)
-        workbook = file.open("Timesheet")
+        workbook = file.open("Summary Timesheet")
         sheet = workbook.sheet1
         sheet_url = st.secrets["private_gsheets_url"]
 
@@ -120,11 +120,10 @@ if TokenContainerFlag is True:
                 details_list = [str(EmployeeToken),str(EmployeeID), str(EmployeeName), str(ReportingDate), str(from_time), str(to_time),
                                 reason, details]
                 #sheet.append_row(details_list)
-                sheet.append_row("details_list","1","2","2","2","2","2","2")
+                sheet.append_row("details_list", "1", "2", "2")
+                #sheet.append_row("details_list","1","2","2","2","2","2","2")
                 df = pd.DataFrame(sheet.get_all_records())
-                df
-                # st.success('Successfully added!')
-                st.write(details_list)
+             
 
 
 
