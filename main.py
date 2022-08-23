@@ -43,6 +43,8 @@ image = Image.open("OIP.jpg")
 st.image(image)
 
 
+security_key = None
+
 if st.session_state.get('step') is None:
     st.session_state['step'] = 0
 
