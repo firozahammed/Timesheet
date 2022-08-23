@@ -83,10 +83,10 @@ if st.session_state['step'] == 0:
 
 
 if st.session_state['step'] == 1:
-
-
+    
+   
         with st.form(key='EmployeeForm'):
-            st.experimental_rerun()
+            
             scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
             creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
             file = gspread.authorize(creds)
@@ -135,6 +135,7 @@ if st.session_state['step'] == 1:
                                     reason, details]
                     sheet.append_row(details_list)
                     st.success('Successfully added!')
+                    st.experimental_rerun()
 
 
                 elif reason == 'Medical':
