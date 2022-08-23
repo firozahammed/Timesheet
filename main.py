@@ -48,11 +48,6 @@ def set_bg_hack(main_bg):
 image = Image.open("OIP.jpg")
 st.image(image)
 
-
-
-
-
-
 TokenContainer = st.empty()
 FormContainer = st.empty()
 TokenContainerFlag = False
@@ -62,7 +57,7 @@ if 'TokenSession' not in st.session_state:
 
 
 if TokenContainerFlag is False:
-    with TokenContainer.container():
+    #with TokenContainer.container():
       with st.form(key='TokenForm'):
             st.title('Please enter the security key')
             security_key = st.text_input('Security key')
