@@ -44,10 +44,6 @@ st.image(image)
 
 security_key = 0
 
-def PassSecurityKey(security_key):
-    EmployeeToken = security_key
-    return EmployeeToken
-
 
 if st.session_state.get('step') is None:
     st.session_state['step'] = 0
@@ -63,7 +59,6 @@ if st.session_state['step'] == 0:
 
         st.title('Please enter the security key')
         security_key = st.text_input('Security key')
-        PassSecurityKey(security_key)
         df = pd.DataFrame(sheet.get_all_records())
         check_security_key = (security_key in df['Token'].astype(str).unique())
         submit_button = st.form_submit_button(label="Submit")
@@ -76,15 +71,15 @@ if st.session_state['step'] == 0:
             else:
                 st.session_state['step'] = 1
                 st.experimental_rerun()
-
+                
 
     else:
         st.warning('Note: Security key is mandatory')
 
 
 
-if st.session_state['step'] == 1:
-    with st.form(key='EmployeeForm'):
+    if st.session_state['step'] == 1:
+        with st.form(key='EmployeeForm'):
             scopes = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
             creds = ServiceAccountCredentials.from_json_keyfile_name("secret.json", scopes=scopes)
             file = gspread.authorize(creds)
@@ -93,8 +88,7 @@ if st.session_state['step'] == 1:
             sheet_url = st.secrets["private_gsheets_url"]
 
             df = pd.DataFrame(sheet.get_all_records())
-            EmployeeToken = PassSecurityKey(security_key)
-            df = df.loc[(df['Token'].astype(str) == str(EmployeeToken))]
+            df = df.loc[(df['Token'].astype(str) == str(security_key))]
             EmployeeName = df['Name'].values[0]
             EmployeeID = df['User ID'].values[0]
             EmployeeToken = df['Token'].values[0]
