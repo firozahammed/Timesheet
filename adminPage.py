@@ -119,7 +119,7 @@ if radio_selection == 'Print Reports':
         #seconds = df['Total Time'].total_seconds()
 
         df['Total Time'] = (pd.to_timedelta(df['Total Time']).astype('timedelta64[s]').astype(int))/3600
-        
+
         df['Date']= pd.to_datetime(df['Date'], format='%m/%d/%Y').dt.date
 
 
@@ -141,7 +141,7 @@ if radio_selection == 'Print Reports':
         # Write to Excel
         towrite = io.BytesIO()
         with pd.ExcelWriter(towrite, engine='xlsxwriter') as writer:
-            df.to_excel(writer, sheet_name='Sheet1',index=False)
+            df.to_excel(writer, sheet_name='Sheet1',index=False, startcol=0,startrow=3)
 
             #Autofit excel column header
             for column in df:
