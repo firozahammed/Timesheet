@@ -142,7 +142,7 @@ if radio_selection == 'Print Reports':
         towrite = io.BytesIO()
         with pd.ExcelWriter(towrite, engine='xlsxwriter') as writer:
 
-            worksheet.cell(row=0, column=0).value = 'Date:'+str(date_from)+" - "+str(date_to)
+            sheet.cell(row=0, column=0).value = 'Date:'+str(date_from)+" - "+str(date_to)
             df.to_excel(writer, sheet_name='Sheet1',index=False, startcol=0,startrow=2)
 
             #Autofit excel column header
