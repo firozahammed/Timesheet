@@ -156,14 +156,15 @@ if st.session_state['step'] == 1:
                     details_list = [str(EmployeeToken), str(EmployeeID), str(EmployeeName),
                                     date.today().strftime("%m/%d/%Y"),
                                     str(from1_time), str(to1_time),
-                                    reason, details]
+                                    reason, details1]
                     sheet.append_row(details_list)
 
                     details_list = [str(EmployeeToken), str(EmployeeID), str(EmployeeName),
                                     date.today().strftime("%m/%d/%Y"),
                                     str(from2_time), str(to2_time),
-                                    reason, details]
-
+                                    reason, details2]
+                    sheet.append_row(details_list)
+                    
                     st.success('Your response has been submitted!')
 
 
