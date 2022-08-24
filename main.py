@@ -72,7 +72,8 @@ if st.session_state['step'] == 0:
             else:
                 st.session_state['step'] = 1
                 st.experimental_rerun()
-
+        else:
+            st.error("Please enter the security key to proceed")
 
     else:
         st.info('Note: Security key is mandatory')
@@ -114,22 +115,64 @@ if st.session_state['step'] == 1:
         details = []
 
         if reason == 'Customer site':
-            clm1, clm2, clm3, clm4, clm5 = st.columns(5)
-            client_name = clm1.text_input('Client name:')
-            country = clm2.text_input('Country:', key=3)
-            client_loc = clm3.text_input('Location:', key=1)
-            from_time = clm4.time_input('From:')
-            to_time = clm5.time_input('To:')
-            details = ['Client:' + client_name, 'Location:' + client_loc, 'Country:' + country]
-            details = '\n\n'.join(details)
-            add_button = clm1.button(label="Add")
-            if add_button:
-                details_list = [str(EmployeeToken), str(EmployeeID), str(EmployeeName),
+            NumberofClients = ('1', '2')
+            SelectClients = st.selectbox("Number of clients",NumberofClients)
+            if SelectClients == '1':
+                clm1, clm2, clm3, clm4, clm5 = st.columns(5)
+                client_name = clm1.text_input('Client name:')
+                country = clm2.text_input('Country:')
+                client_loc = clm3.text_input('Location:')
+                from_time = clm4.time_input('From:')
+                to_time = clm5.time_input('To:')
+                details = ['Client:' + client_name, 'Location:' + client_loc, 'Country:' + country]
+                details = '\n\n'.join(details)
+                add_button = clm1.button(label="Add")
+                if add_button:
+                    details_list = [str(EmployeeToken), str(EmployeeID), str(EmployeeName),
                                 date.today().strftime("%m/%d/%Y"),
                                 str(from_time), str(to_time),
                                 reason, details]
-                sheet.append_row(details_list)
-                st.success('Successfully added!')
+                    sheet.append_row(details_list)
+                    st.success('Successfully added!')
+
+            elif SelectClients =='2':
+                clm1, clm2, clm3, clm4, clm5 = st.columns(5)
+                client1_name = clm1.text_input('Client 1 name:')
+                country1 = clm2.text_input('Country:')
+                client1_loc = clm3.text_input('Location:')
+                from1_time = clm4.time_input('From:')
+                to1_time = clm5.time_input('To:')
+
+                client2_name = clm1.text_input('Client 2 name:')
+                country2 = clm2.text_input('Country:')
+                client2_loc = clm3.text_input('Location:')
+                from2_time = clm4.time_input('From:')
+                to2_time = clm5.time_input('To:')
+
+                details1 = ['Client 1:' + client1_name, 'Location:' + client1_loc, 'Country:' + country1 ]
+                details1 = '\n\n'.join(details1)
+                
+                details2 =['Client 2:' + client2_name, 'Location:' + client2_loc, 'Country:' + country2]
+                details2 = '\n\n'.join(details2)
+                add_button = clm1.button(label="Add")
+                if add_button:
+                    details_list = [str(EmployeeToken), str(EmployeeID), str(EmployeeName),
+                                    date.today().strftime("%m/%d/%Y"),
+                                    str(from1_time), str(to1_time),
+                                    reason, details]
+                    sheet.append_row(details_list)
+
+                    details_list = [str(EmployeeToken), str(EmployeeID), str(EmployeeName),
+                                    date.today().strftime("%m/%d/%Y"),
+                                    str(from2_time), str(to2_time),
+                                    reason, details]
+                    
+                    st.success('Successfully added!')
+                
+                
+                
+                
+
 
         elif reason == 'Medical':
             clm1, clm2, clm3 = st.columns(3)
@@ -176,8 +219,7 @@ if st.session_state['step'] == 1:
                     st.success('Successfully added!')
 
         elif reason == 'Reporting late':
-            clm1 = st.columns(1)
-            save_add_button = clm1.button('Add')
+            save_add_button = st.button('Add')
             if save_add_button:
                 details_list = [str(EmployeeToken), str(EmployeeID), str(EmployeeName), date.today().strftime("%m/%d/%Y"),
                                     str(ReportingTime),
