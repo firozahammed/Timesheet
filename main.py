@@ -144,14 +144,14 @@ if st.session_state['step'] == 1:
                 to1_time = clm5.time_input('To:')
 
                 client2_name = clm1.text_input('Client 2 name:')
-                country2 = clm2.text_input('Country:')
-                client2_loc = clm3.text_input('Location:')
-                from2_time = clm4.time_input('From:')
-                to2_time = clm5.time_input('To:')
+                country2 = clm2.text_input('Country 2:')
+                client2_loc = clm3.text_input('Location 2:')
+                from2_time = clm4.time_input('From 2:')
+                to2_time = clm5.time_input('To 2:')
 
                 details1 = ['Client 1:' + client1_name, 'Location:' + client1_loc, 'Country:' + country1 ]
                 details1 = '\n\n'.join(details1)
-                
+
                 details2 =['Client 2:' + client2_name, 'Location:' + client2_loc, 'Country:' + country2]
                 details2 = '\n\n'.join(details2)
                 add_button = clm1.button(label="Add")
@@ -166,12 +166,12 @@ if st.session_state['step'] == 1:
                                     date.today().strftime("%m/%d/%Y"),
                                     str(from2_time), str(to2_time),
                                     reason, details]
-                    
+
                     st.success('Successfully added!')
-                
-                
-                
-                
+
+
+
+
 
 
         elif reason == 'Medical':
