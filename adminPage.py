@@ -105,6 +105,8 @@ if radio_selection == 'Print Reports':
         sheet = workbook.sheet1
         sheet_url = st.secrets["private_gsheets_url"]
         df = pd.DataFrame(sheet.get_all_records())
+
+        sheet.write(0,0,'Date:' + str(date_from) + " - " + str(date_to))
         #df = df.loc[(df['date'] >= date_from) & (df['date'] <= date_to) & (df['ID'].astype(str) == ID) ]
         #df['Date']=pd.to_datetime(df['Date'])
         #df.groupby([pd.Grouper(key='Date')])['Total Time'].sum()
@@ -142,7 +144,7 @@ if radio_selection == 'Print Reports':
         towrite = io.BytesIO()
         with pd.ExcelWriter(towrite, engine='xlsxwriter') as writer:
 
-            sheet.cell(row=0, column=0).value = 'Date:'+str(date_from)+" - "+str(date_to)
+
             df.to_excel(writer, sheet_name='Sheet1',index=False, startcol=0,startrow=2)
 
             #Autofit excel column header
