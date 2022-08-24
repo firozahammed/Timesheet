@@ -130,7 +130,7 @@ if st.session_state['step'] == 1:
                                 reason, details]
                 sheet.append_row(details_list)
                 st.success('Successfully added!')
-                
+
         elif reason == 'Medical':
             clm1, clm2, clm3 = st.columns(3)
             hospital_name = clm1.text_input('Hospital name:')
@@ -148,8 +148,8 @@ if st.session_state['step'] == 1:
             clm1,clm2,clm3,clm4 = st.columns(4)
             country = clm1.text_input('Country:')
             client_loc = clm2.text_input('Location:')
-            from_time = clm1.time_input('From:')
-            to_time = clm2.time_input('To:')
+            from_time = clm3.time_input('From:')
+            to_time = clm4.time_input('To:')
             details = ['Country:' + country,'Location:' + client_loc,]
             details = '\n\n'.join(details)
             save_add_button = clm1.button('Add')
