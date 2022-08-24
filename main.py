@@ -118,43 +118,40 @@ if st.session_state['step'] == 1:
             NumberofClients = ('1', '2')
             SelectClients = st.selectbox("Number of clients",NumberofClients)
             if SelectClients == '1':
-                clm1, clm2, clm3, clm4, clm5 = st.columns(5)
+                clm1, clm2, clm3, clm4 = st.columns(4)
                 client_name = clm1.text_input('Client name:')
-                country = clm2.text_input('Country:')
-                client_loc = clm3.text_input('Location:')
-                from_time = clm4.time_input('From:')
-                to_time = clm5.time_input('To:')
-                details = ['Client:' + client_name, 'Location:' + client_loc, 'Country:' + country]
+                client_loc = clm2.text_input('Location:')
+                from_time = clm3.time_input('From:')
+                to_time = clm4.time_input('To:')
+                details = ['Client:' + client_name, 'Location:' + client_loc]
                 details = '\n\n'.join(details)
-                add_button = clm1.button(label="Add")
+                add_button = clm1.button(label="Submit")
                 if add_button:
                     details_list = [str(EmployeeToken), str(EmployeeID), str(EmployeeName),
                                 date.today().strftime("%m/%d/%Y"),
                                 str(from_time), str(to_time),
                                 reason, details]
                     sheet.append_row(details_list)
-                    st.success('Successfully added!')
+                    st.success('Your response has been submitted !')
 
             elif SelectClients =='2':
-                clm1, clm2, clm3, clm4, clm5 = st.columns(5)
-                client1_name = clm1.text_input('Client 1 name:')
-                country1 = clm2.text_input('Country:')
-                client1_loc = clm3.text_input('Location:')
-                from1_time = clm4.time_input('From:')
-                to1_time = clm5.time_input('To:')
+                clm1, clm2, clm3, clm4 = st.columns(4)
+                client1_name = clm1.text_input('Client 1 (Name):')
+                client1_loc = clm2.text_input('Location:')
+                from1_time = clm3.time_input('From:')
+                to1_time = clm4.time_input('To:')
 
-                client2_name = clm1.text_input('Client 2 name:')
-                country2 = clm2.text_input('Country 2:')
-                client2_loc = clm3.text_input('Location 2:')
-                from2_time = clm4.time_input('From 2:')
-                to2_time = clm5.time_input('To 2:')
+                client2_name = clm1.text_input('Client 2 (Name):')
+                client2_loc = clm2.text_input('Location:',key='Location2')
+                from2_time = clm3.time_input('From:',key='From2')
+                to2_time = clm4.time_input('To:',key='To2')
 
-                details1 = ['Client 1:' + client1_name, 'Location:' + client1_loc, 'Country:' + country1 ]
+                details1 = ['Client 1:' + client1_name, 'Location:' + client1_loc]
                 details1 = '\n\n'.join(details1)
 
-                details2 =['Client 2:' + client2_name, 'Location:' + client2_loc, 'Country:' + country2]
+                details2 =['Client 2:' + client2_name, 'Location:' + client2_loc]
                 details2 = '\n\n'.join(details2)
-                add_button = clm1.button(label="Add")
+                add_button = clm1.button(label="Submit")
                 if add_button:
                     details_list = [str(EmployeeToken), str(EmployeeID), str(EmployeeName),
                                     date.today().strftime("%m/%d/%Y"),
@@ -167,10 +164,7 @@ if st.session_state['step'] == 1:
                                     str(from2_time), str(to2_time),
                                     reason, details]
 
-                    st.success('Successfully added!')
-
-
-
+                    st.success('Your response has been submitted!')
 
 
 
@@ -179,13 +173,13 @@ if st.session_state['step'] == 1:
             hospital_name = clm1.text_input('Hospital name:')
             from_time = clm2.time_input('From:')
             to_time = clm3.time_input('To:')
-            save_add_button = clm1.button('Add')
+            save_add_button = clm1.button('Submit')
             if save_add_button:
                     details_list = [str(EmployeeToken), str(EmployeeID), str(EmployeeName), date.today().strftime("%m/%d/%Y"),
                                     str(from_time),
                                     str(to_time), reason, 'Hospital:' + hospital_name]
                     sheet.append_row(details_list)
-                    st.success('Successfully added!')
+                    st.success('Your response has been submitted !')
 
         elif reason == 'Business trip':
             clm1,clm2,clm3,clm4 = st.columns(4)
@@ -195,13 +189,13 @@ if st.session_state['step'] == 1:
             to_time = clm4.time_input('To:')
             details = ['Country:' + country,'Location:' + client_loc,]
             details = '\n\n'.join(details)
-            save_add_button = clm1.button('Add')
+            save_add_button = clm1.button('Submit')
             if save_add_button:
                     details_list = [str(EmployeeToken), str(EmployeeID), str(EmployeeName), date.today().strftime("%m/%d/%Y"),
                                     str(from_time),
                                     str(to_time), reason, details]
                     sheet.append_row(details_list)
-                    st.success('Successfully added!')
+                    st.success('Your response has been submitted !')
 
         elif reason == 'Personal':
                 personal_details = st.text_area('Enter details', height=None)
@@ -210,19 +204,19 @@ if st.session_state['step'] == 1:
                 to_time = clm2.time_input('To:')
                 details = []
                 details = personal_details
-                save_add_button = clm1.button('Add')
+                save_add_button = clm1.button('Submit')
                 if save_add_button:
                     details_list = [str(EmployeeToken), str(EmployeeID), str(EmployeeName), date.today().strftime("%m/%d/%Y"),
                                     str(from_time),
                                     str(to_time), reason, details]
                     sheet.append_row(details_list)
-                    st.success('Successfully added!')
+                    st.success('Your response has been submitted !')
 
         elif reason == 'Reporting late':
-            save_add_button = st.button('Add')
+            save_add_button = st.button('Submit')
             if save_add_button:
                 details_list = [str(EmployeeToken), str(EmployeeID), str(EmployeeName), date.today().strftime("%m/%d/%Y"),
                                     str(ReportingTime),
                                     '', reason,"Reported at - "+str(ReportingTime)]
                 sheet.append_row(details_list)
-                st.success('Successfully added!')
+                st.success('Your response has been submitted !')
