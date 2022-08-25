@@ -146,7 +146,7 @@ if radio_selection == 'Print Reports':
 
 
             df.to_excel(writer, sheet_name='Sheet1',index=False, startcol=0,startrow=2)
-            writer.sheets['Sheet1'].write('A1', 'Date:' + str(date_from) + " - " + str(date_to))
+            writer.sheets['Sheet1'].write('A1', 'Date:' + str(date_from).strftime("%m/%d/%Y") + " - " + str(date_to).strftime("%m/%d/%Y"))
             #Autofit excel column header
             for column in df:
                 column_length = max(df[column].astype(str).map(len).max(), len(column))
