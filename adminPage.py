@@ -110,7 +110,7 @@ if radio_selection == 'Print Reports':
         #df = df.loc[(df['date'] >= date_from) & (df['date'] <= date_to) & (df['ID'].astype(str) == ID) ]
         #df['Date']=pd.to_datetime(df['Date'])
         #df.groupby([pd.Grouper(key='Date')])['Total Time'].sum()
-        df['Total Time'] = (pd.to_timedelta(df['Total Time']).astype('timedelta64[s]').astype(time))
+        
         #df['Total Time']=pd.to_timedelta(df['Total Time'])
         #df['Total Time'] = pd.to_datetime(df['Total Time'].astype(str)).dt.strftime('%H:%M:%S')
         #df['Total Time'] = df['Total Time'].dt.strptime('%H:%M:%S')
@@ -125,7 +125,7 @@ if radio_selection == 'Print Reports':
 
         df['Date']= pd.to_datetime(df['Date'], format='%m/%d/%Y').dt.date
 
-        df
+        
 
         if ID!="":
             df= df.loc[(df['Date'] >= date_from) & (df['Date'] <= date_to) & (df['Employee ID'].astype(str) == ID) ]
@@ -136,7 +136,7 @@ if radio_selection == 'Print Reports':
         #Group by date and Employee ID
         df = df.groupby(['Employee ID','Employee Name','Date','Reason'],as_index=False)['Total Time'].sum()
 
-
+        df
         #df['Date'].dtypes
 
         #df
