@@ -144,9 +144,9 @@ if radio_selection == 'Print Reports':
         towrite = io.BytesIO()
         with pd.ExcelWriter(towrite, engine='xlsxwriter') as writer:
 
-            
+
             df.to_excel(writer, sheet_name='Sheet1',index=False, startcol=0,startrow=2)
-            sheet.update_acell('A1', 'Date:' + str(date_from) + " - " + str(date_to))
+            sheet.update('A1', 'Date:' + str(date_from) + " - " + str(date_to))
             #Autofit excel column header
             for column in df:
                 column_length = max(df[column].astype(str).map(len).max(), len(column))
